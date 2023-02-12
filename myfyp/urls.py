@@ -25,4 +25,5 @@ urlpatterns = [
     path('purchase/', views.purchase_page, name ='purchase'),
     path('chart/', views.chart, name = 'chart'),
     path('predictionchart/', views.predictionchart, name = 'predictionchart'),
+    path('settings/', views.settings_page, name = 'settings')
 ]

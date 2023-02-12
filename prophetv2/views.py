@@ -146,4 +146,6 @@ def getnews():
     google_news.country = 'Singapore'
     articles = google_news.get_news('DBS')
     return articles
-    
+
+def settings_page(request):
+    return render(request, 'settings.html')
