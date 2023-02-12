@@ -4,6 +4,6 @@
 <div id="predictionchart"></div>
 {%endblock%}
 <script>
-    var chartData = {{ predictionchart|safe }};
+    var chartData = {{ predictionchart|safe }}; 
     Plotly.newPlot('predictionchart', chartData);
 </script>

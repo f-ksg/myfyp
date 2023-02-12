@@ -14,6 +14,7 @@ from prophet import Prophet
 from dateutil.relativedelta import relativedelta
 import mpld3
 from django.http import HttpResponse
+from gnews import GNews
 
 def register_request(request):
     if request.method == 'POST':
@@ -42,12 +43,24 @@ def history_page(request):
     return render(request, 'history.html')
 
 def purchase_page(request):
-    return render(request, 'purchase.html')
+    currentChart = chart()
+    currentTicker = yf.Ticker('D05.SI')
+    history = currentTicker.history(period="1d")
+    currentPrice = history["Close"][0]
+    currentPrice = "${:,.2f}".format(currentPrice)
+    currentPrice = {'currentPrice': currentPrice}
+    currentChart.update(currentPrice)
+    print(currentPrice)
+    return render(request, 'purchase.html', currentChart)
     
-def home_page(request, context=None, fightml=None):    
-    return render(request, 'base.html')
+def home_page(request):    
+    currentChart = chart()
+    currentChart.update(predictionchart())
+    articles = getnews()
+    currentChart.update({'articles':articles[:20]})
+    return render(request, 'base.html', currentChart)
 
-def chart(request, context = None):
+def chart():
     stockCode = 'D05.SI'
     data = yf.download(stockCode, start="2020-01-01", end=date.today()) #period ='30d', interval ='15m', rounding = True
     fig = go.Figure()
@@ -76,12 +89,13 @@ def chart(request, context = None):
     )
     )
     fightml = {'chart': fig.to_html()}
-    if context:
-        fightml.update(context)    
-    return render(request, 'chart.html', fightml)
+    # if context:
+    #     fightml.update(context)    
+    return fightml
+    
 
 
-def predictionchart(request):
+def predictionchart():
     three_yrs_ago = datetime.now() - relativedelta(years=10)
     ticker = "D05.SI"
     start_date = (datetime.now()-relativedelta(years=10)).date()
@@ -125,6 +139,11 @@ def predictionchart(request):
     fig.add_scatter(x=before['Date'], y=before['Price'], mode='lines', name='Past years data')
     fig.add_scatter(x=after['Date'], y=after['Price'], mode='lines', name='Future predicted data')
     context = {'predictionchart': fig.to_html()}
+    return context
+
+def getnews():
+    google_news = GNews()
+    google_news.country = 'Singapore'
+    articles = google_news.get_news('DBS')
+    return articles
     
-    #working return render(request, 'predictionchart.html', context)
-    return chart(request, context)
