@@ -1,0 +1,10 @@
+{%extends 'base.html' %}
+{% block title%} Chart {%endblock%}
+
+{%block currentchart%}
+<div id="chart"></div>
+{%endblock%}
+<script>
+var chartData = {{ chart|safe }};
+Plotly.newPlot('chart', chartData);
+</script>
