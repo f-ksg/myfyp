@@ -18,8 +18,8 @@ from django.urls import path
 from prophetv2 import views
 
 urlpatterns = [
+    path('', views.landingpage, name = 'landingpage'),
     path('admin/', admin.site.urls),
-    path('register/', views.register_request, name = 'register'),
     path('homepage/', views.home_page, name = 'home'),
     path('history/', views.history_page, name = 'history'),
     path('purchase/', views.purchase_page, name ='purchase'),
@@ -27,4 +27,6 @@ urlpatterns = [
     path('predictionchart/', views.predictionchart, name = 'predictionchart'),
     path('settings/', views.settings_page, name = 'settings'),
     path('tradingtips/', views.tradingtips_page, name ='tradingtips'),
+    path('signup/', views.signup, name="signup"),
+    path('logout/', views.logout_view, name="logout")
 ]

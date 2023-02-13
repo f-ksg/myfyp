@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
-from django.contrib.auth import login, authenticate
+from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
+from django.contrib.auth.forms import UserCreationForm  
+from django.http import HttpResponse
+from .forms import SignUpForm
 import yfinance as yf
 import plotly.express as px
 import plotly.graph_objs as go
@@ -13,31 +16,29 @@ import plotly.offline
 from prophet import Prophet
 from dateutil.relativedelta import relativedelta
 import mpld3
-from django.http import HttpResponse
 from gnews import GNews
 
-def register_request(request):
+def landingpage(request):
     if request.method == 'POST':
-        if 'username' in request.POST and 'email' in request.POST and 'password' in request.POST:
+        print(request.POST)
+        if 'login' in request.POST:
             username = request.POST['username']
-            email = request.POST['email']
             password = request.POST['password']
-            user = User.objects.create_user(username, email, password)
-            user.save()
-            return redirect('home')
-    return render(request, 'register.html')
-
-def user_login(request):
-    if request.method == 'POST':
-        email = request.POST['email']
-        password = request.POST['password']
-        user = authenticate(request, email=email, password=password)
-        if user is not None:
-            login(request, user)
-            return redirect('home')
-    return render(request, 'login.html')
-
-
+            user = authenticate(request, username=username, password=password)
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+        elif 'register' in request.POST:
+            form = SignUpForm(request.POST) 
+            print(form)
+            if form.is_valid(): 
+                form.save() 
+                print('form is saved')
+                return redirect('landingpage')
+            # context = {'form': form}
+            # return render(request, 'signup.html', context) 
+    return render(request, 'landingpage.html')
+    
 
 def history_page(request):
     return render(request, 'history.html')
@@ -152,3 +153,31 @@ def settings_page(request):
 
 def tradingtips_page(request):
     return render(request, 'tradingtips.html')
+
+def signup(request): 
+    form = SignUpForm(request.POST) 
+    if form.is_valid(): 
+        form.save() 
+        username = form.cleaned_data.get('username') 
+        password = form.cleaned_data.get('password') 
+        # user = authenticate(username=username, password=password) 
+        # login(request, user) 
+        return redirect('landingpage') 
+    context = { 
+        'form': form 
+    } 
+    return render(request, 'signup.html', context) 
+
+def userlogin(request):
+    if request.method == 'POST':
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('home')
+    return render(request, 'login.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('landingpage')

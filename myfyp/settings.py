@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-4@i2h=ka(8*pg@5g9mzzp_$!gau@5nxj(7q#+xpjgk=hx-h4r_
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+LOGOUT_REDIRECT_URL = "landingpage"
 ALLOWED_HOSTS = []
 
 
@@ -39,8 +39,12 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'crispy_forms',
+    'crispy_bootstrap5',
+    'bootstrap_modal_forms',
+    'widget_tweaks'
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
+CRISPY_ALLOWED_TEMPLATE_PACK ='bootstrap5'
 
 
 MIDDLEWARE = [
@@ -83,7 +87,7 @@ DATABASES = {
         'NAME': 'mydb',
         'USER': 'postgres',
         'PASSWORD': '0000',
-        'HOST': 'localhost',
+        'HOST': '127.0.0.1',
         'PORT': '5432',
     }
 }
