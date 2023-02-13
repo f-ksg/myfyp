@@ -149,3 +149,6 @@ def getnews():
 
 def settings_page(request):
     return render(request, 'settings.html')
+
+def tradingtips_page(request):
+    return render(request, 'tradingtips.html')
