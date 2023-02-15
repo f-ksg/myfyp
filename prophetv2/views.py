@@ -4,7 +4,10 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm  
 from django.http import HttpResponse
+from django.contrib.auth.decorators import login_required
 from .forms import SignUpForm
+from .models import Profile, StockInfo
+from .resources import StockInfoResource
 import yfinance as yf
 import plotly.express as px
 import plotly.graph_objs as go
@@ -17,10 +20,11 @@ from prophet import Prophet
 from dateutil.relativedelta import relativedelta
 import mpld3
 from gnews import GNews
+from tablib import Dataset
 
 def landingpage(request):
     if request.method == 'POST':
-        print(request.POST)
+        # print(request.POST)
         if 'login' in request.POST:
             username = request.POST['username']
             password = request.POST['password']
@@ -30,19 +34,24 @@ def landingpage(request):
                 return redirect('home')
         elif 'register' in request.POST:
             form = SignUpForm(request.POST) 
-            print(form)
+            # print(form)
             if form.is_valid(): 
-                form.save() 
-                print('form is saved')
+                user = form.save()
+                # user.refresh_from_db()
+                # user.profile.accountbalance = 30000
+                # user.save()
+                # print('form is saved')
+                
                 return redirect('landingpage')
             # context = {'form': form}
             # return render(request, 'signup.html', context) 
     return render(request, 'landingpage.html')
     
-
+@login_required
 def history_page(request):
     return render(request, 'history.html')
 
+@login_required
 def purchase_page(request):
     currentChart = chart()
     currentTicker = yf.Ticker('D05.SI')
@@ -53,7 +62,8 @@ def purchase_page(request):
     currentChart.update(currentPrice)
     print(currentPrice)
     return render(request, 'purchase.html', currentChart)
-    
+
+@login_required    
 def home_page(request):    
     currentChart = chart()
     currentChart.update(predictionchart())
@@ -148,9 +158,10 @@ def getnews():
     articles = google_news.get_news('DBS')
     return articles
 
+@login_required
 def settings_page(request):
     return render(request, 'settings.html')
-
+@login_required
 def tradingtips_page(request):
     return render(request, 'tradingtips.html')
 
@@ -181,3 +192,30 @@ def userlogin(request):
 def logout_view(request):
     logout(request)
     return redirect('landingpage')
+
+def update_profile(request, user_id):
+    user = User.objects.get(pk=user_id)
+    user.profile.accountbalance = 30000
+    user.save()
+
+def getStockPrice(stockCode):
+    ticker = yf.Ticker(stockCode)
+    history = ticker.history(period="1d")
+    currentPrice = history["Close"][0]
+    currentPrice = "${:,.2f}".format(currentPrice)
+    return currentPrice
+
+def simple_upload(request):
+    if request.method == 'POST':
+        person_resource = StockInfoResource()
+        dataset = Dataset()
+        new_persons = request.FILES['myfile']
+
+        imported_data = dataset.load(new_persons.read().decode('utf-8-sig'), format ='csv')
+        # print(imported_data)
+        result = person_resource.import_data(dataset, dry_run=True, raise_errors=True)  # Test the data import
+        
+        if not result.has_errors():
+            person_resource.import_data(dataset, dry_run=False)  # Actually import now
+
+    return render(request, 'simple_upload.html')

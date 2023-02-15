@@ -28,5 +28,6 @@ urlpatterns = [
     path('settings/', views.settings_page, name = 'settings'),
     path('tradingtips/', views.tradingtips_page, name ='tradingtips'),
     path('signup/', views.signup, name="signup"),
-    path('logout/', views.logout_view, name="logout")
+    path('logout/', views.logout_view, name="logout"),
+    path('upload/', views.simple_upload, name = 'upload')
 ]

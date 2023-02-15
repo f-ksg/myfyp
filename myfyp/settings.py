@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-4@i2h=ka(8*pg@5g9mzzp_$!gau@5nxj(7q#+xpjgk=hx-h4r_
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-LOGOUT_REDIRECT_URL = "landingpage"
+
 ALLOWED_HOSTS = []
 
 
@@ -41,7 +41,9 @@ INSTALLED_APPS = [
     'crispy_forms',
     'crispy_bootstrap5',
     'bootstrap_modal_forms',
-    'widget_tweaks'
+    'widget_tweaks',
+    'import_export',
+    'csvimport.app.CSVImportConf',
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap5'
 CRISPY_ALLOWED_TEMPLATE_PACK ='bootstrap5'
@@ -133,3 +135,5 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+LOGOUT_REDIRECT_URL = "landingpage"
+LOGIN_URL = 'landingpage'
