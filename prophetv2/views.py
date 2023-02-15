@@ -120,9 +120,7 @@ def predictionchart():
     m.add_country_holidays(country_name='SG')
     m.fit(input)
     future = m.make_future_dataframe(periods=365)
-    future.tail()
     forecast = m.predict(future)
-    forecast[['ds', 'yhat', 'yhat_lower', 'yhat_upper']].tail()
     forecast_renamed = forecast[["ds", "yhat"]]
     forecast_renamed = forecast_renamed.rename(columns={"ds": "Date","yhat": "Price"})
     forecast_renamed["Date"] = forecast_renamed["Date"].dt.date
@@ -139,7 +137,7 @@ def predictionchart():
     forecast_date = forecast_renamed["Date"]
     fig, ax = plt.subplots()
     ax.plot(forecast_date, forecast_renamed["Price"])
-
+    
     # change colour of line
     mask = forecast_date >= current_date
     # ax.plot(forecast_date[mask], forecast_renamed["Price"][mask], line=dict(color='blue '))
