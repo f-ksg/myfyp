@@ -29,5 +29,7 @@ urlpatterns = [
     path('tradingtips/', views.tradingtips_page, name ='tradingtips'),
     path('signup/', views.signup, name="signup"),
     path('logout/', views.logout_view, name="logout"),
-    path('upload/', views.simple_upload, name = 'upload')
+    path('upload/', views.simple_upload, name = 'upload'),
+    path('buy/', views.buypage, name = 'buy'),
+    path('getStockPriceAjax/', views.getStockPriceAjax, name = "getStockPriceAjax")
 ]

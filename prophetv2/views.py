@@ -201,7 +201,14 @@ def getStockPrice(stockCode):
     history = ticker.history(period="1d")
     currentPrice = history["Close"][0]
     currentPrice = "${:,.2f}".format(currentPrice)
+    currentPrice = {'currentPrice': currentPrice}
     return currentPrice
+
+def getStockPriceAjax(requests):
+    ticker = yf.Ticker('O39.SI')
+    history = ticker.history(period="1d")
+    currentPrice = history["Close"][0]
+    return HttpResponse(currentPrice)
 
 def simple_upload(request):
     if request.method == 'POST':
@@ -217,4 +224,8 @@ def simple_upload(request):
             person_resource.import_data(dataset, dry_run=False)  # Actually import now
 
     return render(request, 'simple_upload.html')
+
+def buypage(request):
+    currentPrice = getStockPrice('O39.SI')
+    return render(request, 'buy.html', currentPrice)
 
