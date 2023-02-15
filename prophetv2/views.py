@@ -137,7 +137,7 @@ def predictionchart():
     forecast_date = forecast_renamed["Date"]
     fig, ax = plt.subplots()
     ax.plot(forecast_date, forecast_renamed["Price"])
-    
+
     # change colour of line
     mask = forecast_date >= current_date
     # ax.plot(forecast_date[mask], forecast_renamed["Price"][mask], line=dict(color='blue '))
@@ -217,3 +217,4 @@ def simple_upload(request):
             person_resource.import_data(dataset, dry_run=False)  # Actually import now
 
     return render(request, 'simple_upload.html')
+
