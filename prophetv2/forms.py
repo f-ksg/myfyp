@@ -11,14 +11,10 @@ class SignUpForm(UserCreationForm):
         model = User 
         fields = ('username', 'email', 'password1', 'password2')
 
-# class RegisterForm(BSModalModelForm):
-# 	class Meta:
-# 		frields = ('username', 'email', 'password1', 'password2')
-
-# class CustomUserCreationForm(PopRequestMixin, CreateUpdateAjaxMixin, UserCreationForm):
-#     class Meta:
-#         model = User
-#         fields = ['username', 'email', 'password1', 'password2']
-
-# class ImportForm(forms.Form):
-#     import_file = forms.FileField(allow_empty_file=False,validators=[FileExtensionValidator(allowed_extensions=['csv', 'xls', 'xlsx'])], label="")
+class BuyForm(forms.Form):
+    class Meta:
+        model = User
+        currentPrice = forms.FloatField()
+        unitsOwned = forms.FloatField()
+        unitsBuying = forms.FloatField()
+        totalPrice = forms.FloatField()

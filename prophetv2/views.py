@@ -22,6 +22,8 @@ import mpld3
 from gnews import GNews
 from tablib import Dataset
 
+ticker = ""
+
 def landingpage(request):
     if request.method == 'POST':
         # print(request.POST)
@@ -202,6 +204,7 @@ def getStockPrice(stockCode):
     currentPrice = history["Close"][0]
     currentPrice = "${:,.2f}".format(currentPrice)
     currentPrice = {'currentPrice': currentPrice}
+    #returns string value
     return currentPrice
 
 def getStockPriceAjax(requests):
