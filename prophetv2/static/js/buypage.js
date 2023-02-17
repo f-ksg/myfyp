@@ -54,11 +54,15 @@ stockNameDropdown.addEventListener("change", function()
         {
           //console.log('im in ajax call');
           var currentPrice = data.current_price;
-          $('#current-price').val(currentPrice);
+          // console.log(typeof currentPrice);
+          // console.log(currentPrice);
+          var n = currentPrice.toFixed(3);
+          $('#current-price').val(n);
         },
         error: function(xhr, textStatus, errorThrown) 
         {
-        console.log('Error!');
+          errormessage = 'Stock has been de-listed';
+          console.log('Error!');
         }
       });
     });

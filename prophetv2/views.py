@@ -364,6 +364,6 @@ def get_stock_info(request):
         # current_price = "{:,.2f}".format(current_price)
         #another method to get last price
         current_price = test['lastPrice']
-        current_price = "{:, .3f}".format(current_price)
+        # current_price = "{:, .2f}".format(current_price)
         return JsonResponse({'current_price': current_price})
         
