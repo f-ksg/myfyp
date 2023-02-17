@@ -67,4 +67,3 @@ stockNameDropdown.addEventListener("change", function()
       });
     });
   });
-

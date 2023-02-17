@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from .forms import SignUpForm, BuyStockForm
-from .models import Profile, StockInfo, Stocks, StockSold, StockOwned
+from .models import Profile, StockInfo, Stocks, StockSold, StockOwned, StockOwned
 from .resources import StockInfoResource
 import yfinance as yf
 import plotly.express as px
@@ -58,15 +58,25 @@ def history_page(request):
 
 @login_required
 def purchase_page(request):
+    stockObj = Stocks.objects.all()
+    stockOwnedObj = StockOwned.objects.all()
+
     currentChart = chart()
     currentTicker = yf.Ticker('D05.SI')
     history = currentTicker.history(period="1d")
     currentPrice = history["Close"][0]
     currentPrice = "${:,.2f}".format(currentPrice)
-    currentPrice = {'currentPrice': currentPrice}
-    currentChart.update(currentPrice)
-    print(currentPrice)
-    return render(request, 'purchase.html', currentChart)
+    #currentPrice = {'currentPrice': currentPrice}
+    context = {
+        'stocks':stockObj,
+        'stockowned':stockOwnedObj,
+        'currentPrice':currentPrice
+    }
+    context.update(currentChart)
+    #currentChart.update(currentPrice)
+    #print(currentPrice)
+    #currentChart.update(buystock)
+    return render(request, 'purchase.html', context)
 
 @login_required    
 def home_page(request):    

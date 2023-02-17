@@ -38,8 +38,6 @@ MESSAGE_TAGS = {
  }
 
 INSTALLED_APPS = [
-    'dal',
-    'dal_select2',
     'prophetv2.apps.Prophetv2Config',
     'django.contrib.admin',
     'django.contrib.auth',
