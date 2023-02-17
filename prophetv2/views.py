@@ -1,12 +1,13 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
+from django.db.models import Avg
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm  
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
-from .forms import SignUpForm
-from .models import Profile, StockInfo
+from .forms import SignUpForm, BuyStockForm
+from .models import Profile, StockInfo, Stocks, StockSold, StockOwned
 from .resources import StockInfoResource
 import yfinance as yf
 import plotly.express as px
@@ -22,6 +23,7 @@ import mpld3
 from gnews import GNews
 from tablib import Dataset
 
+
 ticker = ""
 
 def landingpage(request):
@@ -33,9 +35,10 @@ def landingpage(request):
             user = authenticate(request, username=username, password=password)
             if user is not None:
                 login(request, user)
+                messages.success(request, 'Logging in!')
                 return redirect('home')
         elif 'register' in request.POST:
-            form = SignUpForm(request.POST) 
+            form = SignUpForm(request.POST)
             # print(form)
             if form.is_valid(): 
                 user = form.save()
@@ -43,7 +46,7 @@ def landingpage(request):
                 # user.profile.accountbalance = 30000
                 # user.save()
                 # print('form is saved')
-                
+                messages.success(request, 'Account registered')
                 return redirect('landingpage')
             # context = {'form': form}
             # return render(request, 'signup.html', context) 
@@ -198,21 +201,6 @@ def update_profile(request, user_id):
     user.profile.accountbalance = 30000
     user.save()
 
-def getStockPrice(stockCode):
-    ticker = yf.Ticker(stockCode)
-    history = ticker.history(period="1d")
-    currentPrice = history["Close"][0]
-    currentPrice = "${:,.2f}".format(currentPrice)
-    currentPrice = {'currentPrice': currentPrice}
-    #returns string value
-    return currentPrice
-
-def getStockPriceAjax(requests):
-    ticker = yf.Ticker('O39.SI')
-    history = ticker.history(period="1d")
-    currentPrice = history["Close"][0]
-    return HttpResponse(currentPrice)
-
 def simple_upload(request):
     if request.method == 'POST':
         person_resource = StockInfoResource()
@@ -228,7 +216,154 @@ def simple_upload(request):
 
     return render(request, 'simple_upload.html')
 
-def buypage(request):
-    currentPrice = getStockPrice('O39.SI')
-    return render(request, 'buy.html', currentPrice)
+def buy_stock(request):
+    stocks = Stocks.objects.all()
+    # currentPrice = getStockPrice('D05.SI')
+    stock_owned = StockOwned.objects.all()
+    if request.method == 'POST':
+        form = BuyStockForm(request.POST)
+        if form.is_valid():
+            # Get the stock object
+            stock = Stocks.objects.get(pk=form.cleaned_data['stock'].id)
+            # Get the current price of the stock
+            current_price = 5#currentPrice
+            # Get the units buying
+            units_buying = form.cleaned_data['quantity']
+            # Calculate the total price
+            total_price = current_price * units_buying
+            # Check if the user has enough balance
+            profile = request.user.profile
+            if profile.accountbalance < total_price:
+                messages.error(request, 'Account has insufficient balance')
+                return redirect('buy')
+            # Deduct the account balance
+            profile.accountbalance -= total_price
+            profile.save()
+            # Add the stock to the user's stock owned
+            stock_owned, created = StockOwned.objects.get_or_create(
+                profile=profile, stock=stock,
+                defaults={'purchase_price': current_price, 'quantity': 0}
+            )
+            # Increase the quantity of the stock owned
+            stock_owned.quantity += units_buying
+            stock_owned.save()
+            messages.success(request, f'Successfully purchased {units_buying} units of {stock.name}!')
+            return redirect('profile')
+    else:
+        form = BuyStockForm()
+    context = {
+        'form': form,
+        'stocks': stocks,
+        'stock_owned': stock_owned
+    }
+    #'currentPrice': 'currentPrice',
 
+    return render(request, 'buy.html', context)
+
+
+def setrisklevels(request):
+    # dictionaryobj to loop thru
+    averages = StockInfo.objects.values('sector').annotate(avg_roe=Avg('roe'),avg_marketcap=Avg('marketcap'),avg_total_rev=Avg('totalRev'),avg_pe=Avg('pe'),avg_yield_percent=Avg('yieldPercent'),avg_gti_score=Avg('gtiScore')).order_by('sector').values('sector', 'avg_roe', 'avg_marketcap', 'avg_total_rev', 'avg_pe', 'avg_yield_percent', 'avg_gti_score')
+    # dictionary to hold sector's averages
+    sector_avgs = {}
+    for sector in averages:
+        sector_name = sector['sector']        
+        sector_avgs[sector_name] = {
+            'roe': sector['avg_roe'],
+            'marketcap': sector['avg_marketcap'],
+            'total_rev': sector['avg_total_rev'],
+            'pe': sector['avg_pe'],
+            'yield_percent': sector['avg_yield_percent'],
+            'gti_score': sector['avg_gti_score'],
+        }
+    # Loop over all stocks and calculate their risk levels
+    for stock in Stocks.objects.all():
+        stock_info = StockInfo.objects.filter(stockCode=stock.ticker).first()
+        if stock_info is None:
+            # StockInfo not found, set risk level to None
+            stock.risk_level = 0
+            stock.save()
+            continue
+        # Check if sector has averages available
+        sector_name = stock_info.sector
+        if sector_name not in sector_avgs:
+            stock.risk_level = 0
+            stock.save()
+            continue
+        print(stock_info)
+        sector_avg = sector_avgs[sector_name]
+        risk_level = 0.0
+        if stock_info.roe is None or stock_info.roe < sector_avg['roe']:
+            risk_level += 0.5
+
+        if stock_info.marketcap is None or stock_info.marketcap < sector_avg['marketcap']:
+            risk_level += 0.5
+
+        if stock_info.totalRev is None or stock_info.totalRev < sector_avg['total_rev']:
+            risk_level += 0.5
+
+        if stock_info.pe is None or stock_info.pe > sector_avg['pe']:
+            risk_level += 0.5
+
+        if stock_info.yieldPercent is None or stock_info.yieldPercent < sector_avg['yield_percent']:
+            risk_level += 0.5
+
+        if stock_info.gtiScore is None or stock_info.gtiScore > sector_avg['gti_score']:
+            risk_level += 0.5
+        
+        print(stock_info.roe)
+        print(stock_info.marketcap)
+        print(stock_info.totalRev)
+        print(stock_info.pe)
+        print(stock_info.yieldPercent)
+        print(stock_info.gtiScore)
+
+        stock.risk_level = round(risk_level)
+        stock.save()
+    return render(request, 'setrisklevels.html')
+    
+def getStockPriceAjax(request):
+    ticker = yf.Ticker('O39.SI')
+    history = ticker.history(period="1d")
+    currentPrice = history["Close"][0]
+    return HttpResponse(currentPrice)
+
+def getStockPrice(stockCode):
+    ticker = yf.Ticker(stockCode)
+    history = ticker.history(period="1d")
+    currentPrice = history["Close"][0]
+    currentPrice = "{:,.2f}".format(currentPrice)
+    #currentPrice = {'currentPrice': currentPrice}
+    #returns string value
+    return currentPrice
+
+def get_stock_price(request):
+    if request.method == "POST":
+        stock_ticker = request.POST.get("stock_ticker")
+        current_price = getStockPrice(stock_ticker)
+        return JsonResponse(str(current_price), safe=False)
+    else:
+        return JsonResponse("0", safe=False)
+
+def get_stock_info(request):
+    if request.method == 'GET':
+        ticker = request.GET.get('ticker')
+        print("---------------------------------")
+        print(ticker)
+        print("---------------------------------")
+        stockCode = yf.Ticker(ticker) #ticker
+        history = stockCode.history(period="2d")
+        test = stockCode.fast_info
+        # print("---------------------------------")
+        # print(test['lastPrice'])
+        # print("---------------------------------")
+        #print(stockCode.info)
+        #gets lastPrice based off 1d close
+        #WILL FAIL 
+        # current_price = history["Close"][0]
+        # current_price = "{:,.2f}".format(current_price)
+        #another method to get last price
+        current_price = test['lastPrice']
+        current_price = "{:, .3f}".format(current_price)
+        return JsonResponse({'current_price': current_price})
+        

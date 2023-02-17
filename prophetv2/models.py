@@ -41,3 +41,36 @@ class StockInfo(models.Model):
     gtiScore = models.FloatField(null=True)
     oneYearChange = models.FloatField(null=True)
 
+
+class Stocks(models.Model):
+    name = models.CharField(max_length=100)
+    ticker = models.CharField(max_length=10, unique=True)
+    risk_level = models.IntegerField(default=0)
+    
+    def __str__(self):
+        return f"Ticker: {self.ticker} Name: {self.name}"
+    
+    class Meta:
+        unique_together = ('name', 'ticker')
+
+
+class StockOwned(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    stock = models.ForeignKey(Stocks, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=0)
+    purchase_price = models.DecimalField(max_digits=10, decimal_places=2)
+    purchased_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.profile.user.username} owns {self.quantity} shares of {self.stock.name}"
+
+class StockSold(models.Model):
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    stock = models.ForeignKey(Stocks, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField()
+    sell_price = models.DecimalField(max_digits=10, decimal_places=2)
+    sold_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"{self.profile.user.username} sold {self.quantity} shares of {self.stock.name}"
+

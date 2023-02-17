@@ -1,5 +1,5 @@
-<!-- {% load crispy_forms_tags %}
-{% load crispy_forms_filters %} -->
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 
 <!DOCTYPE html>
   <html lang="en">
@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" type="image/png" href="/static/images/icons/favicon.ico"/>
+    <link href="/static/css/styles.css"  rel="stylesheet" />
     <link rel="stylesheet" type="text/css" href="/static/vendor/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="/static/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="/static/fonts/Linearicons-Free-v1.0.0/icon-font.min.css">
@@ -22,6 +23,11 @@
   </head>
   
   <body style="background-color: #666666;">
+    {% include 'messages.html' %}
+    {% block content %}
+  
+    {% endblock %} 
+
     <div class="limiter">
       <div class="container-login100">
         <div class="wrap-login100">
@@ -108,6 +114,7 @@
             <label for="password">Confirm password</label>
             <input type="password" name="password2" class="form-control" id="password2" placeholder="Password">
           </div>
+          <!--{{SignUpForm | crispy}}-->
           <button type="submit" class="btn btn-primary" value="register" name="register">Sign up</button>
         </form>
       </div>

@@ -16,6 +16,8 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from prophetv2 import views
+from dal import autocomplete
+from prophetv2.models import Stocks
 
 urlpatterns = [
     path('', views.landingpage, name = 'landingpage'),
@@ -30,6 +32,10 @@ urlpatterns = [
     path('signup/', views.signup, name="signup"),
     path('logout/', views.logout_view, name="logout"),
     path('upload/', views.simple_upload, name = 'upload'),
-    path('buy/', views.buypage, name = 'buy'),
-    path('getStockPriceAjax/', views.getStockPriceAjax, name = "getStockPriceAjax")
+    path('getStockPriceAjax/', views.getStockPriceAjax, name = "getStockPriceAjax"),
+    path('buy/', views.buy_stock, name = 'buy'),
+    path('setrisklevels/', views.setrisklevels, name='setrisklevels'),
+    path("get-stock-price/", views.get_stock_price, name="get_stock_price"),
+    path('get_stock_info/', views.get_stock_info, name='get_stock_info')
 ]
+# 
