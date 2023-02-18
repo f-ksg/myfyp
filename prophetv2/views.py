@@ -19,9 +19,9 @@ from prophet.plot import plot_plotly, plot_components_plotly
 import plotly.offline
 from prophet import Prophet
 from dateutil.relativedelta import relativedelta
-import mpld3
 from gnews import GNews
 from tablib import Dataset
+import pprint, json, mpld3
 
 
 ticker = ""
@@ -60,7 +60,9 @@ def history_page(request):
 def purchase_page(request):
     stockObj = Stocks.objects.all()
     stockOwnedObj = StockOwned.objects.all()
+    stockPrice = get_stock_price(request)
 
+    #currentChart = get_chart_with_ticker(request)
     currentChart = chart()
     currentTicker = yf.Ticker('D05.SI')
     history = currentTicker.history(period="1d")
@@ -118,7 +120,67 @@ def chart():
     # if context:
     #     fightml.update(context)    
     return fightml
-    
+
+
+# def get_stock_ticker(request):
+#     if request.method == "POST":
+#         stock_ticker = request.POST.get("stock_ticker")
+#         newChart = getStockPrice(stock_ticker)
+#         return JsonResponse(str(newChart), safe=False)
+#     else:
+#         return JsonResponse("0", safe=False)
+
+def get_chart_with_ticker(request):
+    if request.method == 'GET':
+        ticker = request.GET.get('ticker')
+        print(type(ticker))
+        # print("---------------------------------")
+        # print(ticker)
+        # print("---------------------------------")
+        data = yf.download(ticker, start="2020-01-01", end=date.today()) #  #period ='30d', interval ='15m', rounding = True
+        fig = go.Figure()
+        fig.add_trace(go.Candlestick(x=data.index,
+        open = data['Open'], 
+        high=data['High'], 
+        low=data['Low'], 
+        close=data['Close'], 
+        name = 'market data'))
+        # fig = go.Figure(data=[go.Candlestick(x=data['Date'],
+        #             open=data[stockCode+'.Open'],
+        #             high=data[stockCode+'.High'],
+        #             low=data[stockCode+'.Low'],
+        #             close=data[stockCode+'.Close'])])
+        fig.update_layout(title = ticker + ' share price', yaxis_title = 'Stock Price (SGD)')
+        fig.update_xaxes(
+        rangeslider_visible=True,
+        rangeselector=dict(
+        buttons=list([
+        dict(count=15, label='15m', step="minute", stepmode="backward"),
+        dict(count=45, label='45m', step="minute", stepmode="backward"),
+        dict(count=1, label='1h', step="hour", stepmode="backward"),
+        dict(count=6, label='6h', step="hour", stepmode="backward"),
+        dict(step="all")
+        ])
+        )
+        )
+        chart_div = fig.to_html()
+        context = {'chart_div': chart_div}
+        return render(request, 'get_chart_with_ticker.html', context)
+
+
+
+        # fightml = {'chart': fig.to_html()}
+        # chart_data = json.dumps(fig)
+        # if context:
+        #     fightml.update(context)   
+        #return JsonResponse({'chart': fightml}) 
+        #pprint.pprint(fig.to_json())
+
+
+        #return render(request, 'get_chart_with_ticker.html', {'chart_data': chart_data})
+        #return JsonResponse({'data':fig.to_json()}) 
+    else:
+        chart()
 
 
 def predictionchart():
@@ -226,6 +288,7 @@ def simple_upload(request):
 
     return render(request, 'simple_upload.html')
 
+#buy.html
 def buy_stock(request):
     stocks = Stocks.objects.all()
     # currentPrice = getStockPrice('D05.SI')
@@ -355,6 +418,7 @@ def get_stock_price(request):
     else:
         return JsonResponse("0", safe=False)
 
+#get stock info in use for returning current price
 def get_stock_info(request):
     if request.method == 'GET':
         ticker = request.GET.get('ticker')

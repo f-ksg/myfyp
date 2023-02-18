@@ -35,6 +35,7 @@ urlpatterns = [
     path('buy/', views.buy_stock, name = 'buy'),
     path('setrisklevels/', views.setrisklevels, name='setrisklevels'),
     path("get-stock-price/", views.get_stock_price, name="get_stock_price"),
-    path('get_stock_info/', views.get_stock_info, name='get_stock_info')
+    path('get_stock_info/', views.get_stock_info, name='get_stock_info'),
+    path('get_chart_with_ticker/', views.get_chart_with_ticker, name ="get_chart_with_ticker")
 ]
 # 
