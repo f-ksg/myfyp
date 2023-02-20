@@ -35,11 +35,13 @@ def landingpage(request):
             username = request.POST['username']
             password = request.POST['password']
             user = authenticate(request, username=username, password=password)
-            if user is not None:
-                messages.success(request, 'Logging in!')
+            if user is not None and user.profile.tutorialcompletion == True:
+                #messages.success(request, 'Logging in!')
                 login(request, user)
-                
                 return redirect('home')
+            elif user is not None and user.profile.tutorialcompletion == False:
+                login(request, user)
+                return redirect ('/tutorial_1/')
             else:
                 messages.error(request, 'Invalid username or password.')
 
@@ -555,4 +557,15 @@ def tutorial_5(request):
 def tutorial_6(request):
     return render(request, 'tutorial_6.html')
 def tutorial_7(request):
+    profile = request.user.profile
+    profile.tutorialcompletion = True
+    profile.save()
     return render(request, 'tutorial_7.html')
+
+def complete_tutorial(request):
+    current_user = request.user
+    user_profile = current_user.profile
+    user_profile.tutorialcompletion = True
+    user_profile.save()
+    # Return a response
+    return redirect(home_page)

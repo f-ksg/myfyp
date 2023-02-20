@@ -43,6 +43,7 @@ urlpatterns = [
     path('tutorial_4/', views.tutorial_4, name= 'tutorial_4'),
     path('tutorial_5/', views.tutorial_5, name= 'tutorial_5'),
     path('tutorial_6/', views.tutorial_6, name= 'tutorial_6'),
-    path('tutorial_7/', views.tutorial_7, name= 'tutorial_7')
+    path('tutorial_7/', views.tutorial_7, name= 'tutorial_7'),
+    path('complete_tutorial/', views.complete_tutorial, name= 'complete_tutorial')
 ]
 # 
