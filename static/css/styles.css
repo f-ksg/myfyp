@@ -11699,3 +11699,80 @@ body {
   font-size: 0.75rem;
   border-radius: 0.25rem !important;
 }
+
+.mt-6 {
+  margin-top: 10rem !important;
+  color: #fff;
+}
+
+.layoutTutorial {
+  text-align: center;
+}
+
+.btn-tutorial {
+  background-color: #adb5bd;
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  padding: 8px 16px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 1.5rem;
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.btn-tutorial:hover {
+  background-color: #0dcaf0;
+  color: #000;
+}
+
+img {
+  position: absolute;
+  width: 200px;
+  height: 200px;
+}
+
+.popup, .popup-confirmation {
+  width: 500px;
+  background: #e9ecef;
+  border-radius: 8px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.1);
+  text-align: center;
+  padding: 0 30px 30px;
+  color: #000;
+  visibility: hidden;
+  transition: transform 0.4s, top 0.4s;
+}
+
+.popup-confirmation {
+  text-align: left;
+}
+
+.popup button {
+  width: 100%;
+  margin-top: 30px;
+  padding: 10px 0;
+  background: #6fd649;
+  color: #fff;
+  border: 0;
+  outline: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.open-popup {
+  visibility: visible;
+  top: 47%;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+.card-tutorial {
+  margin-top: 10rem;
+}
+

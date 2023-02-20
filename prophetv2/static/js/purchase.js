@@ -2,6 +2,8 @@
 const datalist = document.getElementById('datalistOptions');
 const inputField = document.getElementById('searchDataList');
 const tickerCodeField = document.getElementById('ticker-code');
+const url = `/get_chart_with_ticker/?ticker=${tickerCodeField}`; // Construct the URL with the ticker code
+
 
 inputField.addEventListener('input', () => {
     // Clear the value of the ticker code field when the input field changes
@@ -16,69 +18,126 @@ inputField.addEventListener('change', () => {
     tickerCodeField.value = selectedOption.value.split(' ').pop();
 });
 
+// $(document).ready(function () 
+// {
+//     var ccurrentPrice = data.current_price;
+//     // console.log(typeof currentPrice);
+//     // console.log(currentPrice);
+//     var n = ccurrentPrice.toFixed(3);
+//     $('#currentprice').val(n);
+// });
+
 //get current price and display
-$(window).ready(function () {
-    $('#searchDataList').on('change', function () {
+$(document).ready(function () 
+{
+    $('#searchDataList').on('change', function () 
+    {
 
         //console.log('stock-ticker value change detected');
         var tickers = $('#ticker-code').val();
+        var csrftoken = Cookies.get('csrftoken');
         //console.log(ticker);
-
+        //for retrieval of price and setting price of stock 
         $.ajax
             ({
                 url: '/get_stock_info/',
                 data:
-
                     { 'ticker': tickers }
-
                 ,
                 dataType: 'json',
                 success: function (data) {
                     {
-                        //console.log('im in ajax call');
-                        var ccurrentPrice = data.current_price;
-                        // console.log(typeof currentPrice);
-                        // console.log(currentPrice);
-                        var n = ccurrentPrice.toFixed(3);
-
-                        $('#currentprice').val(n);
+                    const newurl = `/purchase/?ticker=${tickerCodeField.value}`;
+                    // Open the URL in a new tab
+                    window.location.href = newurl;
+                    $(document).ready(function () {
+                    //console.log('im in ajax call');
+                    var ccurrentPrice = data.current_price;
+                    // console.log(typeof currentPrice);
+                    // console.log(currentPrice);
+                    var n = ccurrentPrice.toFixed(3);
+                    $('#currentprice').val(n);
+                    });
                     }
                 },
                 error: function (xhr, textStatus, errorThrown) {
                     errormessage = 'Stock has been de-listed';
+                    $('#currentprice').val('No value found');
                     console.log(errormessage);
                 }
             });
 
+        //attempt to generate new chart on same website F
         $.ajax
             ({
-                url: '/get_chart_with_ticker/',
-                data:
-                    { 'ticker': tickers }
-                ,
-                dataType: 'json',
-                success: function (data) {
-                    {
-                        //makeajax call to /get_new_chart/ sending ticker-code.val
-                        //on succes add new chart data here
-                        //success: function(data) <-- data is what im receiving
-                        //var chartData = {{ chart|safe }};
-
-                        //chartid = document.getElementById('chart');
-                        //Plotly.newPlot(chartid, data);
-
-                        //var data = JSON.parse(response.data);
-                        var chartid = document.getElementById('chart');
-                        console.log(chartid)
-                        Plotly.newPlot(chartid, data);
+                type: "POST",
+                url: "/purchase/",
+                data: "ticker=" + encodeURIComponent(tickers),
+                dataType: 'text',
+                beforeSend: function(xhr, settings) {
+                    if (!/^(GET|HEAD|OPTIONS|TRACE)$/i.test(settings.type) && !this.crossDomain) {
+                        xhr.setRequestHeader('X-CSRFToken', csrftoken);
                     }
                 },
-                error: function (xhr, textStatus, errorThrown) {
-                    errormessage = 'chart error!';
-                    console.log(errormessage);
-                }
+                success: function(data) {
+                    console.log('hey im here')
+                    const newurl = `/purchase/?ticker=${tickerCodeField.value}`;
+                    // Open the URL in a new tab
+                    window.location.href = url;
+                },
+                error: function(xhr, textStatus, errorThrown) {
+                    errormessage = 'current price chart error!';
+                    console.log('eh fail leh')
+                    //alert('unable to retrieve stock price');
+    }
             });
     });
+
+});
+
+var buybutton = document.getElementById('buyButton');
+
+buybutton.addEventListener('click', () => {
+    var datalist = document.getElementById('stock-name');
+    var buystockform = document.getElementById('stock-ticker');
+    // Get the URL query string
+    const queryString = window.location.search;
+
+    // Extract the value of the 'code' parameter
+    const codeParam = new URLSearchParams(queryString).get('ticker');
+
+    // Remove the '.SI' suffix if it exists
+    const code = codeParam ? codeParam.replace('.SI', '') : '';
+
+    // Use the 'code' variable as needed
+    console.log(code);
+
+    const testoption = [...datalist.options].find((option) => option.value.includes(code));
+    console.log(testoption);
+    if (testoption) 
+    {
+        testoption.selected = true;
+        tickerCodeField.value = testoption.value.split(' ').pop();
+        console.log(tickerCodeField.value);
+        buystockform.value = tickerCodeField.value + '.SI';
+        var currentpriceform = document.getElementById('current-price');
+        currentpriceform.value = document.getElementById('currentprice').value;
+    }
 });
 
 
+const totalprice = document.getElementById('units-buying');
+
+totalprice.addEventListener('keyup', (e) => 
+{
+    var units = parseFloat(document.getElementById('units-buying').value);
+    console.log(units);
+    //regex to strip $ and save .
+    var price = document.getElementById('current-price').value.replace(/[^\d.-]/g, '');
+    console.log(price);
+    var sum = units*price || 0;
+    var summy = Math.round(sum*100)/100;
+    // var stringSum = "$ " + summy;
+    document.getElementById('total-price').value = '$' + summy;
+    
+});

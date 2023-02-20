@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="description" content="" />
+    <meta name="author" content="" />
+    <title>MoneyVerse</title>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+    <link href="/static/css/styles.css" rel="stylesheet" />
+    <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+</head>
+
+<body class="sb-nav-fixed bg-dark">
+    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+        <div class="container-fluid">
+            <!-- Navbar Brand-->
+            <a class="navbar-brand ps-3">MoneyVerse</a>
+
+            <!-- Navbar-->
+            <div class="d-flex align-items-center">
+                <a class="me-3" id="helpButton" href="#!">
+                    <i class="fa fa-question-circle w3-xxlarge">
+                    </i>
+                </a>
+
+                <ul class="navbar-nav">
+                    <!---->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button"
+                            data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-bars w3-xxlarge"></i></a>
+                        <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                            <li><a class="dropdown-item" href="#!">Settings</a></li>
+                            <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                            <li>
+                                <hr class="dropdown-divider" />
+                            </li>
+                            <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!--Side Bar-->
+    <div id="layoutSidenav">
+        <div id="layoutSidenav_nav">
+            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                <div class="sb-sidenav-menu">
+                    <!--Disable side navigation menu for tutorial-->
+                </div>
+                <div class="sb-sidenav-footer">
+                    <div class="small">Logged in as:</div>
+                    {{user.username}}
+                    <!--Get username/email js script-->
+                </div>
+            </nav>
+        </div>
+
+        <!--Main page layout-->
+        <div id="layoutSidenav_content">
+            <div class="layoutTutorial">
+                <main>
+                    <div class="container-fluid">
+                        <h3 class="mt-6">
+                            Hey there!<br>
+                            Looks like you have just created a new profile.<br>
+                            Let's get you started.<br><br>
+                            <button type="submit" class="btn-tutorial" onclick="openPopup()">CLICK</button>
+                            <div class="popup" id="popup">
+                                <h4>
+                                    Congratulations!<br>
+                                    You have claimed your free credits!<br><br>
+                                    Total account balance: SGD $30,000
+                                </h4>
+                                <button type="button" onclick="closePopup()">Continue</button>
+                            </div>
+                            to claim your free 30,000 credits now.
+                            <img src="/static/images/mascot.png" class = "img-tutorial">
+                        </h3>
+                        
+                    </div>
+                    
+                </main>
+                
+            </div>
+            <footer class="py-4 bg-light mt-auto">
+                <div class="container-fluid px-4">
+                    <div class="d-flex align-items-center justify-content-between small">
+                        <div class="text-muted">MoneyVerse</div>
+                    </div>
+                </div>
+            </footer>
+
+        </div>
+    </div>
+</body>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <script src="/static/js/scripts.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+    <script src="/static/assets/demo/chart-area-demo.js"></script>
+    <script src="/static/assets/demo/chart-bar-demo.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+    <script src="/static/js/datatables-simple-demo.js"></script>
+
+    <script>
+        let popup = document.getElementById("popup");
+
+        function openPopup() {
+            popup.classList.add("open-popup");
+        }
+
+        function closePopup() {
+            popup.classList.remove("open-popup");
+            location.href = "/tutorial_2/";
+        }
+    </script>
+
+</html>

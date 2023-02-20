@@ -1,12 +1,16 @@
+{% comment %} {% extends 'purchase.html' %} {% endcomment %}
 
-  <head>
-    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
-  
-</head>
-  <body>
-    {% block content %}
+{% comment %} 
+    {% block purchase_head %}
+    
+
+    {% block purchase_body %}
+    
+    {% block purchase_chart %}
+     {% endcomment %}
 <div>
-    {{ chart_div|safe }}
+    {{ chart_div | safe }}
 </div>
-{% endblock %}
-  </body>
+    
+    
+

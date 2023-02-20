@@ -1,3 +1,4 @@
+import time
 from django.shortcuts import render, redirect
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
@@ -6,6 +7,8 @@ from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm  
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.template import Template, Context
+from django.template.loader import render_to_string
 from .forms import SignUpForm, BuyStockForm
 from .models import Profile, StockInfo, Stocks, StockSold, StockOwned, StockOwned
 from .resources import StockInfoResource
@@ -23,8 +26,7 @@ from gnews import GNews
 from tablib import Dataset
 import pprint, json, mpld3
 
-
-ticker = ""
+firsttime = True
 
 def landingpage(request):
     if request.method == 'POST':
@@ -34,9 +36,13 @@ def landingpage(request):
             password = request.POST['password']
             user = authenticate(request, username=username, password=password)
             if user is not None:
-                login(request, user)
                 messages.success(request, 'Logging in!')
+                login(request, user)
+                
                 return redirect('home')
+            else:
+                messages.error(request, 'Invalid username or password.')
+
         elif 'register' in request.POST:
             form = SignUpForm(request.POST)
             # print(form)
@@ -46,8 +52,9 @@ def landingpage(request):
                 # user.profile.accountbalance = 30000
                 # user.save()
                 # print('form is saved')
-                messages.success(request, 'Account registered')
+                
                 return redirect('landingpage')
+                messages.success(request, 'Account registered')
             # context = {'form': form}
             # return render(request, 'signup.html', context) 
     return render(request, 'landingpage.html')
@@ -56,34 +63,60 @@ def landingpage(request):
 def history_page(request):
     return render(request, 'history.html')
 
+#purchasepage
 @login_required
 def purchase_page(request):
+    global firsttime
     stockObj = Stocks.objects.all()
     stockOwnedObj = StockOwned.objects.all()
-    stockPrice = get_stock_price(request)
+    #stockPrice = get_stock_price(request)
+    ticker = request.GET.get('ticker')
 
-    #currentChart = get_chart_with_ticker(request)
-    currentChart = chart()
-    currentTicker = yf.Ticker('D05.SI')
-    history = currentTicker.history(period="1d")
-    currentPrice = history["Close"][0]
-    currentPrice = "${:,.2f}".format(currentPrice)
-    #currentPrice = {'currentPrice': currentPrice}
-    context = {
-        'stocks':stockObj,
-        'stockowned':stockOwnedObj,
-        'currentPrice':currentPrice
-    }
-    context.update(currentChart)
-    #currentChart.update(currentPrice)
-    #print(currentPrice)
-    #currentChart.update(buystock)
-    return render(request, 'purchase.html', context)
+    #prediction chart
+    if request.method == 'GET' and ticker is not None:
+        print('---------------------------------------')
+        print('im printing in if get')
+        print('---------------------------------------')
+        ticker = request.GET.get('ticker')
+        currentChart = predictionchart(ticker)
+        currentTicker = yf.Ticker(ticker)
+        history = currentTicker.history(period="1d")
+        currentPrice = history["Close"][0]
+        currentPrice = "${:,.2f}".format(currentPrice)
+        #if lastPrice is None, change history period to 7d
+        #if historyperiod = 7d and lastprice is none -> show error
+        context = {
+            'stocks':stockObj,
+            'stockowned':stockOwnedObj,
+            'currentPrice':currentPrice
+        }
+        context.update(currentChart)
+        return render(request, 'purchase.html', context)
+    #default prediction chart - dbs05
+    elif request.method == 'GET' and ticker is None:
+        print('---------------------------------------')
+        print('im printing in else -- else nothing')
+        print('---------------------------------------')
+        currentChart = predictionchart_default()
+        currentTicker = yf.Ticker('D05.SI')
+        history = currentTicker.history(period="1d")
+        currentPrice = history["Close"][0]
+        currentPrice = "${:,.2f}".format(currentPrice)
+        #if lastPrice is None, change history period to 7d
+        #if historyperiod = 7d and lastprice is none -> show error
+        context = {
+            'stocks':stockObj,
+            'stockowned':stockOwnedObj,
+            'currentPrice':currentPrice
+        }
+        context.update(currentChart)
+        return render(request, 'purchase.html', context)
+
 
 @login_required    
 def home_page(request):    
     currentChart = chart()
-    currentChart.update(predictionchart())
+    currentChart.update(predictionchart_default())
     articles = getnews()
     currentChart.update({'articles':articles[:20]})
     return render(request, 'base.html', currentChart)
@@ -116,10 +149,20 @@ def chart():
     ])
     )
     )
-    fightml = {'chart': fig.to_html()}
+
+    chart_div = fig.to_html()
     # if context:
-    #     fightml.update(context)    
-    return fightml
+    #     fightml.update(context)
+    #wrapper_div = '<div class="my-chart">{{ chart_div }}</div>'
+    # Create a template with the wrapper div and the chart div
+    # template = Template(wrapper_div)
+    # # Create a context with the chart div
+    # context = Context({'chart_div': chart_div})
+    #fightml = render_to_string('chart_template.html', {'chart_div': chart_div, 'wrapper_div': wrapper_div})
+    # Render the template with the context to get the final HTML string
+    #fightml = {'chart_div': html}    
+    return {'chart_div': chart_div}
+
 
 
 # def get_stock_ticker(request):
@@ -131,59 +174,66 @@ def chart():
 #         return JsonResponse("0", safe=False)
 
 def get_chart_with_ticker(request):
-    if request.method == 'GET':
-        ticker = request.GET.get('ticker')
-        print(type(ticker))
-        # print("---------------------------------")
-        # print(ticker)
-        # print("---------------------------------")
-        data = yf.download(ticker, start="2020-01-01", end=date.today()) #  #period ='30d', interval ='15m', rounding = True
-        fig = go.Figure()
-        fig.add_trace(go.Candlestick(x=data.index,
-        open = data['Open'], 
-        high=data['High'], 
-        low=data['Low'], 
-        close=data['Close'], 
-        name = 'market data'))
-        # fig = go.Figure(data=[go.Candlestick(x=data['Date'],
-        #             open=data[stockCode+'.Open'],
-        #             high=data[stockCode+'.High'],
-        #             low=data[stockCode+'.Low'],
-        #             close=data[stockCode+'.Close'])])
-        fig.update_layout(title = ticker + ' share price', yaxis_title = 'Stock Price (SGD)')
-        fig.update_xaxes(
-        rangeslider_visible=True,
-        rangeselector=dict(
-        buttons=list([
-        dict(count=15, label='15m', step="minute", stepmode="backward"),
-        dict(count=45, label='45m', step="minute", stepmode="backward"),
-        dict(count=1, label='1h', step="hour", stepmode="backward"),
-        dict(count=6, label='6h', step="hour", stepmode="backward"),
-        dict(step="all")
-        ])
-        )
-        )
-        chart_div = fig.to_html()
-        context = {'chart_div': chart_div}
-        return render(request, 'get_chart_with_ticker.html', context)
-
-
-
+    if request.method == 'GET' and 'ticker' in request.GET:
+        ticker = request.GET.get('ticker') 
+        print("---------------------------------")
+        print(ticker)
+        print(ticker)
+        print(ticker)
+        print("---------------------------------")
+        if ticker is not None and isinstance(ticker, str):
+            # print("---------------------------------")
+            # print(ticker)
+            # print("---------------------------------")
+            data = yf.download(ticker, start="2020-01-01", end=date.today()) #  #period ='30d', interval ='15m', rounding = True
+            fig = go.Figure()
+            fig.add_trace(go.Candlestick(x=data.index,
+            open = data['Open'], 
+            high=data['High'], 
+            low=data['Low'], 
+            close=data['Close'], 
+            name = 'market data'))
+            # fig = go.Figure(data=[go.Candlestick(x=data['Date'],
+            #             open=data[stockCode+'.Open'],
+            #             high=data[stockCode+'.High'],
+            #             low=data[stockCode+'.Low'],
+            #             close=data[stockCode+'.Close'])])
+            fig.update_layout(title = ticker + ' share price', yaxis_title = 'Stock Price (SGD)')
+            fig.update_xaxes(
+            rangeslider_visible=True,
+            rangeselector=dict(
+            buttons=list([
+            dict(count=15, label='15m', step="minute", stepmode="backward"),
+            dict(count=45, label='45m', step="minute", stepmode="backward"),
+            dict(count=1, label='1h', step="hour", stepmode="backward"),
+            dict(count=6, label='6h', step="hour", stepmode="backward"),
+            dict(step="all")
+            ])
+            )
+            )
+            chart_div = fig.to_html()
+            context = {'chart_div': chart_div}
+            return render(request, 'get_chart_with_ticker.html', context)
+        else:
+            # chart_div = chart()
+            # context = {'chart_div': chart_div}
+            # return context
+            return chart()
         # fightml = {'chart': fig.to_html()}
         # chart_data = json.dumps(fig)
         # if context:
         #     fightml.update(context)   
         #return JsonResponse({'chart': fightml}) 
         #pprint.pprint(fig.to_json())
-
+    # else:
+    #     chart_div = chart()
+    #     context = {'chart_div': chart_div}
+    #     return context
 
         #return render(request, 'get_chart_with_ticker.html', {'chart_data': chart_data})
         #return JsonResponse({'data':fig.to_json()}) 
-    else:
-        chart()
 
-
-def predictionchart():
+def predictionchart_default():
     three_yrs_ago = datetime.now() - relativedelta(years=10)
     ticker = "D05.SI"
     start_date = (datetime.now()-relativedelta(years=10)).date()
@@ -224,8 +274,57 @@ def predictionchart():
     fig = px.line()
     fig.add_scatter(x=before['Date'], y=before['Price'], mode='lines', name='Past years data')
     fig.add_scatter(x=after['Date'], y=after['Price'], mode='lines', name='Future predicted data')
-    context = {'predictionchart': fig.to_html()}
-    return context
+    fig.update_layout(title = ticker + ' share price', yaxis_title = 'Stock Price (SGD)')
+    predictionchart = {'predictionchart': fig.to_html()}
+    return predictionchart    
+
+
+def predictionchart(ticker):
+    three_yrs_ago = datetime.now() - relativedelta(years=10)
+    # ticker = "D05.SI"
+    start_date = (datetime.now()-relativedelta(years=10)).date()
+    current_date = datetime.now().date()
+    df = yf.download(ticker, start=start_date, end=current_date)
+    df.index = df.index.tz_localize(None)
+    df = df.reset_index()
+    input = pd.DataFrame(columns=['ds', 'y'])
+    input[['ds', 'y']] = df[['Date', 'Adj Close']]
+    m = Prophet(daily_seasonality=True)
+    m.add_country_holidays(country_name='SG')
+    m.fit(input)
+    future = m.make_future_dataframe(periods=365)
+    forecast = m.predict(future)
+    forecast_renamed = forecast[["ds", "yhat"]]
+    forecast_renamed = forecast_renamed.rename(columns={"ds": "Date","yhat": "Price"})
+    forecast_renamed["Date"] = forecast_renamed["Date"].dt.date
+    after = forecast_renamed[forecast_renamed['Date'] >= current_date]
+    before = forecast_renamed[forecast_renamed['Date'] < current_date]
+
+    #outputs
+    #finding min and max of after
+    min = after['Price'].min()
+    max = after['Price'].max()
+
+    #comparing first and last row of after
+    rise = after['Price'].iloc[0] < after['Price'].iloc[-1]
+    forecast_date = forecast_renamed["Date"]
+    fig, ax = plt.subplots()
+    ax.plot(forecast_date, forecast_renamed["Price"])
+
+    # change colour of line
+    mask = forecast_date >= current_date
+    # ax.plot(forecast_date[mask], forecast_renamed["Price"][mask], line=dict(color='blue '))
+    
+    # ax = px.line(forecast_renamed, x='Date', y='Price')
+    # fig.show()
+    fig = px.line()
+    fig.add_scatter(x=before['Date'], y=before['Price'], mode='lines', name='Past years data')
+    fig.add_scatter(x=after['Date'], y=after['Price'], mode='lines', name='Future predicted data')
+    fig.update_layout(title = ticker + ' share price', yaxis_title = 'Stock Price (SGD)')
+    predictionchart = {
+        'predictionchart': fig.to_html()
+        }
+    return predictionchart
 
 def getnews():
     google_news = GNews()
@@ -291,15 +390,16 @@ def simple_upload(request):
 #buy.html
 def buy_stock(request):
     stocks = Stocks.objects.all()
-    # currentPrice = getStockPrice('D05.SI')
     stock_owned = StockOwned.objects.all()
+    print('hey im here')
     if request.method == 'POST':
         form = BuyStockForm(request.POST)
         if form.is_valid():
+            print('hey im here yet again')
             # Get the stock object
             stock = Stocks.objects.get(pk=form.cleaned_data['stock'].id)
             # Get the current price of the stock
-            current_price = 5#currentPrice
+            current_price = get_stock_info()
             # Get the units buying
             units_buying = form.cleaned_data['quantity']
             # Calculate the total price
@@ -321,7 +421,7 @@ def buy_stock(request):
             stock_owned.quantity += units_buying
             stock_owned.save()
             messages.success(request, f'Successfully purchased {units_buying} units of {stock.name}!')
-            return redirect('profile')
+            return redirect('purchase')
     else:
         form = BuyStockForm()
     context = {
@@ -441,3 +541,18 @@ def get_stock_info(request):
         # current_price = "{:, .2f}".format(current_price)
         return JsonResponse({'current_price': current_price})
         
+
+def tutorial_1(request):
+    return render(request, 'tutorial_1.html')
+def tutorial_2(request):
+    return render(request, 'tutorial_2.html')
+def tutorial_3(request):
+    return render(request, 'tutorial_3.html')
+def tutorial_4(request):
+    return render(request, 'tutorial_4.html')
+def tutorial_5(request):
+    return render(request, 'tutorial_5.html')
+def tutorial_6(request):
+    return render(request, 'tutorial_6.html')
+def tutorial_7(request):
+    return render(request, 'tutorial_7.html')

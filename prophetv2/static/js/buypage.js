@@ -67,3 +67,28 @@ stockNameDropdown.addEventListener("change", function()
       });
     });
   });
+
+
+  $(document).ready(function() {
+    $('#buy-stock-form').submit(function(event) {
+        event.preventDefault(); // prevent form from submitting normally
+
+        // get the form data
+        var formData = $('#buy-stock-form').serialize();
+
+        // submit the form using Ajax
+        $.ajax({
+            type: 'POST',
+            url: '/buy/',
+            data: formData,
+            success: function(response) {
+                // handle success response
+                alert('Stock bought successfully!');
+            },
+            error: function(xhr, status, error) {
+                // handle error response
+                alert('Error buying stock: ' + error);
+            }
+        });
+    });
+});

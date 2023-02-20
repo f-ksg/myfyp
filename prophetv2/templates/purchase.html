@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 {%load static%}
+{% block purchase_head %}
 <html lang="en">
+
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -9,11 +11,15 @@
     <meta name="author" content="" />
     <title>Purchase</title>
     <link href="/static/css/styles.css" rel="stylesheet" />
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
     <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.3/dist/jquery.min.js"></script>
-
+    <script src ="https://cdnjs.cloudflare.com/ajax/libs/js-cookie/3.0.1/js.cookie.min.js"></script>
 </head>
+{% endblock %}
 
+{% block purchase_body %}
+{% csrf_token %}
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <div class="container-fluid">
@@ -80,7 +86,8 @@
                 </div>
             </nav>
         </div>
-
+        {%endblock%}
+        {%block purchase_chart%}
         <!--Main page layout-->
         <div id="layoutSidenav_content">
             <main>
@@ -93,57 +100,123 @@
                                 Purchase
                             </div>
                             <div class="card-body">
-                                {% block currentchart %}
-                                {% endblock %}   
+                                {%endblock%}
                                 <div id="chart">
-                                    {{ chart_div | safe }}
+                                    {{ predictionchart | safe }}
                                 </div>
+                                {%block purchase_end%}
                                 <script>
-                                    var chartData = {{ chart | safe }}
+                                    //var chartData = {{ chart | safe }}
                                 </script>
                                 <div class="d-flex justify-content-center mb-3">
-                                    <p class="pt-2 me-3">Current Price:</p>
-                                    <input class="form-control w-auto mb-3 me-3" type="text"
-                                         placeholder="" id="currentprice" value = "" disabled> {% comment %}{{currentPrice}} {% endcomment %}
-                                    <p class="pt-2 me-3">We recommend:</p>
-                                    <input class="form-control w-auto mb-3" type="text" placeholder="buy"
-                                        id="recommendation" disabled>
-                                </div>
-                                <div class="d-flex justify-content-center">
-
                                     <div class="input-group rounded w-auto me-3 mb-auto">
-                                        <!--<input class="form-control rounded" list="datalistOptions" id="exampleDataList" placeholder="Search">-->
-                                        <input type="search" class="form-control rounded mb-3" list = "datalistOptions" id="searchDataList" value ="" placeholder="Stock code" aria-label="Stock Code" aria-describedby="search-addon" />
+                                        <!--search stockcode-->
+                                        <input type="search" class="form-control rounded mb-3" list="datalistOptions"
+                                            id="searchDataList" value="" placeholder="Stock code"
+                                            aria-label="Stock Code" aria-describedby="search-addon" />
                                         <datalist id="datalistOptions">
                                             {% for object in stocks %}
                                             <option value="{{object.name}} {{object.ticker}}.SI">
-                                            {% endfor %}
+                                                {% endfor %}
                                         </datalist>
                                         <span class="input-group-text mb-3" id="search-addon">
                                             <i class="fas fa-search"></i>
                                         </span>
                                     </div>
-                                    <div class="button-group">
-                                        {% include "buy.html"%}
-                                        {% comment %} {%block buycontent%}
-                                        {%endblock%} {% endcomment %}
-                                    </div>
-
-                                    <div class = "px-3">
-                                    </div>
-                                    <!--<button type = "button" class = "btn btn-success me-3 mb-3">Buy</button>-->
-                                    <button type="button" class="btn btn-danger me-3 mb-3">sell</button>
+                                    <p class="pt-2 me-3">Current Price:</p>
+                                    <input class="form-control w-auto mb-3 me-3" type="text" placeholder=""
+                                        id="currentprice" value="{{ currentPrice }}" disabled>
+                                    <p class="pt-2 me-3">We recommend:</p>
+                                    <input class="form-control w-auto mb-3" type="text" placeholder="buy"
+                                        id="recommendation" disabled>
+                                    <p class="ms-3 pt-2 me-3">Account Balance:</p>
                                     <input class="form-control w-auto mb-3" type="text"
                                         placeholder="{{user.profile.accountbalance}}"
-                                        value={{user.profile.accountbalance}} id="accountBalance"
-                                        aria-label="Account Balance" disabled readonly/>
+                                        value='SGD $ {{user.profile.accountbalance}}' id="accountBalance"
+                                        aria-label="Account Balance" disabled readonly />
                                 </div>
-                                <input id="ticker-code" value ="" hidden/>
+                                <div class="d-flex justify-content-center">
+
+                                    <div class="input-group rounded w-auto me-3 mb-auto">
+                                        <!--<input class="form-control rounded" list="datalistOptions" id="exampleDataList" placeholder="Search">-->
+                                        <div class="modal fade" id="exampleModal" tabindex="-1"
+                                            aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog modal-dialog-centered">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Buy</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                            aria-label="Close"></button>
+                                                    </div>
+
+                                                    <!--Buy modal-->
+                                                    <div class="modal-body">
+                                                        <div class="container">
+                                                            <form method="POST" id="buy-form">
+                                                                {% csrf_token %}
+                                                                <div class="form-group">
+                                                                    <label for="stock-name">Stock Name</label>
+                                                                    <select class="form-control" id="stock-name"
+                                                                        name="stock-name" required>
+                                                                        <option value="" selected>Select Stock</option>
+                                                                        {% for object in stocks %}
+                                                                        <option value="{{ object.name }} {{object.ticker}}">{{ object.name }} ({{ object.ticker }})</option>
+                                                                        {% endfor %}
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="units-owned">Ticker</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="stock-ticker" value="" disabled>
+                                                                </div>
+
+                                                                <div class="form-group">
+                                                                    <label for="units-owned">Units Owned</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="units-owned"
+                                                                        value="{{ stock_owned.quantity|default:" 0"}}"
+                                                                        disabled>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="current-price">Current Price</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="current-price" value="" disabled>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="units-buying">Units Buying</label>
+                                                                    <input type="number" class="form-control"
+                                                                        id="units-buying" step="0.1" min="0.1"
+                                                                        max="1000000" required>
+                                                                </div>
+                                                                <div class="form-group">
+                                                                    <label for="total-price">Total Price</label>
+                                                                    <input type="text" class="form-control"
+                                                                        id="total-price" value="0" disabled>
+                                                                </div>
+                                                                <div class="form-group pt-3">
+                                                                    <button type="submit" id="modal-submit"
+                                                                        class="btn btn-primary">Buy</button>
+                                                                </div>
+                                                            </form>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <!--Buy modal-->
+                                            </div>
+                                        </div>
+
+                                        <div class="button-group">
+                                            <button type="button" class="btn btn-success me-3 mb-3"
+                                                data-bs-toggle="modal" data-bs-target="#exampleModal" id = "buyButton">Buy</button>
+                                            <button type="button" class="btn btn-danger me-3 mb-3">sell</button>
+                                        </div>
+                                    </div>
+                                    <input id="ticker-code" value="" hidden />
+                                </div>
                             </div>
                         </div>
-                    </div>
-
             </main>
+
             <footer class="py-4 bg-light mt-auto">
                 <div class="container-fluid px-4">
                     <div class="d-flex align-items-center justify-content-between small">
@@ -159,8 +232,7 @@
     <script src="/static/js/buypage.js"></script>
     <script src="{%static '/js/purchase.js'%}"></script>
     <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-    {% comment %} <!--{%block buyscript%}
-    {% endblock %}--> {% endcomment %}
 </body>
+{% endblock %}
 
 </html>

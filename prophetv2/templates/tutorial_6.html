@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>MoneyVerse</title>
+
+
+        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link href="/static/css/styles.css" rel="stylesheet" />
+        <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    </head>
+    <body class="sb-nav-fixed bg-dark">
+        <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
+            <div class ="container-fluid">
+                <!-- Navbar Brand-->
+                <a class="navbar-brand ps-3">MoneyVerse</a>
+
+                <!-- Navbar-->
+                <div class ="d-flex align-items-center">
+                    <a class ="me-3" id="helpButton" data-toggle="button" aria-pressed="false" autocomplete="off">
+                        <i class = "fa fa-question-circle w3-xxlarge">
+                        </i>
+                    </a>            
+                           
+                    <ul class="navbar-nav">
+                        <!---->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fa fa-bars w3-xxlarge"></i></a>
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#!">Settings</a></li>
+                                <li><a class="dropdown-item" href="#!">Activity Log</a></li>
+                                <li><hr class="dropdown-divider" /></li>
+                                <li><a class="dropdown-item" href="#!">Logout</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <!--Side Bar-->
+        <div id="layoutSidenav">
+            <div id="layoutSidenav_nav">
+                <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
+                    <div class="sb-sidenav-menu">
+                        <!--Disable side navigation menu for tutorial-->
+                    </div>
+                    <div class="sb-sidenav-footer">
+                        <div class="small">Logged in as:</div>
+                        freddie@test.com
+                        <!--Get username/email js script-->
+                    </div>
+                </nav>
+            </div>
+
+            <!--Main page layout-->
+            <div id="layoutSidenav_content">
+                <div class="layoutTutorial">
+                    <main>
+                        <div class="container-fluid">
+                            <h3 class="mt-6"> 
+                                This stock seems to be doing well and our<br>
+                                recommendation suggests to buy it. Let's try!<br><br>
+                                Click on the
+                                    <button type="button" class="btn btn-success mb-3">Buy</button><br>
+                                button and then click on the <i class="fa fa-question-circle w3-xxlarge"></i>
+                                <img src="/static/images/mascot.png class = "img-tutorial""><br><br><br>
+                            </h3>
+
+                            <div class="card-tutorial">
+                                <div class="card mb-4">
+                                    <div class="card-header">
+                                        <i class="fas fa-chart-area me-1"></i>
+                                        Stock Chart
+                                    </div>
+                                    <div class="card-body">
+                                        <!-- TradingView Widget BEGIN -->
+                                        <div class="tradingview-widget-container">
+                                            <div id="tradingview_51854"></div>
+                                            <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener" target="_blank"><span class="blue-text">AAPL stock chart</span></a> by TradingView</div>
+                                            <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                                            <script type="text/javascript">
+                                            new TradingView.widget(
+                                            {
+                                            "autosize": false,
+                                            "width": 1200,
+                                            "height": 600,
+                                            "symbol": "NASDAQ:AAPL",
+                                            "interval": "D",
+                                            "timezone": "Etc/UTC",
+                                            "theme": "light",
+                                            "style": "1",
+                                            "locale": "en",
+                                            "toolbar_bg": "#f1f3f6",
+                                            "enable_publishing": false,
+                                            "allow_symbol_change": true,
+                                            "container_id": "tradingview_51854"
+                                        }
+                                            );
+                                            </script>
+                                        </div>
+                                        <!-- TradingView Widget END -->
+                                    </div>
+                                    <div class="d-flex justify-content-center mb-3">
+                                        <p class="pt-2 me-3">Current Price:</p>
+                                            <input class = "form-control w-auto mb-3 me-3" type="text" placeholder="$153.71" id="currentprice"  disabled>
+                                        <p class="pt-2 me-3 " >We recommend:</p>
+                                            <input class = "form-control w-auto mb-3 tip-container" type="text" placeholder="Buy" id="recommendation" data-toggle="popover" data-trigger="manual" title="This is our recommendation for what actions you can take based on our predictions" data-placement="top" disabled>
+                                    </div>
+                                    <div class="d-flex justify-content-center mb-3">
+                                        <div class="input-group rounded w-auto me-3 mb-auto">
+                                            <input type="search" class="form-control mb-3 tip-container" placeholder="Stock code" aria-label="Stock Code" aria-describedby="search-addon" data-toggle="popover" data-trigger="manual" title="This is your search bar for stock codes" data-placement="left"/>
+                                            <span class="input-group-text border-0 mb-3" id="search-addon">
+                                                <i class="fas fa-search"></i>
+                                            </span>
+                                        </div>
+                                        <button type="submit" id= "buyButton" class="btn btn-success me-3 mb-3" onclick="openPopup()">Buy</button>
+                                            <div class="popup popup-confirmation" id="popup">
+                                                <h4>
+                                                    Stock Code:
+                                                        <input class = "form-control mb-3 me-3 tip-container" type="text" placeholder="AAPL" disabled 
+                                                        data-toggle="popover" data-trigger="manual" title="This is the stock code" data-placement="left">
+                                                    Current Price:
+                                                        <input class = "form-control mb-3 me-3 tip-container" type="text" placeholder="$153.71" disabled 
+                                                        data-toggle="popover" data-trigger="manual" title="This is the current price of the stock" data-placement="left">
+                                                    Shares Owned:
+                                                        <input class = "form-control mb-3 me-3 tip-container" type="text" placeholder="0 shares" disabled 
+                                                        data-toggle="popover" data-trigger="manual" title="This is the number of stock shares that you have currently" data-placement="left">
+                                                    Shares Buying:
+                                                        <input class = "form-control mb-3 me-3 tip-container" type="text" placeholder="10 shares" disabled 
+                                                        data-toggle="popover" data-trigger="manual" title="This is where you choose how many shares that you want to buy. In this tutorial, we will go with 10 shares" data-placement="left">
+                                                    Total Price:
+                                                        <input class = "form-control mb-3 me-3 tip-container" type="text" placeholder="$1,537.10" disabled 
+                                                        data-toggle="popover" data-trigger="manual" title="This is the total price that needs to be paid" data-placement="left">
+                                                </h4>
+                                                <button type="button" onclick="closePopup()">Confirm</button>
+                                            </div>
+                                        <button type="button" class="btn btn-danger me-3 mb-3">Sell</button>
+                                        <p class="pt-2 me-3">Balance:</p>
+                                            <input class="form-control w-auto mb-3 tip-container" type="text" placeholder="$30,000.00" id= "accountBalance" aria-label="Account Balance"  disabled data-toggle="popover" data-trigger="manual" title="This is your account balance" data-placement="right">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </main>
+                </div>
+                <footer class="py-4 bg-light mt-auto">
+                    <div class="container-fluid px-4">
+                        <div class="d-flex align-items-center justify-content-between small">
+                            <div class="text-muted">MoneyVerse</div>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="/static/js/scripts.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
+        <script src="/static/assets/demo/chart-area-demo.js"></script>
+        <script src="/static/assets/demo/chart-bar-demo.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+        <script src="/static/js/datatables-simple-demo.js"></script>
+        <script>
+            $(function () {
+                $('[data-toggle="tooltip"]').tooltip()
+            })
+
+            $(function () {
+                $('[data-toggle="popover"]').popover()
+            })
+
+            $('#helpButton').on('click', function() {    
+                $('.tip-container').popover('toggle');
+            });
+
+
+        </script>
+        <script>
+            function reDirect()
+            {
+                location.href = "/tutorial_7/";
+            }
+        </script>
+        <script>
+
+            let popup = document.getElementById("popup");
+            function openPopup()
+            {
+                
+                popup.classList.add("open-popup");
+                
+            }
+
+            function closePopup()
+            {
+                popup.classList.remove("open-popup");
+                location.href = "/tutorial_7/";
+                
+            }
+        </script>
+    </body>
+</html>
