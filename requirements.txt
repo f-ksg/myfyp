@@ -30,7 +30,6 @@ dnspython==1.16.0
 ephem==4.1.4
 et-xmlfile==1.1.0
 exceptiongroup==1.1.0
-feedparser==6.0.10
 fonttools==4.38.0
 frozendict==2.3.4
 gnews==0.2.7
