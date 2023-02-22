@@ -78,7 +78,7 @@ $('#registrationForm').on('submit', function(e)
     let isValid = true;
 
     // Validate name
-    if($('#name').val().trim() == '')
+    if($('#username').val().trim() == '')
     {
       $('#nameHelp').text('Name is required').show();
       isValid = false;
@@ -99,7 +99,7 @@ if($('#email').val().trim() == '')
   }
   
   // Validate password
-  if($('#password').val().trim() == ''){
+  if($('#password1').val().trim() == ''){
     $('#passwordHelp').text('Password is required').show();
     isValid = false;
   } else {
