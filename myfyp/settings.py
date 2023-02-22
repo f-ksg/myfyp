@@ -13,7 +13,12 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from pathlib import Path
 from django.contrib.messages import constants as messages
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
+import os
+from dotenv import load_dotenv
+
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+load_dotenv(os.path.join(BASE_DIR, ".env"))
 
 
 # Quick-start development settings - unsuitable for production
@@ -90,17 +95,27 @@ WSGI_APPLICATION = 'myfyp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'mydb',
+#         'USER': 'postgres',
+#         'PASSWORD': '0000',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
+#     }
+# }
+
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mydb',
+        'NAME': 'railway',
         'USER': 'postgres',
-        'PASSWORD': '0000',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
+        'PASSWORD': 'gYKDQGkhaDGCMA6eZ1Hn',
+        'HOST': 'containers-us-west-70.railway.app',
+        'PORT': '6217',
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
