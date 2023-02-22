@@ -59,7 +59,7 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5'
 CRISPY_ALLOWED_TEMPLATE_PACK ='bootstrap5'
 
 CSRF_COOKIE_DOMAIN = [
-    'railway.app'
+    '.railway.app'
 ]
 
 MIDDLEWARE = [
