@@ -1,1 +1,1 @@
-web: python manage.py migrate && gunicorn myfyp.wsgi
+web: python manage.py runserver && gunicorn myfyp.wsgi
