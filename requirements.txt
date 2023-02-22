@@ -60,7 +60,6 @@ plotly==5.13.0
 prophet==1.1.2
 psycopg2==2.9.5
 pycparser==2.21
-pygooglenews==0.1.2
 PyMeeus==0.5.12
 pymongo==3.12.3
 pyparsing==3.0.9
