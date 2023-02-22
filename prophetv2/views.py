@@ -25,7 +25,7 @@ from prophet import Prophet
 from dateutil.relativedelta import relativedelta
 from gnews import GNews
 from tablib import Dataset
-import pprint, json, mpld3
+import pprint, json
 
 firsttime = True
 
