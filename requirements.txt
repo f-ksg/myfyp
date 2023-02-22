@@ -3,7 +3,7 @@ asgiref==3.6.0
 async-generator==1.10
 attrs==22.2.0
 beautifulsoup4
-bs4==0.0.1
+bs4
 certifi==2022.12.7
 cffi==1.15.1
 chardet==5.1.0
@@ -32,7 +32,7 @@ et-xmlfile==1.1.0
 exceptiongroup==1.1.0
 fonttools==4.38.0
 frozendict==2.3.4
-gnews==0.2.7
+gnews
 h11==0.14.0
 hijri-converter==2.2.4
 holidays==0.19
@@ -90,6 +90,6 @@ webencodings==0.5.1
 wsproto==1.2.0
 xlrd==2.0.1
 xlwt==1.3.0
-yfinance==0.2.11
+yfinance
 gunicorn==20.1.0
 feedparser
