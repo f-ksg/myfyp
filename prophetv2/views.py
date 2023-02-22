@@ -57,7 +57,21 @@ def landingpage(request):
     
 @login_required
 def history_page(request):
-    return render(request, 'history.html')
+    stock_owned = StockOwned.objects.filter(profile=request.user.profile)
+    print(str(stock_owned))
+    data = []
+    for stock in stock_owned:
+        total_sum = round(stock.quantity * stock.purchase_price, 2)
+        data.append({
+            'stock_name': stock.stock.name,
+            'stock_ticker': stock.stock.ticker,
+            'quantity': stock.quantity,
+            'purchase_price': stock.purchase_price,
+            'total_sum': total_sum,
+            'purchased_at': stock.purchased_at
+        })
+    return render(request, 'history.html', {'data': data})
+    
 
 #purchasepage
 @login_required
@@ -150,7 +164,8 @@ def purchase_page(request):
                 profile.save()
                 # Add the stock to the user's stock owned
                 stock_owned, created = StockOwned.objects.get_or_create(
-                    profile=profile, stock=stock,
+                    profile=profile, 
+                    stock=stock,
                     defaults={'purchase_price': current_price, 'quantity': 0}
                 )
 
@@ -205,7 +220,7 @@ def purchase_page(request):
                     refreshurl = request.path_info
                     refreshurl = refreshurl + '?ticker=' + ticker
                     return HttpResponseRedirect(refreshurl)
-               
+
                 # Reduce the quantity of the stock owned
                 stock_owned = get_object_or_404(StockOwned, pk=stock_name)
                 print('-------------------------------------')
@@ -213,6 +228,16 @@ def purchase_page(request):
                 print('-------------------------------------')
                 print(stock_owned.quantity)
                 print('-------------------------------------')
+                # delete entire obj if qty is the same
+                if units_selling == stock_owned.quantity:
+                    stock_owned.delete()
+                    profile.accountbalance += total_price
+                    profile.save()
+                    refreshurl = request.path_info
+                    refreshurl = refreshurl + '?ticker=' + ticker
+                    messages.success(request, f'Successfully sold all units of {stock_owned}!')
+                    return HttpResponseRedirect(refreshurl)
+
                 stock_owned.quantity -= units_selling
                 stock_owned.save()
                 
@@ -220,6 +245,7 @@ def purchase_page(request):
                 profile.accountbalance += total_price
                 profile.save()
 
+                
                 refreshurl = request.path_info
                 refreshurl = refreshurl + '?ticker=' + ticker
                 messages.success(request, f'Successfully sold {units_selling} units of {stock_owned}!')
