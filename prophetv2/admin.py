@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Profile#, TestStockInfo
 from import_export.admin import ImportExportModelAdmin
-from .models import StockInfo, Stocks
+from .models import StockInfo, Stocks, StockOwned
 from .resources import StockInfoResource
 
 class TestStockInfoAdmin(ImportExportModelAdmin):
@@ -12,4 +12,5 @@ admin.site.register(StockInfo, TestStockInfoAdmin)
 #  Register your models here.
 admin.site.register(Profile)
 admin.site.register(Stocks)
+admin.site.register(StockOwned)
 # admin.site.register(StockInfo)

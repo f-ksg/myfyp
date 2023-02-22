@@ -18,14 +18,6 @@ inputField.addEventListener('change', () => {
     tickerCodeField.value = selectedOption.value.split(' ').pop();
 });
 
-// $(document).ready(function () 
-// {
-//     var ccurrentPrice = data.current_price;
-//     // console.log(typeof currentPrice);
-//     // console.log(currentPrice);
-//     var n = ccurrentPrice.toFixed(3);
-//     $('#currentprice').val(n);
-// });
 
 //get current price and display
 $(document).ready(function () 
@@ -80,14 +72,14 @@ $(document).ready(function ()
                     }
                 },
                 success: function(data) {
-                    console.log('hey im here')
-                    const newurl = `/purchase/?ticker=${tickerCodeField.value}`;
+                    console.log('hey im here');
+                    const newurl = `/purchase/?ticker=${tickerCodeField.val()}`;
                     // Open the URL in a new tab
-                    window.location.href = url;
+                    //window.location.href = url;
                 },
                 error: function(xhr, textStatus, errorThrown) {
                     errormessage = 'current price chart error!';
-                    console.log('eh fail leh')
+                    console.log(errormessage);
                     //alert('unable to retrieve stock price');
     }
             });
@@ -95,10 +87,28 @@ $(document).ready(function ()
 
 });
 
-var buybutton = document.getElementById('buyButton');
+//-----------------------for django buy model form----------------------
+const units_buying = document.getElementById('id_units_buying');
+units_buying.addEventListener('keyup', (e) => 
+{
 
-buybutton.addEventListener('click', () => {
-    var datalist = document.getElementById('stock-name');
+    var units = parseFloat(document.getElementById('id_units_buying').value);
+    console.log(units);
+    //regex to strip $ and save .
+    var price = document.getElementById('id_purchase_price').value.replace(/[^\d.-]/g, '');
+    console.log(price);
+    var sum = units*price || 0;
+    var summy = Math.round(sum*100)/100;
+    // var stringSum = "$ " + summy;
+    document.getElementById('id_total_price').value = summy;
+});
+
+
+var buyyButton = document.getElementById('buyButton');
+buyyButton.addEventListener('click', () => 
+{
+    document.getElementById('id_total_price').readOnly = true;
+    //var datalist = document.getElementById('id_stock');
     var buystockform = document.getElementById('stock-ticker');
     // Get the URL query string
     const queryString = window.location.search;
@@ -112,32 +122,67 @@ buybutton.addEventListener('click', () => {
     // Use the 'code' variable as needed
     console.log(code);
 
-    const testoption = [...datalist.options].find((option) => option.value.includes(code));
-    console.log(testoption);
-    if (testoption) 
-    {
-        testoption.selected = true;
-        tickerCodeField.value = testoption.value.split(' ').pop();
-        console.log(tickerCodeField.value);
-        buystockform.value = tickerCodeField.value + '.SI';
-        var currentpriceform = document.getElementById('current-price');
-        currentpriceform.value = document.getElementById('currentprice').value;
-    }
+    stockchoice = document.getElementById('id_stock');
+    //print(stockchoice);
+    // Check if a choice contains the partial string
+    for (let i = 0; i < stockchoice.options.length; i++) {
+        const option = stockchoice.options[i];
+        if (option.textContent.includes(code)) 
+        {
+          option.selected = true;
+          break;
+        }
+      }
+   
+    var currentpriceform = document.getElementById('id_purchase_price');
+    currentpriceform.value = document.getElementById('currentprice').value.replace('$', '');
+    
+});
+//--------------------end django buy model form----------------------
+
+//-----------------------for django sell model form----------------------
+//get quantity of stocks owned
+$(document).ready(function() {
+    $('#id_stock_owned').change(function() {
+        // Retrieve the selected stock's ID
+        var stock_id = $(this).val();
+        // Make an AJAX request to retrieve the stock's quantity
+        $.get('/get-stock-quantity/', {'stock_id': stock_id}, function(data) {
+            // Update the quantity field with the retrieved quantity
+            console.log(data);
+            $('#id_sell_quantity').val(data.quantity);
+        });
+        
+        //get current price
+        const id_stock_owned_value = $("#id_stock_owned").val();
+        const stockname = $("#id_stock_owned option:selected").text();
+        $.get('/get_stock_price_new/', 
+        {'stockname': stockname}, 
+        function(data) 
+        {
+            console.log(data);
+            $('#id_sell_price').val(data.price);
+        });
+
+    });
 });
 
 
-const totalprice = document.getElementById('units-buying');
 
-totalprice.addEventListener('keyup', (e) => 
+const units_selling = document.getElementById('id_units_selling');
+units_selling.addEventListener('keyup', (e) => 
 {
-    var units = parseFloat(document.getElementById('units-buying').value);
+    console.log('im here pressing');
+    var units = parseFloat(document.getElementById('id_units_selling').value);
     console.log(units);
     //regex to strip $ and save .
-    var price = document.getElementById('current-price').value.replace(/[^\d.-]/g, '');
+    var price = document.getElementById('id_sell_price').value.replace(/[^\d.-]/g, '');
     console.log(price);
     var sum = units*price || 0;
     var summy = Math.round(sum*100)/100;
     // var stringSum = "$ " + summy;
-    document.getElementById('total-price').value = '$' + summy;
-    
+    document.getElementById('id_sell_total_price').value = summy;
 });
+
+
+//-------------------------------------------------------------------------

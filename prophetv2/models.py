@@ -2,12 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.db.models import Q
 # Create your models here.
 
 #account creation
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    accountbalance = models.FloatField()
+    accountbalance = models.DecimalField(decimal_places=2, max_digits=10)
     tutorialcompletion = models.BooleanField()
 
 @receiver(post_save, sender= User)
@@ -52,22 +53,30 @@ class Stocks(models.Model):
     
     class Meta:
         unique_together = ('name', 'ticker')
-
+    def __str__(self):
+        return f"Name: {self.name} Ticker: {self.ticker}"
 
 class StockOwned(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
     stock = models.ForeignKey(Stocks, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=0)
+    quantity = models.DecimalField(max_digits=10, decimal_places=2, default=0)
     purchase_price = models.DecimalField(max_digits=10, decimal_places=2)
     purchased_at = models.DateTimeField(auto_now_add=True)
 
+    class Meta:
+        constraints = [
+            models.UniqueConstraint(fields=['profile', 'stock', 'purchase_price'], name='unique_stock_owned'),
+            models.UniqueConstraint(fields=['profile', 'stock'], condition=Q(purchased_at=None), name='unique_stock_owned_null'),
+        ]
+
     def __str__(self):
-        return f"{self.profile.user.username} owns {self.quantity} shares of {self.stock.name}"
+        return f"{self.stock.name}"
 
 class StockSold(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE)
+    stock_owned = models.ForeignKey(StockOwned, on_delete=models.CASCADE, default=0)
     stock = models.ForeignKey(Stocks, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField()
+    quantity = models.DecimalField(max_digits=10, decimal_places=2)
     sell_price = models.DecimalField(max_digits=10, decimal_places=2)
     sold_at = models.DateTimeField(auto_now_add=True)
 

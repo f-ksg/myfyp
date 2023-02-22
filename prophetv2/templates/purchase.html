@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 {%load static%}
+{% load crispy_forms_tags %}
+{% load crispy_forms_filters %}
 {% block purchase_head %}
 <html lang="en">
 
@@ -21,6 +23,7 @@
 {% block purchase_body %}
 {% csrf_token %}
 <body class="sb-nav-fixed">
+    
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <div class="container-fluid">
             <!-- Navbar Brand-->
@@ -91,6 +94,7 @@
         <!--Main page layout-->
         <div id="layoutSidenav_content">
             <main>
+                
                 <div class="container-fluid px-4">
                     <h1 class="mt-4">Purchase</h1>
                     <div>
@@ -100,6 +104,7 @@
                                 Purchase
                             </div>
                             <div class="card-body">
+                                {% include 'messages.html' %}
                                 {%endblock%}
                                 <div id="chart">
                                     {{ predictionchart | safe }}
@@ -152,51 +157,13 @@
                                                     <!--Buy modal-->
                                                     <div class="modal-body">
                                                         <div class="container">
-                                                            <form method="POST" id="buy-form">
+                                                            <form method="POST" action ="/purchase/?ticker={{ticker}}" id="buy-form">
                                                                 {% csrf_token %}
-                                                                <div class="form-group">
-                                                                    <label for="stock-name">Stock Name</label>
-                                                                    <select class="form-control" id="stock-name"
-                                                                        name="stock-name" required>
-                                                                        <option value="" selected>Select Stock</option>
-                                                                        {% for object in stocks %}
-                                                                        <option value="{{ object.name }} {{object.ticker}}">{{ object.name }} ({{ object.ticker }})</option>
-                                                                        {% endfor %}
-                                                                    </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="units-owned">Ticker</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="stock-ticker" value="" disabled>
-                                                                </div>
-
-                                                                <div class="form-group">
-                                                                    <label for="units-owned">Units Owned</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="units-owned"
-                                                                        value="{{ stock_owned.quantity|default:" 0"}}"
-                                                                        disabled>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="current-price">Current Price</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="current-price" value="" disabled>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="units-buying">Units Buying</label>
-                                                                    <input type="number" class="form-control"
-                                                                        id="units-buying" step="0.1" min="0.1"
-                                                                        max="1000000" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label for="total-price">Total Price</label>
-                                                                    <input type="text" class="form-control"
-                                                                        id="total-price" value="0" disabled>
-                                                                </div>
+                                                                {{ form | crispy }}
                                                                 <div class="form-group pt-3">
-                                                                    <button type="submit" id="modal-submit"
-                                                                        class="btn btn-primary">Buy</button>
-                                                                </div>
+                                                                    <button type="submit" id="buy"
+                                                                        class="btn btn-primary" value="buy" name="buy">Buy</button>
+                                                                </div> 
                                                             </form>
                                                         </div>
                                                     </div>
@@ -204,11 +171,41 @@
                                                 <!--Buy modal-->
                                             </div>
                                         </div>
-
+                                        <!--Sell modal-->
+                                        <div class="input-group rounded w-auto me-3 mb-auto">
+                                            <!--<input class="form-control rounded" list="datalistOptions" id="exampleDataList" placeholder="Search">-->
+                                            <div class="modal fade" id="sellModal" tabindex="-1"
+                                                aria-labelledby="sellModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog modal-dialog-centered">
+                                                    
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="sellModalLabel">Sell</h5>
+                                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                                aria-label="Close"></button>
+                                                        </div>
+    
+                                                        <div class="modal-body">
+                                                            <div class="container">
+                                                                <form method="POST" action ="/purchase/?ticker={{ticker}}" id="sell-form">
+                                                                    {% csrf_token %}
+                                                                    {{ sellform | crispy }}
+                                                                    <div class="form-group pt-3">
+                                                                        <button type="submit" id="sell"
+                                                                            class="btn btn-primary" value="sell" name="sell">Sell</button>
+                                                                    </div> 
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <!--Sell modal-->
+                                                </div>
+                                            </div>
                                         <div class="button-group">
                                             <button type="button" class="btn btn-success me-3 mb-3"
                                                 data-bs-toggle="modal" data-bs-target="#exampleModal" id = "buyButton">Buy</button>
-                                            <button type="button" class="btn btn-danger me-3 mb-3">sell</button>
+                                            <button type="button" class="btn btn-danger me-3 mb-3"
+                                            data-bs-toggle="modal" data-bs-target="#sellModal" id = "sellButton">Sell</button>
                                         </div>
                                     </div>
                                     <input id="ticker-code" value="" hidden />

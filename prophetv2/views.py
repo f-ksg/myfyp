@@ -1,15 +1,15 @@
 import time
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
 from django.db.models import Avg
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm  
-from django.http import HttpResponse, JsonResponse
+from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.template import Template, Context
 from django.template.loader import render_to_string
-from .forms import SignUpForm, BuyStockForm
+from .forms import SellStockForm, SignUpForm, BuyStockForm
 from .models import Profile, StockInfo, Stocks, StockSold, StockOwned, StockOwned
 from .resources import StockInfoResource
 import yfinance as yf
@@ -50,15 +50,9 @@ def landingpage(request):
             # print(form)
             if form.is_valid(): 
                 user = form.save()
-                # user.refresh_from_db()
-                # user.profile.accountbalance = 30000
-                # user.save()
-                # print('form is saved')
-                
-                return redirect('landingpage')
                 messages.success(request, 'Account registered')
-            # context = {'form': form}
-            # return render(request, 'signup.html', context) 
+                return redirect('landingpage')
+                
     return render(request, 'landingpage.html')
     
 @login_required
@@ -71,8 +65,13 @@ def purchase_page(request):
     global firsttime
     stockObj = Stocks.objects.all()
     stockOwnedObj = StockOwned.objects.all()
+    profile = request.user.profile
     #stockPrice = get_stock_price(request)
     ticker = request.GET.get('ticker')
+    form = BuyStockForm()
+    sellform = SellStockForm()
+    # sellform = SellStockForm(instance=StockSold.objects.get())
+    
 
     #prediction chart
     if request.method == 'GET' and ticker is not None:
@@ -90,8 +89,13 @@ def purchase_page(request):
         context = {
             'stocks':stockObj,
             'stockowned':stockOwnedObj,
-            'currentPrice':currentPrice
+            'currentPrice':currentPrice,
+            'form':form,
+            'ticker': ticker,
+            'sellform': sellform,
+            'profile': profile
         }
+
         context.update(currentChart)
         return render(request, 'purchase.html', context)
     #default prediction chart - dbs05
@@ -109,10 +113,146 @@ def purchase_page(request):
         context = {
             'stocks':stockObj,
             'stockowned':stockOwnedObj,
-            'currentPrice':currentPrice
+            'currentPrice':currentPrice,
+            'form':form,
+            'sellform': sellform
         }
         context.update(currentChart)
         return render(request, 'purchase.html', context)
+    #buy logic
+    elif request.method == 'POST':
+        print('hola amigo im in post method')
+        stocks = Stocks.objects.all()
+        stock_owned = StockOwned.objects.all()
+        print('form is post')
+        form = BuyStockForm(request.POST)
+        #print(form)
+        if 'buy' in request.POST:
+            if form.is_valid():
+                print('form is valid')
+                # Get the stock object
+                stock = Stocks.objects.get(pk=form.cleaned_data['stock'].id)
+                # Get the current price of the stock
+                current_price = form.cleaned_data['purchase_price']
+                print(current_price)
+                # Get the units buying
+                units_buying = form.cleaned_data['units_buying']
+                print(units_buying)
+                # Calculate the total price
+                total_price = form.cleaned_data['total_price']
+                # Check if the user has enough balance
+                profile = request.user.profile
+                if profile.accountbalance < total_price:
+                    messages.error(request, 'Account has insufficient balance')
+                    return redirect('/purchase/')
+                # Deduct the account balance
+                profile.accountbalance -= total_price
+                profile.save()
+                # Add the stock to the user's stock owned
+                stock_owned, created = StockOwned.objects.get_or_create(
+                    profile=profile, stock=stock,
+                    defaults={'purchase_price': current_price, 'quantity': 0}
+                )
+
+                # Increase the quantity of the stock owned
+                stock_owned.quantity += units_buying
+                stock_owned.save()
+                print('success??')
+                print(ticker)
+                refreshurl = request.path_info
+                refreshurl = refreshurl + '?ticker=' + ticker
+                print (refreshurl)
+                messages.success(request, f'Successfully purchased {units_buying} units of {stock.name}!')
+                return HttpResponseRedirect(refreshurl)
+            else:
+                print('form is NOT valid')
+                print(form.errors)
+                form = BuyStockForm()
+                refreshurl = request.path_info
+                refreshurl = refreshurl + '?ticker=' + ticker
+                messages.error(request, f'Purchase failed, please check form.')
+                return HttpResponseRedirect(refreshurl)
+
+        elif 'sell' in request.POST:
+            sellform = SellStockForm(request.POST)
+            profile = request.user.profile
+            print('im in sell request.POST')
+            if sellform.is_valid():
+            #-----------------------------------------------------------------
+                # Get the stock object
+                stock_name = sellform.cleaned_data['stock_owned'].id
+                print('Stock owned: ' + str(stock_name))
+                print('-------------------------------------')
+                # Get the current price of the stock
+                current_price = sellform.cleaned_data['sell_price']
+                print('selling price: ' + str(current_price))
+                print('-------------------------------------')
+                # Get the units selling
+                units_selling = sellform.cleaned_data['units_selling']
+                print('units selling: ' + str(units_selling))
+                print('-------------------------------------')
+                # Calculate the total price
+                total_price = sellform.cleaned_data['total_price']
+                print('total price: ' + str(total_price))
+                print('-------------------------------------')
+                # Get quantity
+                quantity = sellform.cleaned_data['quantity']
+                print('quantity: ' + str(quantity))
+                print('-------------------------------------')
+                # Check if the user has enough stocks to sell
+                if quantity < units_selling:
+                    messages.error(request, 'Not enough stocks to sell')
+                    refreshurl = request.path_info
+                    refreshurl = refreshurl + '?ticker=' + ticker
+                    return HttpResponseRedirect(refreshurl)
+               
+                # Reduce the quantity of the stock owned
+                stock_owned = get_object_or_404(StockOwned, pk=stock_name)
+                print('-------------------------------------')
+                print(stock_owned)
+                print('-------------------------------------')
+                print(stock_owned.quantity)
+                print('-------------------------------------')
+                stock_owned.quantity -= units_selling
+                stock_owned.save()
+                
+                # Update account balance after selling the stock
+                profile.accountbalance += total_price
+                profile.save()
+
+                refreshurl = request.path_info
+                refreshurl = refreshurl + '?ticker=' + ticker
+                messages.success(request, f'Successfully sold {units_selling} units of {stock_owned}!')
+                return HttpResponseRedirect(refreshurl)
+            else:
+                print(sellform.errors)
+                sellform = SellStockForm()
+                refreshurl = request.path_info
+                refreshurl = refreshurl + '?ticker=' + ticker
+                messages.error(request, f'Units selling cannot be more than shares owned.')
+                return HttpResponseRedirect(refreshurl)
+            #---------------------------------------------------
+            # if sellform.is_valid():
+            #     print('form is valid')
+            #     print(sellform)
+            #     #do logic here then .save
+            # else:
+            #     print(form.errors)
+            #     #stock
+            #     # purchase_price 
+            #     # units_buying
+            #     sellform = SellStockForm()
+            #     refreshurl = request.path_info
+            #     refreshurl = refreshurl + '?ticker=' + ticker
+            #     messages.error(request, f'Selling failed')
+            #     return HttpResponseRedirect(refreshurl)
+
+    
+    
+
+
+    
+
 
 
 @login_required    
@@ -133,11 +273,6 @@ def chart():
     low=data['Low'], 
     close=data['Close'], 
     name = 'market data'))
-    # fig = go.Figure(data=[go.Candlestick(x=data['Date'],
-    #             open=data[stockCode+'.Open'],
-    #             high=data[stockCode+'.High'],
-    #             low=data[stockCode+'.Low'],
-    #             close=data[stockCode+'.Close'])])
     fig.update_layout(title = stockCode + ' share price', yaxis_title = 'Stock Price (SGD)')
     fig.update_xaxes(
     rangeslider_visible=True,
@@ -152,28 +287,9 @@ def chart():
     )
     )
 
-    chart_div = fig.to_html()
-    # if context:
-    #     fightml.update(context)
-    #wrapper_div = '<div class="my-chart">{{ chart_div }}</div>'
-    # Create a template with the wrapper div and the chart div
-    # template = Template(wrapper_div)
-    # # Create a context with the chart div
-    # context = Context({'chart_div': chart_div})
-    #fightml = render_to_string('chart_template.html', {'chart_div': chart_div, 'wrapper_div': wrapper_div})
-    # Render the template with the context to get the final HTML string
-    #fightml = {'chart_div': html}    
+    chart_div = fig.to_html() 
     return {'chart_div': chart_div}
 
-
-
-# def get_stock_ticker(request):
-#     if request.method == "POST":
-#         stock_ticker = request.POST.get("stock_ticker")
-#         newChart = getStockPrice(stock_ticker)
-#         return JsonResponse(str(newChart), safe=False)
-#     else:
-#         return JsonResponse("0", safe=False)
 
 def get_chart_with_ticker(request):
     if request.method == 'GET' and 'ticker' in request.GET:
@@ -195,11 +311,6 @@ def get_chart_with_ticker(request):
             low=data['Low'], 
             close=data['Close'], 
             name = 'market data'))
-            # fig = go.Figure(data=[go.Candlestick(x=data['Date'],
-            #             open=data[stockCode+'.Open'],
-            #             high=data[stockCode+'.High'],
-            #             low=data[stockCode+'.Low'],
-            #             close=data[stockCode+'.Close'])])
             fig.update_layout(title = ticker + ' share price', yaxis_title = 'Stock Price (SGD)')
             fig.update_xaxes(
             rangeslider_visible=True,
@@ -217,23 +328,7 @@ def get_chart_with_ticker(request):
             context = {'chart_div': chart_div}
             return render(request, 'get_chart_with_ticker.html', context)
         else:
-            # chart_div = chart()
-            # context = {'chart_div': chart_div}
-            # return context
             return chart()
-        # fightml = {'chart': fig.to_html()}
-        # chart_data = json.dumps(fig)
-        # if context:
-        #     fightml.update(context)   
-        #return JsonResponse({'chart': fightml}) 
-        #pprint.pprint(fig.to_json())
-    # else:
-    #     chart_div = chart()
-    #     context = {'chart_div': chart_div}
-    #     return context
-
-        #return render(request, 'get_chart_with_ticker.html', {'chart_data': chart_data})
-        #return JsonResponse({'data':fig.to_json()}) 
 
 def predictionchart_default():
     three_yrs_ago = datetime.now() - relativedelta(years=10)
@@ -328,6 +423,7 @@ def predictionchart(ticker):
         }
     return predictionchart
 
+#get google news about articles
 def getnews():
     google_news = GNews()
     google_news.country = 'Singapore'
@@ -389,28 +485,32 @@ def simple_upload(request):
 
     return render(request, 'simple_upload.html')
 
-#buy.html
+#buy.html not in use
 def buy_stock(request):
     stocks = Stocks.objects.all()
     stock_owned = StockOwned.objects.all()
     print('hey im here')
     if request.method == 'POST':
+        print('form is post')
         form = BuyStockForm(request.POST)
+        print(form)
         if form.is_valid():
-            print('hey im here yet again')
+            print('form is valid')
             # Get the stock object
             stock = Stocks.objects.get(pk=form.cleaned_data['stock'].id)
             # Get the current price of the stock
-            current_price = get_stock_info()
+            current_price = form.cleaned_data['purchase_price']
+            print(current_price)
             # Get the units buying
             units_buying = form.cleaned_data['quantity']
+            print(units_buying)
             # Calculate the total price
             total_price = current_price * units_buying
             # Check if the user has enough balance
             profile = request.user.profile
             if profile.accountbalance < total_price:
                 messages.error(request, 'Account has insufficient balance')
-                return redirect('buy')
+                return redirect('/purchase/')
             # Deduct the account balance
             profile.accountbalance -= total_price
             profile.save()
@@ -423,17 +523,17 @@ def buy_stock(request):
             stock_owned.quantity += units_buying
             stock_owned.save()
             messages.success(request, f'Successfully purchased {units_buying} units of {stock.name}!')
-            return redirect('purchase')
+            return redirect('/purchase/')
     else:
+        print('form is NOT valid')
         form = BuyStockForm()
     context = {
         'form': form,
         'stocks': stocks,
         'stock_owned': stock_owned
     }
-    #'currentPrice': 'currentPrice',
-
-    return render(request, 'buy.html', context)
+    print('form is neither valid nor invalid...')
+    return render(request, 'purchase.html', context)
 
 
 def setrisklevels(request):
@@ -520,6 +620,8 @@ def get_stock_price(request):
     else:
         return JsonResponse("0", safe=False)
 
+    
+
 #get stock info in use for returning current price
 def get_stock_info(request):
     if request.method == 'GET':
@@ -569,3 +671,20 @@ def complete_tutorial(request):
     user_profile.save()
     # Return a response
     return redirect(home_page)
+
+def get_stock_quantity(request):
+    stock_id = request.GET.get('stock_id')
+    stock = get_object_or_404(StockOwned, id=stock_id)
+    quantity = stock.quantity
+    return JsonResponse({'quantity': quantity})
+
+#get stock name, get ticker from stocks, return 
+def get_stock_price_new(request):
+    stock_name = request.GET.get('stockname')
+    print(stock_name)
+    stockname = get_object_or_404(Stocks, name=stock_name)
+    print(stockname)
+    stock_ticker = stockname.ticker + '.SI'
+    print(stock_ticker)
+    price = getStockPrice(stock_ticker)
+    return JsonResponse({'price': price})
