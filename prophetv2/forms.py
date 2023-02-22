@@ -5,13 +5,38 @@ from django.core.exceptions import ValidationError
 from django.forms.fields import EmailField  
 from django.forms.forms import Form  
 from django.core.validators import FileExtensionValidator
-from .models import StockOwned, StockSold
+from .models import StockOwned, StockSold, Profile
+from django.forms.widgets import NumberInput
 
 
 class SignUpForm(UserCreationForm): 
     class Meta: 
         model = User 
         fields = ('username', 'email', 'password1', 'password2')
+
+
+class UsernameChangeForm(forms.ModelForm):
+    username = forms.CharField(max_length=150)
+    
+    class Meta:
+        model = User
+        fields = ['username']
+
+class EmailChangeForm(forms.ModelForm):
+    email = forms.EmailField()
+    class Meta:
+        model = User
+        fields = ['email']
+
+class RiskControlChangeForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['risklevel']
+        
+        
+
+    
+
 
 #before = forms.ModelForm
 class BuyStockForm(forms.ModelForm):

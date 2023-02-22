@@ -5,11 +5,12 @@ from django.contrib.auth import login, authenticate, logout
 from django.db.models import Avg
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm  
+from django.contrib.auth.forms import PasswordChangeForm
 from django.http import HttpResponse, JsonResponse, HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
 from django.template import Template, Context
 from django.template.loader import render_to_string
-from .forms import SellStockForm, SignUpForm, BuyStockForm
+from .forms import EmailChangeForm, RiskControlChangeForm, SellStockForm, SignUpForm, BuyStockForm, UsernameChangeForm
 from .models import Profile, StockInfo, Stocks, StockSold, StockOwned, StockOwned
 from .resources import StockInfoResource
 import yfinance as yf
@@ -166,7 +167,8 @@ def purchase_page(request):
                 stock_owned, created = StockOwned.objects.get_or_create(
                     profile=profile, 
                     stock=stock,
-                    defaults={'purchase_price': current_price, 'quantity': 0}
+                    purchase_price = current_price
+                    
                 )
 
                 # Increase the quantity of the stock owned
@@ -458,7 +460,19 @@ def getnews():
 
 @login_required
 def settings_page(request):
-    return render(request, 'settings.html')
+    passwordchangeform = PasswordChangeForm(request)
+    usernamechangeform = UsernameChangeForm(request.POST)
+    emailchangeform = EmailChangeForm(request.POST)
+    risklevelchangeform = RiskControlChangeForm(request.POST)
+    print(usernamechangeform)
+    context = {
+        'passwordchangeform': passwordchangeform,
+        'usernamechangeform': usernamechangeform,
+        'emailchangeform': emailchangeform,
+        'risklevelchangeform': risklevelchangeform
+    }
+    
+    return render(request, 'settings.html', context)
 @login_required
 def tradingtips_page(request):
     return render(request, 'tradingtips.html')
