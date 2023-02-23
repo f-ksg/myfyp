@@ -788,3 +788,17 @@ def get_stock_price_new(request):
     print(stock_ticker)
     price = getStockPrice(stock_ticker)
     return JsonResponse({'price': price})
+
+def create_stocks_from_stock_info(request):
+    stock_infos = StockInfo.objects.all()
+    for stock_info in stock_infos:
+        stock, created = Stocks.objects.get_or_create(
+            name=stock_info.tradingName,
+            ticker=stock_info.stockCode,
+            defaults={'risk_level': 1}
+        )
+        if created:
+            print(f'Stocks object created: {stock}')
+        else:
+            print(f'Stocks object already exists: {stock}')
+    return redirect('home')

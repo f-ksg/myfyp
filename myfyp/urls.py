@@ -46,6 +46,7 @@ urlpatterns = [
     path('tutorial_7/', views.tutorial_7, name= 'tutorial_7'),
     path('complete_tutorial/', views.complete_tutorial, name= 'complete_tutorial'),
     path('get-stock-quantity/', views.get_stock_quantity, name='get_stock_quantity'),
-    path('get_stock_price_new/', views.get_stock_price_new, name='get_stock_price_new')
+    path('get_stock_price_new/', views.get_stock_price_new, name='get_stock_price_new'),
+    path('create_stocks_from_stock_info/', views.create_stocks_from_stock_info, name = 'create_stocks_from_stock_info')
 ]
 # 
