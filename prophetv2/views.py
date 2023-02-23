@@ -730,6 +730,7 @@ def get_stock_info(request):
         print(ticker)
         print("---------------------------------")
         stockCode = yf.Ticker(ticker) #ticker
+        print(stockCode)
         history = stockCode.history(period="2d")
         test = stockCode.fast_info
         # print("---------------------------------")
