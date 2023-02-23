@@ -7,6 +7,7 @@ from django.forms.forms import Form
 from django.core.validators import FileExtensionValidator
 from .models import StockOwned, StockSold, Profile
 from django.forms.widgets import NumberInput
+from django.contrib.auth.forms import UserChangeForm
 
 
 class SignUpForm(UserCreationForm): 
@@ -16,14 +17,12 @@ class SignUpForm(UserCreationForm):
 
 
 class UsernameChangeForm(forms.ModelForm):
-    username = forms.CharField(max_length=150)
-    
     class Meta:
         model = User
         fields = ['username']
 
 class EmailChangeForm(forms.ModelForm):
-    email = forms.EmailField()
+    # email = forms.EmailField()
     class Meta:
         model = User
         fields = ['email']
@@ -31,12 +30,8 @@ class EmailChangeForm(forms.ModelForm):
 class RiskControlChangeForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['risklevel']
+        fields = ['risk_level']
         
-        
-
-    
-
 
 #before = forms.ModelForm
 class BuyStockForm(forms.ModelForm):

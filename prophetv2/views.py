@@ -459,19 +459,77 @@ def getnews():
 
 @login_required
 def settings_page(request):
-    passwordchangeform = PasswordChangeForm(request)
-    usernamechangeform = UsernameChangeForm(request.POST)
-    emailchangeform = EmailChangeForm(request.POST)
-    risklevelchangeform = RiskControlChangeForm(request.POST)
-    print(usernamechangeform)
+    passwordchangeform = PasswordChangeForm(user=request.user)
+    usernamechangeform = UsernameChangeForm()
+    emailchangeform = EmailChangeForm()
+    risklevelchangeform = RiskControlChangeForm()
+    profile = request.user.profile
+
     context = {
         'passwordchangeform': passwordchangeform,
         'usernamechangeform': usernamechangeform,
         'emailchangeform': emailchangeform,
-        'risklevelchangeform': risklevelchangeform
+        'risklevelchangeform': risklevelchangeform,
+        'profile':profile
     }
-    
+
+    if request.method == 'POST':
+        print('----------------------------------')
+        print(request.POST)
+        print('----------------------------------')
+        if 'username1' in request.POST:
+            usernamechangeform = UsernameChangeForm(request.POST, instance=request.user)
+            if usernamechangeform.is_valid():
+                usernamechangeform.save()
+                messages.success(request, f'Successfully changed username!')
+                return redirect('/settings/')
+            else:
+                messages.error(request, f'Failed to change username')
+                usernamechangeform = UsernameChangeForm(instance=request.user)
+
+        elif 'email1' in request.POST:
+            emailchangeform = EmailChangeForm(request.POST, instance = request.user)
+            if emailchangeform.is_valid():
+                emailchangeform.save()
+                messages.success(request, f'Successfully changed email!')
+                return redirect('/settings/')
+            else:
+                emailchangeform = EmailChangeForm(user=request.user)
+                messages.error(request, f'Failed to change email')
+
+        elif 'password1' in request.POST:
+            passwordchangeform = PasswordChangeForm(request.POST, instance =request.user)
+            if passwordchangeform.is_valid():
+                passwordchangeform.save()
+                messages.success(request, f'Successfully changed password!')
+                return redirect('/settings/')
+            else:
+                passwordchangeform = PasswordChangeForm(user=request.user)
+                messages.error(request, f'Failed to change password')
+
+        elif 'risk' in request.POST:
+            # print('--------------hey----------------')
+            # print(request.POST)
+            # print('------------hey-----------------')
+            risklevelchangeform = RiskControlChangeForm(request.POST, instance = profile)
+            if risklevelchangeform.is_valid():
+                # print('----------------------------------')
+                # print('---------form valid --------------')
+                # print('----------------------------------')
+                risklevelchangeform.save()
+                messages.success(request, f'Successfully changed risk level!')
+                return redirect('/settings/')
+            else:
+                # print('----------------------------------')
+                # print('formis invalid')
+                # print('----------------------------------')
+                risklevelchangeform = RiskControlChangeForm(instance=profile)
+                messages.error(request, f'Failed to change risk level')
+
     return render(request, 'settings.html', context)
+
+
+
 @login_required
 def tradingtips_page(request):
     return render(request, 'tradingtips.html')

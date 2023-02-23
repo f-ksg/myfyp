@@ -10,14 +10,8 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     accountbalance = models.DecimalField(decimal_places=2, max_digits=10)
     tutorialcompletion = models.BooleanField()
-    class RiskLevel(models.IntegerChoices):
-        ONE = 1
-        TWO = 2
-        THREE = 3
-        FOUR = 4
-        FIVE = 5
+    risk_level = models.IntegerField(default=3, choices=[(1, 'Lv.1 Low'), (2, 'Lv.2 Moderate'), (3, 'Lv.3 Medium'), (4, 'Lv.4 High'), (5, 'Lv.5 Very High')])
 
-    risklevel = models.IntegerField(choices=RiskLevel.choices, default=3)
 
 @receiver(post_save, sender= User)
 def create_user_profile(sender, instance, created, **kwargs):
