@@ -731,8 +731,10 @@ def get_stock_info(request):
         print("---------------------------------")
         stockCode = yf.Ticker(ticker) #ticker
         print(stockCode)
-        history = stockCode.history(period="2d")
-        test = stockCode.fast_info
+        history = stockCode.history(period="1d")
+        test = stockCode.fast_info['last_price']
+        
+        currentPrice = history["Close"][0]
         # print("---------------------------------")
         # print(test['lastPrice'])
         # print("---------------------------------")
@@ -744,7 +746,7 @@ def get_stock_info(request):
         #another method to get last price
         current_price = test['lastPrice']
         # current_price = "{:, .2f}".format(current_price)
-        return JsonResponse({'current_price': current_price})
+        return JsonResponse({'current_price': test})
         
 
 def tutorial_1(request):
