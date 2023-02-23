@@ -32,7 +32,7 @@ ALLOWED_HOSTS = [
     'myfyp-production.up.railway.app',
     'moneyverseproject.world',
 ]
-
+CSRF_TRUSTED_ORIGINS = ['https://moneyverseproject.world']
 
 # Application definition
 MESSAGE_TAGS = {
