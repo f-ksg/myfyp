@@ -530,6 +530,9 @@ def settings_page(request):
 
 
 
+
+
+
 @login_required
 def tradingtips_page(request):
     return render(request, 'tradingtips.html')
