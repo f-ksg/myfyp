@@ -2,7 +2,7 @@ import time
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
-from django.db.models import Avg, F, FloatField
+from django.db.models import Avg, F, FloatField, Sum
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm  
 from django.contrib.auth.forms import PasswordChangeForm
@@ -96,15 +96,21 @@ def purchase_page(request):
         print('---------------------------------------')
         print('im printing in if get')
         print('---------------------------------------')
+        
         ticker = request.GET.get('ticker')
+        ticker_no_suffix = ticker.replace(".SI","")
+        #stock_owned = StockOwned.objects.filter(profile=profile, stock__ticker = ticker_no_suffix).first()
+        #print(stock_owned)
+        quantity = StockOwned.objects.filter(profile=profile, stock__ticker=ticker_no_suffix).aggregate(Sum('quantity'))['quantity__sum'] or 0
+        print(quantity)
         currentChart = predictionchart(ticker)
         currentTicker = yf.Ticker(ticker)
-        history = currentTicker.history(period="1d")
+        history = currentTicker.history(period="5d")
         try:
             currentPrice = history["Close"][0]
             currentPrice = "${:,.2f}".format(currentPrice)
         except IndexError as e:
-            history = currentTicker.history(period="2d")
+            history = currentTicker.history(period="5d")
             test = currentTicker.fast_info
             currentPrice = test['lastPrice']
             currentPrice = "${:,.2f}".format(currentPrice)
@@ -122,7 +128,8 @@ def purchase_page(request):
             'ticker': ticker,
             'sellform': sellform,
             'profile': profile,
-            'recommendation': recommendation
+            'recommendation': recommendation,
+            'quantity': quantity
         }
 
         context.update(currentChart)
@@ -134,7 +141,7 @@ def purchase_page(request):
         print('---------------------------------------')
         currentChart = predictionchart_default()
         currentTicker = yf.Ticker('D05.SI')
-        history = currentTicker.history(period="1d")
+        history = currentTicker.history(period="5d")
         currentPrice = history["Close"][0]
         currentPrice = "${:,.2f}".format(currentPrice)
         
@@ -302,17 +309,20 @@ def purchase_page(request):
 def home_page(request): 
     ticker = request.GET.get('ticker')
 
-    if request.method == 'GET' and ticker is not None:   
+    if request.method == 'POST' and ticker is not None:   
         ticker = request.GET.get('ticker')
         print('TICKER AFTER RECEIVE ----------------------------')
+        print(request.method)
         print(ticker)
         if ticker is None:
             ticker = 'D05.SI'
-        print('TICKER AFTER IF ----------------------------')
+        print('THEREEEEEEEEEE ----------------------------')
         print(ticker)
+        print('THEREEEEEEEEEE ----------------------------')
         currentChart = {}
-        currentChart.update(predictionchart(ticker))
-        articles = getnews()
+        tempchart = predictionchart(ticker)
+        currentChart.update(tempchart)
+        articles = getnews(ticker)
         #top 5 owned based on profile (top_5_stocks)
         #example 'top_5_stocks': ['Sembcorp Marine', 'UOL', 'CapLand IntCom T', 'DBS', 'OCBC Bank']
         top5owned = get_top_5_owned_stocks(request)
@@ -341,6 +351,8 @@ def home_page(request):
         return render(request, 'base.html', currentChart)
     
     else:
+        print(request.method)
+        print('------default type here-------------------------')
         ticker = request.GET.get('ticker')
         print('TICKER AFTER RECEIVE ----------------------------')
         print(ticker)
@@ -349,8 +361,9 @@ def home_page(request):
         print('TICKER AFTER IF ----------------------------')
         print(ticker)
         currentChart = {}
-        currentChart.update(predictionchart(ticker))
-        articles = getnews()
+        tempchart = predictionchart(ticker)
+        currentChart.update(tempchart)
+        articles = getnews(ticker)
         #top 5 owned based on profile (top_5_stocks)
         #example 'top_5_stocks': ['Sembcorp Marine', 'UOL', 'CapLand IntCom T', 'DBS', 'OCBC Bank']
         top5owned = get_top_5_owned_stocks(request)
@@ -594,11 +607,15 @@ def predictionchart_ajax(request):
         
 
 #get google news about articles
-def getnews():
+def getnews(ticker):
     google_news = GNews()
-    google_news.country = 'Singapore'
-    articles = google_news.get_news('DBS')
+    #google_news.country = 'Singapore'
+    newstring = 'SGX:' + ticker
+    newstring = newstring.replace(".SI", "")
+    print(newstring)
+    articles = google_news.get_news(newstring)
     return articles
+
 
 @login_required
 def settings_page(request):
@@ -880,7 +897,7 @@ def get_stock_info(request):
         print(ticker)
         print("---------------------------------")
         stockCode = yf.Ticker(ticker) #ticker
-        history = stockCode.history(period="2d")
+        history = stockCode.history(period="5d")
         test = stockCode.fast_info
         # print("---------------------------------")
         # print(test['lastPrice'])
@@ -1109,7 +1126,7 @@ def get_top_5_current_stocks(request):
     # print(top_5_current_stocks)
     # print('----------------------------------------')
 
-    print(list(top_5_current_stocks.keys()))
+    #print(list(top_5_current_stocks.keys()))
     return {'top_5_current_stocks': list(top_5_current_stocks.keys())}
 
 

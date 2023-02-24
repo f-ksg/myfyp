@@ -54,7 +54,21 @@ buttons.forEach(button => {
         console.log(data.stock_ticker); // log the stock ticker to the console
         const test = await fetch('/homepage/?ticker='+ticker);
         console.log(test);
-
+        // send POST request to /homepage/
+        const formData = new FormData();
+        formData.append('ticker', ticker);
+        fetch(/homepage/, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            // redirect to new URL with ticker value
+            console.log('hellooooo');
+            window.location.href = '/homepage/?ticker=' + ticker;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
         // const newchart = await fetch('/predictionchart_ajax/?ticker='+ticker);
         // const datachart = await newchart.json();
         // var jsonString = JSON.stringify(datachart);
@@ -65,3 +79,8 @@ buttons.forEach(button => {
         window.location.href = '?=ticker'+ticker; 
     });
 });
+
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl)
+})

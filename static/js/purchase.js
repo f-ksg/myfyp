@@ -133,6 +133,11 @@ buyyButton.addEventListener('click', () =>
           break;
         }
       }
+
+    var quantityowned = document.getElementById('quantity-owned');
+    console.log(quantityowned.value);
+    var quantity_in_form = document.getElementById('id_quantity');
+    quantity_in_form.value = quantityowned.value;
    
     var currentpriceform = document.getElementById('id_purchase_price');
     currentpriceform.value = document.getElementById('currentprice').value.replace('$', '');

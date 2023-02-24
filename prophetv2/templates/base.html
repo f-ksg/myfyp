@@ -8,8 +8,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>MoneyVerse</title>
-
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <link href="/static/css/styles.css"  rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
     </head>
@@ -119,7 +118,7 @@
                                             </div>
                                                 {% for stock in top_5_stocks %}
                                                 <div class="d-grid gap-2 d-md-block mt-3 mx-1">
-                                                    <button type="button" id = "button{{ forloop.counter }}"class="stock-button btn btn-outline-secondary" data-name="{{ stock }}">{{ forloop.counter }}</button>
+                                                    <button type="button" id = "button{{ forloop.counter }}"class="stock-button btn btn-outline-secondary" data-name="{{ stock }}" data-toggle="tooltip" data-placement="top" title="{{ stock }}" data-original-title="{{ stock }}">{{ forloop.counter }}</button>
                                                 </div>
                                                     {% endfor %}
                                             {% else %}
@@ -129,7 +128,7 @@
                                             </div>
                                                 {% for stocks in top_5_current_stocks %}
                                                 <div class="d-grid gap-2 d-md-block mt-3 mx-1">
-                                                    <button type="button" class="stock-button btn btn-outline-secondary" data-name ="{{ stocks }}">{{ forloop.counter }}</button>
+                                                    <button type="button" class="stock-button btn btn-outline-secondary" data-name ="{{ stocks }}" data-toggle="tooltip" data-placement="top" title="{{ stocks }}" data-original-title="{{ stocks }}">{{ forloop.counter }}</button>
                                                 </div>
                                                     {% endfor %}
                                             {% endif %}
