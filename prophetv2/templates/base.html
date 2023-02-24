@@ -119,7 +119,7 @@
                                             </div>
                                                 {% for stock in top_5_stocks %}
                                                 <div class="d-grid gap-2 d-md-block mt-3 mx-1">
-                                                    <button type="button" id = "button{{ forloop.counter }}"class="btn btn-outline-secondary" name="{{ stock }}">{{ forloop.counter }}</button>
+                                                    <button type="button" id = "button{{ forloop.counter }}"class="stock-button btn btn-outline-secondary" data-name="{{ stock }}">{{ forloop.counter }}</button>
                                                 </div>
                                                     {% endfor %}
                                             {% else %}
@@ -129,7 +129,7 @@
                                             </div>
                                                 {% for stocks in top_5_current_stocks %}
                                                 <div class="d-grid gap-2 d-md-block mt-3 mx-1">
-                                                    <button type="button" class="btn btn-outline-secondary" name ="{{ stocks }}">{{ forloop.counter }}</button>
+                                                    <button type="button" class="stock-button btn btn-outline-secondary" data-name ="{{ stocks }}">{{ forloop.counter }}</button>
                                                 </div>
                                                     {% endfor %}
                                             {% endif %}

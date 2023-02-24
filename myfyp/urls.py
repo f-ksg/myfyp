@@ -51,7 +51,7 @@ urlpatterns = [
     path('generate_rise/', views.generate_rise, name ='generate_rise'),
     path('delete_stocks/', views.delete_stocks, name = 'delete_stocks'),
     path('get_top_5_owned_stocks/', views.get_top_5_owned_stocks, name ='get_top_5_owned_stocks'),
-    path('get_top_5_current_stocks', views.get_top_5_current_stocks, name='get_top_5_current_stocks')
-
+    path('get_top_5_current_stocks/', views.get_top_5_current_stocks, name='get_top_5_current_stocks'),
+    path('predictionchart_ajax/', views.predictionchart_ajax, name ='predictionchart_ajax')
 ]
 # 

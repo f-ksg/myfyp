@@ -100,8 +100,14 @@ def purchase_page(request):
         currentChart = predictionchart(ticker)
         currentTicker = yf.Ticker(ticker)
         history = currentTicker.history(period="1d")
-        currentPrice = history["Close"][0]
-        currentPrice = "${:,.2f}".format(currentPrice)
+        try:
+            currentPrice = history["Close"][0]
+            currentPrice = "${:,.2f}".format(currentPrice)
+        except IndexError as e:
+            history = currentTicker.history(period="2d")
+            test = currentTicker.fast_info
+            currentPrice = test['lastPrice']
+            currentPrice = "${:,.2f}".format(currentPrice)
         recommendation = get_recommendation(request, ticker)
         print('---------------------------------------')
         print(recommendation)
@@ -294,9 +300,18 @@ def purchase_page(request):
 
 @login_required    
 def home_page(request): 
-    if request.method == 'GET':   
+    ticker = request.GET.get('ticker')
+
+    if request.method == 'GET' and ticker is not None:   
+        ticker = request.GET.get('ticker')
+        print('TICKER AFTER RECEIVE ----------------------------')
+        print(ticker)
+        if ticker is None:
+            ticker = 'D05.SI'
+        print('TICKER AFTER IF ----------------------------')
+        print(ticker)
         currentChart = {}
-        currentChart.update(predictionchart_default())
+        currentChart.update(predictionchart(ticker))
         articles = getnews()
         #top 5 owned based on profile (top_5_stocks)
         #example 'top_5_stocks': ['Sembcorp Marine', 'UOL', 'CapLand IntCom T', 'DBS', 'OCBC Bank']
@@ -324,7 +339,46 @@ def home_page(request):
         currentChart.update({'articles':articles[:20]})
         #print(currentChart)
         return render(request, 'base.html', currentChart)
-    return render(request, 'base.html', currentChart)
+    
+    else:
+        ticker = request.GET.get('ticker')
+        print('TICKER AFTER RECEIVE ----------------------------')
+        print(ticker)
+        if ticker is None:
+            ticker = 'D05.SI'
+        print('TICKER AFTER IF ----------------------------')
+        print(ticker)
+        currentChart = {}
+        currentChart.update(predictionchart(ticker))
+        articles = getnews()
+        #top 5 owned based on profile (top_5_stocks)
+        #example 'top_5_stocks': ['Sembcorp Marine', 'UOL', 'CapLand IntCom T', 'DBS', 'OCBC Bank']
+        top5owned = get_top_5_owned_stocks(request)
+        currentChart.update(top5owned)
+        #----top 5 owned based on profile end --------
+        #top 5 based on ALL stocks (top_5_current_stocks)
+        top5all = get_top_5_current_stocks(request)
+        
+        # print('####################################')
+        #print(top5all)
+        # print('####################################')
+        # currentChart.update(top5all)
+        #-----top 5 based on all stocks end--------------
+        currentChart.update(top5all)
+
+        top5type = request.GET.get('top_5_type')
+        print(top5type)
+        if top5type is None:
+            top5type = 'profile'
+        top_5_type = {'top_5_type' : top5type}
+
+        currentChart.update(top_5_type)
+
+        currentChart.update({'articles':articles[:20]})
+        #print(currentChart)
+        return render(request, 'base.html', currentChart)
+    
+    #return render(request, 'base.html', currentChart)
 
 def chart():
     stockCode = 'D05.SI'
@@ -440,6 +494,7 @@ def predictionchart_default():
 
 
 def predictionchart(ticker):
+    #ticker = request.GET.get('ticker')
     three_yrs_ago = datetime.now() - relativedelta(years=10)
     # ticker = "D05.SI"
     start_date = (datetime.now()-relativedelta(years=10)).date()
@@ -485,6 +540,58 @@ def predictionchart(ticker):
         'predictionchart': fig.to_html()
         }
     return predictionchart
+
+def predictionchart_ajax(request):
+    ticker = request.GET.get('ticker')
+    print(ticker)
+    three_yrs_ago = datetime.now() - relativedelta(years=10)
+    # ticker = "D05.SI"
+    start_date = (datetime.now()-relativedelta(years=10)).date()
+    current_date = datetime.now().date()
+    df = yf.download(ticker, start=start_date, end=current_date)
+    df.index = df.index.tz_localize(None)
+    df = df.reset_index()
+    input = pd.DataFrame(columns=['ds', 'y'])
+    input[['ds', 'y']] = df[['Date', 'Adj Close']]
+    m = Prophet(daily_seasonality=True)
+    m.add_country_holidays(country_name='SG')
+    m.fit(input)
+    future = m.make_future_dataframe(periods=365)
+    forecast = m.predict(future)
+    forecast_renamed = forecast[["ds", "yhat"]]
+    forecast_renamed = forecast_renamed.rename(columns={"ds": "Date","yhat": "Price"})
+    forecast_renamed["Date"] = forecast_renamed["Date"].dt.date
+    after = forecast_renamed[forecast_renamed['Date'] >= current_date]
+    before = forecast_renamed[forecast_renamed['Date'] < current_date]
+
+    #outputs
+    #finding min and max of after
+    min = after['Price'].min()
+    max = after['Price'].max()
+    
+    #comparing first and last row of after
+    rise = after['Price'].iloc[0] < after['Price'].iloc[-1]
+    forecast_date = forecast_renamed["Date"]
+    fig, ax = plt.subplots()
+    ax.plot(forecast_date, forecast_renamed["Price"])
+    fig = px.line()
+    fig.add_scatter(x=before['Date'], y=before['Price'], mode='lines', name='Past years data')
+    fig.add_scatter(x=after['Date'], y=after['Price'], mode='lines', name='Future predicted data')
+    fig.update_layout(title = ticker + ' share price', yaxis_title = 'Stock Price (SGD)')
+    predictionchart = {
+        'predictionchart': fig.to_html()
+        }
+    #print(predictionchart)
+    try:
+        predictionchart
+    except AttributeError as e:
+        print('perdiction chart error')
+    return JsonResponse({
+        'predictionchart': fig.to_html()
+    })
+    #return render(request, 'predictionchart_ajax.html', predictionchart)
+    
+        
 
 #get google news about articles
 def getnews():
@@ -830,7 +937,10 @@ def get_stock_price_new(request):
     stock_ticker = stockname.ticker + '.SI'
     print(stock_ticker)
     price = getStockPrice(stock_ticker)
-    return JsonResponse({'price': price})
+    return JsonResponse({'price': price,
+                         'stock_ticker':stock_ticker})
+
+
 
 def create_stocks_from_stock_info(request):
     stock_infos = StockInfo.objects.all()
