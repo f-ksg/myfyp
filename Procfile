@@ -1,1 +1,1 @@
-web: python manage.py runserver && gunicorn myfyp.wsgi
+web: python manage.py runserver 0.0.0.0:8000 && gunicorn myfyp.wsgi
