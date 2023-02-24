@@ -49,6 +49,7 @@ class Stocks(models.Model):
     name = models.CharField(max_length=100)
     ticker = models.CharField(max_length=10, unique=True)
     risk_level = models.IntegerField(default=0)
+    rise = models.BooleanField(default=True)
     
     def __str__(self):
         return f"Ticker: {self.ticker} Name: {self.name}"

@@ -93,7 +93,7 @@
       <div class="modal-body">
         <form method ="POST">
           {% csrf_token %}
-          <div class="form-group">
+          <!-- <div class="form-group">
             <label for="name">Username</label>
             <input type="text" class="form-control" id="username" name ="username" aria-describedby="nameHelp" placeholder="Enter your name">
             <small id="nameHelp" class="form-text text-muted">We'll never share your details with anyone else.</small>
@@ -113,8 +113,8 @@
           <div class="form-group">
             <label for="password">Confirm password</label>
             <input type="password" name="password2" class="form-control" id="password2" placeholder="Password">
-          </div>
-          <!--{{SignUpForm | crispy}}-->
+          </div> -->
+          {{ form | crispy}}
           <button type="submit" class="btn btn-primary" value="register" name="register">Sign up</button>
         </form>
       </div>

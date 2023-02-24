@@ -2,7 +2,7 @@ import time
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
-from django.db.models import Avg
+from django.db.models import Avg, F, FloatField
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm  
 from django.contrib.auth.forms import PasswordChangeForm
@@ -29,6 +29,10 @@ from tablib import Dataset
 firsttime = True
 
 def landingpage(request):
+    form = SignUpForm()
+    context = {
+        'form': form
+    }
     if request.method == 'POST':
         # print(request.POST)
         if 'login' in request.POST:
@@ -52,8 +56,8 @@ def landingpage(request):
                 user = form.save()
                 messages.success(request, 'Account registered')
                 return redirect('landingpage')
-                
-    return render(request, 'landingpage.html')
+            messages.error(request, "Unsuccessful registration. Invalid information or password complexity is low")
+    return render(request, 'landingpage.html', context)
     
 @login_required
 def history_page(request):
@@ -98,6 +102,10 @@ def purchase_page(request):
         history = currentTicker.history(period="1d")
         currentPrice = history["Close"][0]
         currentPrice = "${:,.2f}".format(currentPrice)
+        recommendation = get_recommendation(request, ticker)
+        print('---------------------------------------')
+        print(recommendation)
+        print('---------------------------------------')
         #if lastPrice is None, change history period to 7d
         #if historyperiod = 7d and lastprice is none -> show error
         context = {
@@ -107,7 +115,8 @@ def purchase_page(request):
             'form':form,
             'ticker': ticker,
             'sellform': sellform,
-            'profile': profile
+            'profile': profile,
+            'recommendation': recommendation
         }
 
         context.update(currentChart)
@@ -122,6 +131,7 @@ def purchase_page(request):
         history = currentTicker.history(period="1d")
         currentPrice = history["Close"][0]
         currentPrice = "${:,.2f}".format(currentPrice)
+        
         #if lastPrice is None, change history period to 7d
         #if historyperiod = 7d and lastprice is none -> show error
         context = {
@@ -283,11 +293,37 @@ def purchase_page(request):
 
 
 @login_required    
-def home_page(request):    
-    currentChart = chart()
-    currentChart.update(predictionchart_default())
-    articles = getnews()
-    currentChart.update({'articles':articles[:20]})
+def home_page(request): 
+    if request.method == 'GET':   
+        currentChart = {}
+        currentChart.update(predictionchart_default())
+        articles = getnews()
+        #top 5 owned based on profile (top_5_stocks)
+        #example 'top_5_stocks': ['Sembcorp Marine', 'UOL', 'CapLand IntCom T', 'DBS', 'OCBC Bank']
+        top5owned = get_top_5_owned_stocks(request)
+        currentChart.update(top5owned)
+        #----top 5 owned based on profile end --------
+        #top 5 based on ALL stocks (top_5_current_stocks)
+        top5all = get_top_5_current_stocks(request)
+        
+        # print('####################################')
+        #print(top5all)
+        # print('####################################')
+        # currentChart.update(top5all)
+        #-----top 5 based on all stocks end--------------
+        currentChart.update(top5all)
+
+        top5type = request.GET.get('top_5_type')
+        print(top5type)
+        if top5type is None:
+            top5type = 'profile'
+        top_5_type = {'top_5_type' : top5type}
+
+        currentChart.update(top_5_type)
+
+        currentChart.update({'articles':articles[:20]})
+        #print(currentChart)
+        return render(request, 'base.html', currentChart)
     return render(request, 'base.html', currentChart)
 
 def chart():
@@ -695,6 +731,13 @@ def setrisklevels(request):
 
         stock.risk_level = round(risk_level)
         stock.save()
+
+    for stock in Stocks.objects.all():
+        # Check if the risk level is 0
+        if stock.risk_level == 0:
+            print(stock.name)
+            # If it is, delete the object
+            stock.delete()
     return render(request, 'setrisklevels.html')
     
 def getStockPriceAjax(request):
@@ -802,3 +845,177 @@ def create_stocks_from_stock_info(request):
         else:
             print(f'Stocks object already exists: {stock}')
     return redirect('home')
+
+def generate_rise(request):
+    errorstocks = []
+    errorlocalize = []
+    errorindex = []
+    for stock in Stocks.objects.all():
+        print('-------------------------')
+        print(stock.name)
+        print(stock.ticker)
+        print('-------------------------')
+        ticker = stock.ticker
+        start_date = (datetime.now()-relativedelta(years=10)).date()
+        current_date = datetime.now().date()
+        df = yf.download(ticker+'.SI', start=start_date, end=current_date)
+        try:
+            df.index = df.index.tz_localize(None)
+            df = df.reset_index()
+        except AttributeError as e:
+            print('error in index.tz_localize')
+            errorlocalize.append(stock.name)
+            continue
+        
+        input = pd.DataFrame(columns=['ds', 'y'])
+        input[['ds', 'y']] = df[['Date', 'Adj Close']]
+        m = Prophet(daily_seasonality=True)
+        m.add_country_holidays(country_name='SG')
+        try:
+            m.fit(input)
+        except ValueError as e:
+            print('an error value error')
+            errorstocks.append(stock.name)
+            continue
+        future = m.make_future_dataframe(periods=365)
+        forecast = m.predict(future)
+        forecast_renamed = forecast[["ds", "yhat"]]
+        forecast_renamed = forecast_renamed.rename(columns={"ds": "Date","yhat": "Price"})
+        forecast_renamed["Date"] = forecast_renamed["Date"].dt.date
+        after = forecast_renamed[forecast_renamed['Date'] >= current_date]
+        before = forecast_renamed[forecast_renamed['Date'] < current_date]
+
+        #comparing first and last row of after
+        try:
+            rise = after['Price'].iloc[0] < after['Price'].iloc[-1]
+        except IndexError as e:
+            print('an error indexing price')
+            errorindex.append(stock.name)
+            continue
+
+        #print(stock.name)
+        print(rise)
+        print('-------------------------')
+
+        stock.rise = rise
+        stock.save()
+
+
+    print('Rise has been calculated for all stocks')
+    print('-------------------------')
+    print('error in fit')
+    print(errorstocks)
+    print('-------------------------')
+    print('#########################')
+    print('error in localize')
+    print(errorlocalize)
+    print('#########################')
+    print('*************************')
+    print('error in index')
+    print(errorindex)
+    print('*************************')
+
+    return render(request, 'generate_rise.html')
+
+def delete_stocks(request):
+    # Define the list of names to delete
+    delete_names = ['Cromwell Reit SGD', '8Telecom', 'Camsing Hc', 'Inch Kenneth', 'Lonza', 'Murata Yen1k', 'Sanli Env', 'Tosei', 'Universal Res', 'KrisEnergy', 'RHT HealthTrust', 'Magnus Energy', 'Maruwa Yen1k', 'Nomura Yen1k']
+
+    # Loop through each stock object with a name in the delete_names list
+    for stock in Stocks.objects.filter(name__in=delete_names):
+        # Delete the stock object
+        print(stock)
+        stock.delete()
+
+    # Redirect to the homepage
+    return redirect('home')
+
+def get_top_5_owned_stocks(request):
+    # Get the profile of the current user
+    profile = Profile.objects.get(user=request.user)
+
+    # Get a queryset of all StockOwned objects for the current user's profile
+    stock_owned = StockOwned.objects.filter(profile=profile)
+
+    # Create a dictionary to store each stock name and its corresponding one year change value
+    stocks_dict = {}
+
+    # Loop through each stock owned
+    for stock in stock_owned:
+        # Get the corresponding Stocks object
+        try:
+            stocks_obj = StockInfo.objects.get(tradingName=stock.stock.name)
+            # print('----------------------------------------')
+            # print(stock.stock.name)
+            # print('----------------------------------------')
+        except Stocks.DoesNotExist:
+            continue
+
+        # Add the stock name and its one year change to the dictionary
+        stocks_dict[stock.stock.name] = stocks_obj.oneYearChange
+        # print('----------------------------------------')
+        # print(stocks_dict)
+        # print('----------------------------------------')
+
+    #delete key if value is none
+    for key, value in list(stocks_dict.items()):
+        if value is None:
+            del stocks_dict[key]
+
+    
+    sorted_data = sorted(stocks_dict.items(), key=lambda x: x[1], reverse=True)
+    top_5_stocks = [x[0] for x in sorted_data[:5]]
+    # print('----------------------------------------')
+    # print(top_5_stocks)
+    # print('----------------------------------------')
+
+    # Get the top 5 stocks by one year change
+    # top_5_stocks = dict(sorted(stocks_dict.items(), key=lambda item: item[1], reverse=True)[:5])
+    # print('----------------------------------------')
+    # print(top_5_stocks)
+    # print('----------------------------------------')
+    return {'top_5_stocks': top_5_stocks}
+    #return render(request, 'top_5_owned.html', {'top_5_stocks': top_5_stocks})
+    #return JsonResponse(top_5_stocks)
+
+
+
+def get_top_5_current_stocks(request):
+    # Get a queryset of all StockInfo objects
+    stock_info = StockInfo.objects.all()
+
+    # Create a dictionary to store each stock name and its corresponding one year change value
+    stocks_dict = {}
+
+    # Loop through each stock
+    for info in stock_info:
+        if info.oneYearChange is not None:
+            # Add the stock name and its one year change to the dictionary
+            stocks_dict[info.tradingName] = info.oneYearChange
+
+    # Get the top 5 stocks by one year change
+    top_5_current_stocks = dict(sorted(stocks_dict.items(), key=lambda item: item[1], reverse=True)[:5])
+    # print('----------------------------------------')
+    # print(top_5_current_stocks)
+    # print('----------------------------------------')
+
+    print(list(top_5_current_stocks.keys()))
+    return {'top_5_current_stocks': list(top_5_current_stocks.keys())}
+
+
+
+def get_recommendation(request, ticker):
+    ticker_no_suffix = ticker.replace(".SI", "")
+    profile = Profile.objects.get(user=request.user)
+
+    stock_info = Stocks.objects.filter(ticker=ticker_no_suffix).first()
+    stock_owned = StockOwned.objects.filter(profile = profile, stock__ticker=ticker_no_suffix).first()
+    
+    if stock_owned and stock_info.rise:
+        return 'Hold'
+    elif stock_owned and not stock_info.rise:
+        return 'Sell'
+    elif not stock_owned and stock_info.rise:
+        return 'Buy'
+    else:
+        return 'NA'

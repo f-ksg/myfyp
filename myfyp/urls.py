@@ -47,6 +47,11 @@ urlpatterns = [
     path('complete_tutorial/', views.complete_tutorial, name= 'complete_tutorial'),
     path('get-stock-quantity/', views.get_stock_quantity, name='get_stock_quantity'),
     path('get_stock_price_new/', views.get_stock_price_new, name='get_stock_price_new'),
-    path('create_stocks_from_stock_info/', views.create_stocks_from_stock_info, name = 'create_stocks_from_stock_info')
+    path('create_stocks_from_stock_info/', views.create_stocks_from_stock_info, name = 'create_stocks_from_stock_info'),
+    path('generate_rise/', views.generate_rise, name ='generate_rise'),
+    path('delete_stocks/', views.delete_stocks, name = 'delete_stocks'),
+    path('get_top_5_owned_stocks/', views.get_top_5_owned_stocks, name ='get_top_5_owned_stocks'),
+    path('get_top_5_current_stocks', views.get_top_5_current_stocks, name='get_top_5_current_stocks')
+
 ]
 # 

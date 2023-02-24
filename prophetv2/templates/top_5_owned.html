@@ -1,0 +1,15 @@
+<h1>Top 5 Owned Stocks</h1>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for stock in top_5_stocks %}
+    <tr>
+      <td>{{ stock }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
