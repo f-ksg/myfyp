@@ -23,8 +23,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.environ['SECRET_KEY']
-SECRET_KEY = 'django-insecure-4@i2h=ka(8*pg@5g9mzzp_$!gau@5nxj(7q#+xpjgk=hx-h4r_'
+SECRET_KEY = os.environ['SECRET_KEY']
+# SECRET_KEY = 'django-insecure-4@i2h=ka(8*pg@5g9mzzp_$!gau@5nxj(7q#+xpjgk=hx-h4r_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -98,27 +98,27 @@ WSGI_APPLICATION = 'myfyp.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mydb',
-        'USER': 'postgres',
-        'PASSWORD': '0000',
-        'HOST': '127.0.0.1',
-        'PORT': '5432',
-    }
-}
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ['PGDATABASE'],
-#         'USER': os.environ['PGUSER'],
-#         'PASSWORD': os.environ['PGPASSWORD'],
-#         'HOST': os.environ['PGHOST'],
-#         'PORT': os.environ['PGPORT'],
+#         'NAME': 'mydb',
+#         'USER': 'postgres',
+#         'PASSWORD': '0000',
+#         'HOST': '127.0.0.1',
+#         'PORT': '5432',
 #     }
 # }
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ['PGDATABASE'],
+        'USER': os.environ['PGUSER'],
+        'PASSWORD': os.environ['PGPASSWORD'],
+        'HOST': os.environ['PGHOST'],
+        'PORT': os.environ['PGPORT'],
+    }
+}
 DATABASE_URL = 'postgresql://${{ PGUSER }}:${{ PGPASSWORD }}@${{ PGHOST }}:${{ PGPORT }}/${{ PGDATABASE }}'
 
 # Password validation
