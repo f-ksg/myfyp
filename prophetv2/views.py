@@ -2,7 +2,7 @@ import time
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate, logout
-from django.db.models import Avg, F, FloatField, Sum
+from django.db.models import Avg, F, FloatField, Sum, Q
 from django.contrib import messages
 from django.contrib.auth.forms import UserCreationForm  
 from django.contrib.auth.forms import PasswordChangeForm
@@ -62,7 +62,15 @@ def landingpage(request):
 @login_required
 def history_page(request):
     stock_owned = StockOwned.objects.filter(profile=request.user.profile)
-    print(str(stock_owned))
+    stock_sold = StockSold.objects.filter(profile=request.user.profile)
+    profile = request.user.profile
+    portfolio_value = sum([own.quantity * own.purchase_price for own in stock_owned])
+    portfolio_value += profile.accountbalance
+    portfolio_value = str(portfolio_value)
+
+    #print(str(stock_owned))
+    print(portfolio_value)
+
     data = []
     for stock in stock_owned:
         total_sum = round(stock.quantity * stock.purchase_price, 2)
@@ -72,9 +80,30 @@ def history_page(request):
             'quantity': stock.quantity,
             'purchase_price': stock.purchase_price,
             'total_sum': total_sum,
-            'purchased_at': stock.purchased_at
+            'purchased_at': stock.purchased_at,
         })
-    return render(request, 'history.html', {'data': data})
+
+
+
+    for stocks in stock_sold:
+        sell_total_sum = round(stocks.quantity * stocks.sell_price, 2)
+        data.append({
+            'sell_stock_name': stocks.stock.name,
+            'sell_stock_ticker': stocks.stock.ticker,
+            'sell_quantity': stocks.quantity,
+            'sell_sold_price': stocks.sell_price,
+            'sell_total_sum': sell_total_sum,
+            'sell_sold_date': stocks.sold_at
+        })
+
+    #data.append({'portfolio_value': portfolio_value})
+
+    context = {
+        'data': data,
+        'portfolio_value':portfolio_value
+    }
+    
+    return render(request, 'history.html', context)
     
 
 #purchasepage
@@ -90,6 +119,16 @@ def purchase_page(request):
     sellform = SellStockForm()
     # sellform = SellStockForm(instance=StockSold.objects.get())
     
+    if profile.risk_level == 1:
+        filter_criteria = Q(risk_level=1)
+    elif profile.risk_level == 2:
+        filter_criteria = Q(risk_level=1) | Q(risk_level=2)
+    else:
+        filter_criteria = Q(risk_level=1) | Q(risk_level=2) | Q(risk_level=3)
+
+# Query the stocks based on the filter criteria
+    stocks = Stocks.objects.filter(filter_criteria)
+
 
     #prediction chart
     if request.method == 'GET' and ticker is not None:
@@ -121,7 +160,7 @@ def purchase_page(request):
         #if lastPrice is None, change history period to 7d
         #if historyperiod = 7d and lastprice is none -> show error
         context = {
-            'stocks':stockObj,
+            'stocks':stocks,
             'stockowned':stockOwnedObj,
             'currentPrice':currentPrice,
             'form':form,
@@ -148,7 +187,7 @@ def purchase_page(request):
         #if lastPrice is None, change history period to 7d
         #if historyperiod = 7d and lastprice is none -> show error
         context = {
-            'stocks':stockObj,
+            'stocks':stocks,
             'stockowned':stockOwnedObj,
             'currentPrice':currentPrice,
             'form':form,
@@ -161,6 +200,7 @@ def purchase_page(request):
         print('hola amigo im in post method')
         stocks = Stocks.objects.all()
         stock_owned = StockOwned.objects.all()
+        stock_sold = StockSold.objects.all()
         print('form is post')
         form = BuyStockForm(request.POST)
         #print(form)
@@ -190,7 +230,6 @@ def purchase_page(request):
                     profile=profile, 
                     stock=stock,
                     purchase_price = current_price
-                    
                 )
 
                 # Increase the quantity of the stock owned
@@ -220,7 +259,7 @@ def purchase_page(request):
             #-----------------------------------------------------------------
                 # Get the stock object
                 stock_name = sellform.cleaned_data['stock_owned'].id
-                print('Stock owned: ' + str(stock_name))
+                print('Stock name: ' + str(stock_name))
                 print('-------------------------------------')
                 # Get the current price of the stock
                 current_price = sellform.cleaned_data['sell_price']
@@ -236,7 +275,7 @@ def purchase_page(request):
                 print('-------------------------------------')
                 # Get quantity
                 quantity = sellform.cleaned_data['quantity']
-                print('quantity: ' + str(quantity))
+                print('Currently own: ' + str(quantity))
                 print('-------------------------------------')
                 # Check if the user has enough stocks to sell
                 if quantity < units_selling:
@@ -248,7 +287,7 @@ def purchase_page(request):
                 # Reduce the quantity of the stock owned
                 stock_owned = get_object_or_404(StockOwned, pk=stock_name)
                 print('-------------------------------------')
-                print(stock_owned)
+                print(stock_owned.stock)
                 print('-------------------------------------')
                 print(stock_owned.quantity)
                 print('-------------------------------------')
@@ -261,6 +300,16 @@ def purchase_page(request):
                     refreshurl = refreshurl + '?ticker=' + ticker
                     messages.success(request, f'Successfully sold all units of {stock_owned}!')
                     return HttpResponseRedirect(refreshurl)
+
+                
+                stock_sold, created = StockSold.objects.get_or_create(
+                profile=profile, stock=stock_owned.stock, sell_price=current_price,
+                defaults={'stock_owned': stock_owned, 'quantity': 0})
+
+                stock_sold.stock_owned = stock_owned   
+                stock_sold.quantity=units_selling
+                #here
+                stock_sold.save()
 
                 stock_owned.quantity -= units_selling
                 stock_owned.save()

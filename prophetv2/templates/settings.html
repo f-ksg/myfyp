@@ -149,6 +149,12 @@
 
                             <div class="card-header mt-3"><i class="fas fa-bolt me-3"></i>Risk control</div>
                             <div class="card-body py-2 ms-3">
+                                <p class="pt-2 me-3">Current Risk Level:</p>
+                                    <input class="form-control w-auto mb-3" type="text"
+                                        placeholder=""
+                                        value='{{user.profile.risk_level}}' id="risklevel_id"
+                                        aria-label="risk Level" disabled readonly />
+
                                 <div class="w-25">
                                     <form method="POST" action ="/settings/" id="risklevelchangeform-form">
                                         {% csrf_token %}

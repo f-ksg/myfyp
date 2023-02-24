@@ -5,4 +5,11 @@ window.addEventListener('DOMContentLoaded', event => {
     {
         new simpleDatatables.DataTable(historydatatables);
     }
+
+    const solddatatables = document.getElementById('stock-table-2');
+    if (solddatatables) 
+    {
+        new simpleDatatables.DataTable(solddatatables);
+    }
+
 });

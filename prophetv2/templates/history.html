@@ -116,7 +116,57 @@
                             </div>
                             <div class="card-footer small text-muted mb-5">Current holdings</div>
 
-                            <div class="row">
+                            
+                                <div class="card-header">
+                                    <i class="fas fa-table me-1"></i>
+                                    Sell history
+                                </div>
+                                <div class="card-body">
+                                    <table id="stock-table-2" class="table table-striped">
+                                        <thead>
+                                          <tr>
+                                            <th>Stock Name</th>
+                                            <th>Ticker</th>
+                                            <th>Quantity</th>
+                                            <th>Sold Price (SGD)</th>
+                                            <th>Total Value (SGD)</th>
+                                            <th>Sold At</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody>
+                                          {% for info in data %}
+                                            <tr>
+                                              <td>{{ info.sell_stock_name }}</td>
+                                              <td>{{ info.sell_stock_ticker }}</td>
+                                              <td>{{ info.sell_quantity }}</td>
+                                              <td>{{ info.sell_sold_price }}</td>
+                                              <td>{{ info.sell_total_sum }}</td>
+                                              <td>{{ info.sell_sold_date }}</td>
+                                            </tr>
+                                          {% endfor %}
+                                        </tbody>
+                                      </table>
+                                </div>
+                                <div class="card-footer small text-muted mb-5">Sell History</div>
+                            <div class = "row mt-3">
+                                <div class = "d-flex justify-content-center">
+                                    <div class = "card mb-4">
+                                        <div class = "card-header">
+                                            <i class="fas fa-chart-bar me-1"></i>
+                                            Portfolio
+                                                
+                                        </div>
+                                        <div class = "card-body">
+                                            
+                                            <input class="form-control text-success w-auto mb-3 me-3" type="text" placeholder=""
+                                        id="portfolio" name = "portfolio" value="SGD {{portfolio_value}}" disabled>
+                                            
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="row mt-3">
                                 <div class="col-lg-6">
                                     <div class="card mb-4">
                                         <div class="card-header">
@@ -159,7 +209,9 @@
         <script src="/static/js/historypage.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
+       
         <script>
+            
 
             var labels = [];
             var stockname = [];
@@ -227,6 +279,16 @@
             }
             });
 
+             $(document).ready(function() {
+                var portfolioValue = parseInt($(".portfolio-value").text());
+               if (portfolioValue >= 30000) {
+                $(".portfolio-value").css("color", "green");
+                } else {
+                  $(".portfolio-value").css("color", "red");
+                }
+              });
+
+              
         </script>
     </body>
 </html>

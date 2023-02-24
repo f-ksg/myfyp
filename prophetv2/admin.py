@@ -1,7 +1,7 @@
 from django.contrib import admin
 from .models import Profile#, TestStockInfo
 from import_export.admin import ImportExportModelAdmin
-from .models import StockInfo, Stocks, StockOwned
+from .models import StockInfo, Stocks, StockOwned, StockSold
 from .resources import StockInfoResource, StockResource
 
 class TestStockInfoAdmin(ImportExportModelAdmin):
@@ -20,4 +20,4 @@ admin.site.register(StockInfo, TestStockInfoAdmin)
 admin.site.register(Profile)
 admin.site.register(Stocks, TestStocks)
 admin.site.register(StockOwned)
-# admin.site.register(StockInfo)
+admin.site.register(StockSold)
