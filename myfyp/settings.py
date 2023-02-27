@@ -24,10 +24,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ['SECRET_KEY']
-# SECRET_KEY = 'django-insecure-4@i2h=ka(8*pg@5g9mzzp_$!gau@5nxj(7q#+xpjgk=hx-h4r_'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = [
     'myfyp-production.up.railway.app',
