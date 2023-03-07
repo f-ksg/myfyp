@@ -1,0 +1,649 @@
+"id","tradingName","stockCode","lastPrice","roe","marketcap","totalRev","pe","yieldPercent","sector","gtiScore","oneYearChange"
+659,"Tai Sin Electric","500",0.4,11.23,185.196,379.052,8.37,5.88,"Industrial Goods",87,27.01
+660,"3Cnergy","502",0.003,51.26,9.201,0.158,0.98,NULL,"Real Estate",48,7.48
+661,"HS Optimus","504",0.002,-5.24,10.761,16.752,NULL,NULL,"Cyclical Consumer Products",78,9.97
+662,"AsiaMedic","505",0.011,-0.68,12.316,17.629,NULL,NULL,"Healthcare Services",77,-3.82
+663,"Fuji Offset","508",0.325,4.52,16.222,3.817,12.87,0.92,"Industrial Goods",75,-7.29
+664,"Hiap Seng","510",0.02,NULL,6.003,23.414,NULL,NULL,"Industrial & Commercial Services",62,11.76
+665,"Second Chance","528",0.245,5.01,226.976,43.115,15.09,4.08,"Retailers",59,17.85
+666,"DISA","532",0.003,-36.9,30.32,24.266,NULL,NULL,"Software & IT Services",44,25.08
+667,"ABR","533",0.43,2.33,86.428,83.485,38.5,2.33,"Food & Beverages",50,3.24
+668,"Tung Lok Rest","540",0.118,22.93,32.379,70.979,12.39,NULL,"Cyclical Consumer Services",66,23.52
+669,"Abundance Intl","541",0.028,1.17,35.887,898.102,70.42,1.79,"Industrial & Commercial Services",67,20.19
+670,"Noel Gifts Intl","543",0.205,8.91,21.008,20.652,7.26,1.46,"Retailers",69,9.36
+671,"CSE Global","544",0.39,4.94,241.234,496.392,21.42,7,"Software & IT Services",80,3.06
+672,"Medtecs Intl","546",0.137,-2.99,75.269,119.89,NULL,6.09,"Healthcare Services",60,-72.0
+673,"King Wan","554",0.034,-7.29,23.744,82.73,NULL,NULL,"Industrial & Commercial Services",73,10.32
+674,"UMS","558",1.14,20.98,764.411,326.168,12.59,4.39,"Technology Equipment",72,58.61
+675,"Spindex Ind","564",0.955,9.41,110.174,191.687,7.67,3.66,"Industrial Goods",72,-10.66
+676,"SHS","566",0.145,-1.13,98.326,70.938,NULL,NULL,"Industrial & Commercial Services",70,61.83
+677,"Colex","567",0.225,-7.05,29.818,42.049,NULL,2,"Industrial & Commercial Services",60,0.28
+678,"Vicplas Intl","569",0.195,11.79,99.75,130.808,11.46,2.31,"Healthcare Services",67,14.8
+679,"Abundante","570",0.14,16.33,14.601,8.361,4.89,7.14,"Mineral Resources",64,15.37
+680,"Challenger","573",0.52,9.6,208.915,278.439,14.81,5.38,"Retailers",69,-3.36
+681,"ASTI","575",0.014,-6.29,9.548,60.521,NULL,NULL,"Technology Equipment",68,8.84
+682,"KS Energy","578",0.013,NULL,16.627,39.982,NULL,NULL,"Energy - Fossil Fuels",49,20.89
+683,"Oceanus","579",0.013,2.54,332.375,173.573,260,NULL,"Food & Beverages",60,27.53
+684,"Santak","580",0.055,-6.71,5.917,11.677,NULL,NULL,"Industrial Goods",78,-1.25
+685,"Sunrise Shares","581",0.037,5.09,7.745,1.056,26.43,NULL,"Real Estate",58,-24.72
+686,"Progen","583",0.051,-10.59,19.916,3.684,NULL,NULL,"Industrial & Commercial Services",61,3.19
+687,"OEL","584",0.009,-76.73,8.404,0.462,NULL,NULL,"Healthcare Services",70,-17.79
+688,"Asian Micro","585",0.005,-7.72,8.033,4.773,NULL,NULL,"Utilities",53,24.57
+689,"Global Dragon","586",0.105,4.31,71.607,65.959,20,9.52,"Real Estate",58,-26.68
+690,"CapAllianz","594",0.002,-3.13,17.105,4.925,NULL,NULL,"Energy - Fossil Fuels",49,54
+691,"GKE","595",0.086,2.09,68.344,104.52,35.25,2.33,"Transportation",83,-8.25
+692,"Pavillon","596",0.027,-103.82,38.744,12.602,NULL,NULL,"Cyclical Consumer Services",44,28.66
+693,"Hyflux","600",0.21,-247.15,174.141,150.18,NULL,NULL,"Utilities",38,-62.41
+694,"5E Resources","NLC",0.26,NULL,38.343,15.889,20.16,NULL,"Industrial & Commercial Services",NULL,NULL
+695,"8Telecom","AZG",0.069,NULL,7.876,0.802,NULL,NULL,"Technology Equipment",57,-26.76
+696,"9R","1Y1",0.054,-434.2,54.35,3.469,NULL,NULL,"Industrial Goods",50,-12.36
+697,"A-Smart","BQC",0.29,-7.15,43.228,6.144,NULL,NULL,"Industrial & Commercial Services",55,4.33
+698,"A-Sonic Aero","BTJ",0.74,16.85,65.795,609.217,6.17,1.08,"Transportation",47,74.82
+699,"Abterra","L5I",0.045,98.84,12.811,5.49,NULL,NULL,"Energy - Fossil Fuels",-6.0,-89.06
+700,"Accrelist Ltd","QZG",0.049,-65.69,14.883,171.241,NULL,NULL,"Technology Equipment",47,-18.91
+701,"Acesian Partners","5FW",0.066,48.21,32.901,26.311,8.19,NULL,"Industrial & Commercial Services",68,160.97
+702,"Acma","AYV",0.027,-20.29,1.145,46.178,NULL,NULL,"Industrial Goods",61,-30.08
+703,"AcroMeta","43F",0.033,23.4,9.145,63.261,3.99,NULL,"Industrial & Commercial Services",69,117.36
+704,"Addvalue Tech","A31",0.012,-106.61,38.904,8.351,NULL,NULL,"Technology Equipment",44,76.33
+705,"Advanced","BLZ",0.081,-3.65,8.385,41.852,NULL,NULL,"Energy - Fossil Fuels",93,1.3
+706,"Advanced Systems","5TY",0.001,NULL,22.324,27.971,25,NULL,"Technology Equipment",56,58.47
+707,"Advancer Global","43Q",0.101,-6.82,25.489,61.707,NULL,NULL,"Industrial & Commercial Services",64,5.08
+708,"Adventus","5EF",0.007,-0.88,17.161,0,NULL,NULL,"Real Estate",66,NULL
+709,"Aedge Group","XVG",0.255,NULL,27.03,NULL,NULL,3.92,"Industrial & Commercial Services",47,NULL
+710,"AEM SGD","AWX",3.32,40.52,1035.32,913.694,7.01,3.52,"Technology Equipment",78,108.84
+712,"AF Global","L38",0.087,-1.51,91.841,9.289,NULL,NULL,"Cyclical Consumer Services",65,103.8
+713,"AGV","1A4",0.01,NULL,9.98,NULL,NULL,NULL,"Holding Companies",18,NULL
+714,"AIMS Property","BVP",1.18,3.26,57.43,5.614,14.2,NULL,"Real Estate",NULL,-60.0
+715,"Alita Resources","40F",0.078,-43.51,115.031,66.687,NULL,NULL,"Mineral Resources",48,NULL
+716,"Alliance HC","MIJ",0.173,15.04,35.965,54.757,11.54,2.6,"Healthcare Services",67,17.97
+717,"AlphaDX","VVL",0.112,-1317.81,27.211,9.043,NULL,NULL,"Software & IT Services",NULL,NULL
+718,"Alpina Holdings","ZXY",0.175,NULL,32.259,51.89,3.47,3.25,"Industrial & Commercial Services",NULL,NULL
+719,"Alset","40V",0.033,-50.02,115.26,26.182,NULL,NULL,"Real Estate",79,4.54
+720,"Amara","A34",0.345,1.21,199.043,71.519,41.42,1.45,"Cyclical Consumer Services",63,10.01
+721,"Amcorp Global","S9B",0.12,-9.35,53.625,77.473,NULL,NULL,"Real Estate",74,252.95
+722,"AMOS Group","49B",0.14,-15.72,29.166,98.507,NULL,NULL,"Industrial Goods",54,-1.76
+723,"Amplefield Ltd","AOF",0.026,-8.58,23.416,12.176,NULL,NULL,"Real Estate",82,290.13
+724,"AMTD IDEA OV","HKB",12.93,13.36,319.076,117.667,0.65,NULL,"Banking & Investment Services",NULL,21.76
+725,"AnAn Intl","Y35",0.024,24.27,101.596,3838.775,4.24,NULL,"Energy - Fossil Fuels",32,75.43
+726,"Anchun Intl","BTX",0.28,5.3,14.14,32.109,4.73,NULL,"Industrial Goods",55,104.08
+727,"AnnAik","A52",0.072,7.46,21.172,122.771,4.38,9.72,"Mineral Resources",74,113.27
+728,"Annica","5AL",0.001,-139.12,16.975,6.674,NULL,NULL,"Energy - Fossil Fuels",47,NULL
+729,"Aoxin Q & M","1D4",0.108,-1.57,55.219,27.968,NULL,NULL,"Healthcare Services",82,-14.42
+730,"AP Oil","5AU",0.157,3.53,25.831,59.093,12.41,6.37,"Chemicals",71,4.1
+731,"AP Strategic","5RA",0.002,-43.15,35.657,1.207,NULL,NULL,"Cyclical Consumer Services",51,0.75
+732,"APAC Realty","CLN",0.62,21.3,220.223,719.253,6.29,12.1,"Real Estate",81,24.87
+733,"Arion Ent","YYB",0.006,-61.8,5.604,0.931,NULL,NULL,"Cyclical Consumer Services",66,5.08
+734,"Ascent Bridge","AWG",0.56,-17.43,50.446,9.567,NULL,NULL,"Mineral Resources",46,-30.62
+735,"Asia Enterprises","A55",0.159,3.88,54.365,73.522,14.45,5.03,"Mineral Resources",61,107.62
+736,"Asia Vets","5RE",0.043,-3.72,6.284,2.522,NULL,NULL,"Healthcare Services",61,-36.36
+737,"AsiaPhos","5WV",0.015,-6.35,15.473,2.304,NULL,NULL,"Chemicals",50,89.79
+738,"Asiatic","5CR",0.003,-29.68,5.225,39.665,NULL,NULL,"Industrial Goods",67,1.45
+739,"ASL Marine","A04",0.049,-42.15,31.024,252.134,NULL,NULL,"Industrial Goods",60,21.36
+740,"Aspen","1F3",0.039,-14.3,42.249,56.895,NULL,NULL,"Real Estate",76,-34.55
+741,"Aspial Corp","A30",0.079,-0.07,171.555,469.522,NULL,9.49,"Cyclical Consumer Products",57,-5.48
+742,"Aspial Lifestyle","5UF",0.156,10.58,215.11,255.288,10.49,8.01,"Retailers",72,-6.02
+743,"Astaka","42S",0.088,3.23,161.56,11.662,NULL,NULL,"Real Estate",47,22.28
+744,"Atlantic Nav","5UL",0.105,10.68,54.969,78.769,5.37,NULL,"Energy - Fossil Fuels",57,32.38
+745,"Audience","1AZ",0.27,NULL,45.414,NULL,NULL,4.67,"Cyclical Consumer Services",52,NULL
+746,"AusGroup","5GJ",0.009,-137.22,27.659,225.243,NULL,NULL,"Energy - Fossil Fuels",52,25.63
+747,"Avarga","U09",0.23,14,218.533,2371.441,4.72,3.65,"Cyclical Consumer Products",81,-1.85
+748,"Avi-Tech Hldg","1R6",0.265,NULL,45.327,30.849,14.43,5.19,"Technology Equipment",NULL,5.15
+749,"AVJennings A$","A05",0.34,3.2,166.555,222.814,12.73,4.32,"Real Estate",NULL,-28.38
+750,"Axington","42U",0.19,-3.5,35.386,0,NULL,NULL,"Industrial & Commercial Services",84,NULL
+753,"Azeus","BBW",7.9,33.65,237,40.295,27.4,3.13,"Software & IT Services",59,22.98
+754,"Aztech Gbl","8AZ",0.825,NULL,638.406,NULL,NULL,3.64,"Industrial Goods",65,NULL
+755,"B&M Hldg","CJN",2.96,58.58,24.45,10.001,NULL,0.51,"Banking & Investment Services",59,217.59
+756,"Baker Technology","BTP",0.65,5.29,131.871,86.25,12.16,0.77,"Holding Companies",75,39.44
+757,"Ban Leong","B26",0.335,19.17,39.028,217.163,5.05,11.19,"Technology Equipment",71,6.28
+758,"Banyan Tree","B58",0.355,-2.42,308.116,283.385,NULL,NULL,"Cyclical Consumer Services",82,103.97
+759,"BBR","KJ5",0.118,8.41,38.316,175.994,4.84,2.54,"Industrial & Commercial Services",66,11.9
+760,"Beng Kuang","BEZ",0.054,-38.39,10.757,54.221,NULL,NULL,"Industrial & Commercial Services",67,10.49
+761,"Best World","CGN",2.45,30.96,1104.982,530.49,8.84,NULL,"Retailers",64,-11.61
+762,"Beverly JCG","VFP",0.001,-204.39,19.681,10.83,NULL,NULL,"Healthcare Services",38,41.55
+763,"BH Global","BQN",0.13,7.2,39,47.869,10.39,3.85,"Industrial Goods",60,7.49
+764,"Biolidics","8YY",0.022,NULL,10.854,NULL,NULL,NULL,"Healthcare Services",64,NULL
+765,"BlackGoldNatural","41H",0.006,NULL,6.451,15.436,NULL,NULL,"Energy - Fossil Fuels",66,-10.68
+766,"Boldtek","5VI",0.035,-12.52,12.378,53.382,NULL,NULL,"Real Estate",57,-11.41
+767,"Bonvests","B28",0.905,2.93,363.373,167.639,14.8,0.83,"Cyclical Consumer Services",67,51.8
+768,"Boustead","F9D",0.86,7.39,430.058,538.371,13,4.65,"Industrial & Commercial Services",87,-26.89
+769,"Boustead Proj","AVM",0.94,3.35,300.8,277.692,22.48,0.21,"Industrial & Commercial Services",81,-29.31
+770,"BRC Asia","BEC",1.82,25.79,502.278,1699.266,5.51,6.59,"Cyclical Consumer Products",65,45.4
+771,"Broadway Ind","B69",0.108,17.07,50.967,488.435,3.34,9.26,"Industrial Goods",45,16.04
+772,"Brook Crompton","AWC",0.67,6.54,23.757,54.966,9.17,2.99,"Industrial Goods",75,19.43
+773,"Bukit Sembawang","B61",4.56,2.9,1180.634,210.059,28.02,0.88,"Real Estate",62,-62.26
+774,"Bumitama Agri","P8Z",0.605,32.45,1063.307,1385.898,3.52,7.52,"Food & Beverages",59,49.74
+775,"Bund Center","BTE",0.525,0.84,399.257,73.782,108.92,9.52,"Real Estate",54,-9.11
+776,"Camsing Hc","BAC",1.07,NULL,30.232,5.717,NULL,NULL,"Retailers",44,NULL
+777,"Capital World","1D5",0.005,149.79,9.046,1.207,NULL,NULL,"Real Estate",53,41.41
+778,"CapitaLandInvest","9CI",3.87,NULL,20136.367,2598,9.4,NULL,"Real Estate",99,NULL
+779,"Captii","AWV",0.385,19.08,12.304,22.971,1.37,4.87,"Telecommunications Services",48,2.96
+780,"Casa","C04",0.079,2.97,16.576,21.676,9.39,3.8,"Cyclical Consumer Products",63,13.96
+781,"CDW","BXE",0.24,9.43,60.523,188.457,9.08,6.96,"Technology Equipment",85,12.98
+782,"Centurion","OU8",0.355,11.9,298.476,168.818,3.88,2.11,"Real Estate",84,33.46
+783,"CFM","5EB",0.098,16.29,19.75,26.851,10.46,NULL,"Industrial Goods",53,29.75
+784,"CH Offshore","C13",0.065,-6.51,45.831,23.88,NULL,NULL,"Energy - Fossil Fuels",68,29.01
+785,"Charisma Energy","5QT",0.002,NULL,26.007,17.998,NULL,NULL,"Utilities",52,10.74
+786,"Chasen","5NV",0.056,3.05,21.777,161.746,11.18,NULL,"Transportation",61,3.47
+787,"ChasWood Res","5TW",0.009,NULL,2.202,0.921,NULL,NULL,"Cyclical Consumer Services",41,NULL
+788,"Chemical Ind","C05",0.77,8.02,58.478,100.533,5.85,1.95,"Chemicals",60,49.06
+789,"China Aviation","G92",1.05,4.01,909.493,24177.564,19.04,1.81,"Transportation",78,31.93
+790,"China Env","5OU",0.037,-23.23,30.296,1.144,NULL,NULL,"Industrial & Commercial Services",59,NULL
+791,"China Env Res","RS1",0.006,-4.01,83.498,93.188,NULL,NULL,"Automobiles & Auto Parts",NULL,19.66
+792,"China Everbright","U9E",0.245,9.96,700.915,1228.933,3.54,8.86,"Utilities",74,9.35
+793,"China Fishery","B0Z",0.076,2.22,264.213,646.305,NULL,NULL,"Food & Beverages",45,-20.31
+794,"China Intl","BEH",0.102,-17.25,7.739,20.243,NULL,NULL,"Industrial & Commercial Services",70,-32.79
+795,"China Mining","BHD",0.03,35.59,12.24,5.787,0.63,NULL,"Real Estate",60,1527.83
+796,"China Yuanbang","BCD",0.18,-13.39,12.492,15.483,NULL,NULL,"Real Estate",58,-84.17
+797,"ChinaKangdaFood","P74",0.045,-1.29,129.884,1859.101,NULL,NULL,"Food & Beverages",56,4.13
+798,"ChinaKundaTech","GU5",0.017,-41.99,6.967,3.854,NULL,NULL,"Chemicals",67,-35.94
+799,"ChinaSunsine","QES",0.47,20.74,462.192,780.231,3.49,2.13,"Chemicals",57,30.89
+800,"Chip Eng Seng","C29",0.75,0.88,618.014,1129.245,85.42,2.67,"Real Estate",81,12.13
+801,"Choo Chiang","42E",0.31,15.51,64.48,82.39,7.89,7.42,"Industrial Goods",69,16.53
+802,"Chuan Hup","C33",0.22,0.81,203.562,20.85,77.56,4.55,"Real Estate",60,-19.67
+803,"CityDev","C09",8.16,14.68,7419.899,2906.217,5.95,NULL,"Real Estate",113,30.46
+804,"Civmec","P9D",0.66,14.47,333.387,696.58,8.51,5.42,"Industrial & Commercial Services",84,42.61
+805,"Clearbridge","1H3",0.034,-37.99,21.019,37.939,NULL,NULL,"Healthcare Services",70,22.32
+806,"CNMC Goldmine","5TP",0.188,4.49,76.646,44.999,32.83,1.06,"Mineral Resources",65,29.22
+808,"Combine Will","N0Z",0.855,6.34,27.64,194.028,3.55,5.85,"Personal & Household Products & Services",79,7.89
+809,"ComfortDelGro","C52",1.2,5.8,2600.938,3655.7,16.47,4.13,"Transportation",101,5.92
+810,"Cordlife","P8A",0.33,4.15,88.283,59.737,15.26,2.73,"Healthcare Services",66,15.56
+811,"Cortina","C41",3.9,27.11,645.756,799.155,7.95,0.51,"Retailers",58,36.04
+812,"COSCO SHP SG","F83",0.199,5.26,445.61,196.036,15.11,NULL,"Transportation",69,0.82
+813,"CosmoSteel","B9S",0.13,2.84,37.752,46.083,16.35,5.77,"Mineral Resources",82,17.08
+814,"Courage Inv","CIN",0.016,20.37,87.816,102.234,0.99,NULL,"Transportation",NULL,69.61
+815,"Creative","C76",1.66,-13.36,124.5,81.279,NULL,NULL,"Technology Equipment",38,-27.4
+816,"CreditBureauAsia","TCU",0.985,16.68,226.934,46.588,28.7,3.45,"Industrial & Commercial Services",63,3.27
+817,"CSC","C06",0.009,-14.08,32.295,263.664,NULL,NULL,"Industrial & Commercial Services",71,6.05
+818,"Darco Water Tech","BLR",0.11,-13.23,10.321,68.797,NULL,NULL,"Utilities",62,1.69
+819,"Datapulse Tech","BKW",0.108,-5.35,23.755,1.921,NULL,NULL,"Real Estate",64,84.71
+820,"DBS","D05",36.03,11.63,93231.859,10871,14.03,4,"Banking & Investment Services",115,4.6
+821,"Debao Property","BTF",0.128,-3.64,9.27,37.082,NULL,15.63,"Real Estate",40,-39.45
+822,"Del Monte Pac","D03",0.315,13.58,1083.649,3160.378,7.12,7.59,"Food & Beverages",107,6.48
+823,"Delfi","P34",0.865,15.57,528.651,584.379,10.97,4.18,"Food & Beverages",64,14.75
+824,"DFIRG USD","D01",3.33,2.68,4506.994,8961.7,157.45,2.25,"Food & Drug Retailing",NULL,-6.31
+825,"Digilife Tech","BAI",1.7,NULL,23.597,NULL,NULL,NULL,"Telecommunications Services",73,NULL
+826,"Don Agro","GRQ",0.205,12.91,30.806,39.576,3.28,4.16,"Food & Beverages",43,18.11
+827,"Dragon","MT1",0.004,NULL,1.34,3.775,NULL,NULL,"Industrial Goods",64,30.34
+828,"Duty Free Intl","5SO",0.132,3.05,162.254,40.947,48.14,1.52,"Retailers",54,-7.24
+829,"Dyna-Mac","NO4",0.2,20.67,206.102,237.893,33.67,NULL,"Industrial Goods",56,NULL
+830,"Econ Healthcare","EHG",0.196,1.15,50.372,49.723,125.64,1.17,"Healthcare Services",51,5.78
+831,"EcoWise","5CT",0.078,-12.04,70.223,29.581,NULL,NULL,"Industrial & Commercial Services",78,-16.83
+832,"Edition","5HG",0.004,-29.26,10.093,0.212,NULL,NULL,"Food & Beverages",58,-8.62
+833,"Eindec","42Z",0.038,12.77,4.093,22.53,4.83,NULL,"Industrial & Commercial Services",58,-9.79
+834,"Ellipsiz","BIX",0.265,2.2,44.289,55.215,17.93,3.77,"Technology Equipment",74,-1.06
+835,"Emperador Inc.","EMI",0.505,12.65,327318.594,60218.887,33.27,NULL,"Food & Beverages",NULL,6.16
+836,"Eneco Energy","R14",0.014,-10.57,32.349,44.023,NULL,NULL,"Energy - Fossil Fuels",38,15.37
+837,"EnGro","S44",1.05,10.76,124.638,131.928,4,2.38,"Mineral Resources",69,15.69
+838,"Envictus","BQD",0.144,-3.99,43.837,158.477,NULL,NULL,"Cyclical Consumer Services",53,34.93
+839,"Enviro-Hub","L23",0.035,4.22,53.795,45.559,16.75,NULL,"Industrial & Commercial Services",57,35.15
+840,"ES","5RC",0.045,-14.93,6.354,28.735,NULL,NULL,"Industrial Goods",72,68.35
+841,"ETC Singapore","1C0",0.034,NULL,31.666,NULL,NULL,NULL,"Real Estate",82,NULL
+842,"EuroSports Gbl","5G1",0.195,-18.2,51.675,62.426,NULL,NULL,"Retailers",84,36.22
+843,"Ezra","5DN",0.011,-121.68,31.511,695.978,NULL,NULL,"Energy - Fossil Fuels",30,-3.44
+844,"F & N","F99",1.17,4.1,1702.699,2003.214,13.65,4.27,"Food & Beverages",78,6.6
+845,"Falcon Energy","5FL",0.027,NULL,22.719,39.011,NULL,NULL,"Energy - Fossil Fuels",50,-33.91
+846,"Far East","5TJ",0.101,1.77,11.258,93.951,14.77,1.78,"Industrial Goods",64,34.05
+847,"Far East Orchard","O10",1.09,3.03,517.451,115.545,13.31,2.75,"Cyclical Consumer Services",92,13.03
+848,"Federal Int","BDU",0.132,4.87,18.581,122.131,4.74,NULL,"Energy - Fossil Fuels",70,82.62
+849,"Figtree","5F4",0.033,-9.05,11.86,22.826,NULL,6.06,"Real Estate",59,97.24
+850,"First Resources","EB5",1.53,22.53,2423.632,1530.282,7.1,4.97,"Food & Beverages",90,45.21
+851,"First Sponsor","ADN",1.29,6.77,1192.162,547.666,13.81,2.67,"Real Estate",74,113.48
+852,"FJ Benjamin","F10",0.025,8.29,29.683,80.903,10.2,NULL,"Retailers",61,21.04
+853,"Food Empire","F03",0.765,14.49,419.276,460.991,8.87,2.12,"Food & Beverages",50,20.08
+854,"Forise Int","8A1",0.125,2.15,5.325,1.602,98.47,NULL,"Industrial & Commercial Services",57,-21.72
+855,"FortressMinerals","OAJ",0.4,21,200,61.767,12,2,"Mineral Resources",83,-16.27
+856,"Frasers Property","TQ5",0.905,7.79,3553.068,3877.042,4.1,3.31,"Real Estate",86,3.01
+857,"Frencken","E28",1.16,14.76,495.349,780.706,9.27,3.56,"Industrial Goods",32,10.99
+858,"Fu Yu","F13",0.235,12.03,176.954,246.926,9,7.02,"Industrial Goods",74,62.19
+859,"Full Apex","BTY",0.405,-1.77,17.293,194.109,NULL,NULL,"Chemicals",7,11.9
+860,"Fuxing China","AWK",0.63,13.17,11.014,163.77,0.8,NULL,"Cyclical Consumer Products",59,19.32
+861,"G Invacom","QS9",0.053,-3.44,14.967,105.398,NULL,NULL,"Technology Equipment",63,-12.35
+862,"G K Goh","G41",0.9,-5.6,282.855,-38.828,NULL,2.22,"Banking & Investment Services",70,-53.56
+863,"Gallant Venture","5IG",0.129,-5.88,704.805,148.31,NULL,NULL,"Automobiles & Auto Parts",55,6.52
+864,"GCCP","41T",0.012,-11.21,16.571,2.61,NULL,NULL,"Mineral Resources",70,85.06
+865,"GDS Global","5VP",0.053,-18.97,5.936,13.664,NULL,NULL,"Cyclical Consumer Products",75,5.18
+866,"Genting Sing","G13",1,2.29,12094.026,1175.643,67.48,2,"Cyclical Consumer Services",88,0.46
+867,"Geo Energy Res","RE4",0.32,NULL,454.679,1061.711,1.51,31.25,"Energy - Fossil Fuels",72,73.9
+868,"GHY Culture","XJB",0.405,-0.66,434.886,60.159,NULL,0.25,"Cyclical Consumer Services",80,-55.01
+869,"Global Inv","B73",0.129,-9.49,222.376,-22.451,NULL,6.2,"Collective Investments",96,-148.35
+870,"Global Palm Res","BLW",0.16,8.69,41.862,46.918,6.71,10.31,"Food & Beverages",51,37.11
+871,"Global Testing","AYN",1.36,36.27,47.877,62.039,2.84,14.71,"Technology Equipment",73,71.29
+872,"Golden Agri-Res","E5H",0.26,15.2,3337.763,14868.986,3.49,7.22,"Food & Beverages",85,37.79
+873,"Golden Energy","AUE",0.8,57.6,2110.48,4637.605,4.13,NULL,"Energy - Fossil Fuels",70,154.31
+874,"Goodland","5PC",0.142,5.41,55.957,37.077,4.87,4.45,"Real Estate",61,44.97
+875,"GP Industries","G20",0.635,8.91,331.063,1199.293,7.56,4.72,"Industrial Goods",75,-0.49
+876,"Grand Banks","G50",0.34,6.46,62.776,75.177,15.75,1.47,"Cyclical Consumer Products",71,-21.74
+877,"Grand Venture","JLB",0.54,17.51,183.216,129.78,10.94,1.48,"Industrial Goods",57,47.43
+878,"Great Eastern","G07",18.98,9.91,8983.596,14713.1,9.52,3.42,"Insurance",103,-37.9
+879,"Green Build","Y06",0.017,-211.79,4.626,2.99,NULL,NULL,"Industrial & Commercial Services",56,NULL
+880,"GRP","BLU",0.078,NULL,15.109,NULL,NULL,NULL,"Automobiles & Auto Parts",66,NULL
+881,"GS Hldg","43A",0.086,NULL,16.253,NULL,NULL,NULL,"Industrial & Commercial Services",37,NULL
+882,"GSH","BDX",0.16,-4.22,316.326,97.881,NULL,NULL,"Industrial & Commercial Services",69,3.94
+883,"GSS Energy","41F",0.042,7.07,26.468,125.953,5.17,NULL,"Industrial Goods",65,3.27
+884,"Guoan Intl","G11",0.011,-15.3,65.463,28.508,NULL,NULL,"Technology Equipment",NULL,8.9
+885,"GuocoLand","F17",1.64,8.09,1940.732,1174.35,4.98,3.66,"Real Estate",89,19
+886,"H2G Green","5AI",0.022,-12.03,24.182,11.438,NULL,NULL,"Cyclical Consumer Products",63,87.27
+887,"Hafary","5VS",0.21,22.24,90.415,141.019,5.36,7.14,"Cyclical Consumer Products",64,25.11
+888,"Hai Leck","BLH",0.42,5.64,95.169,81.285,13.62,9.52,"Energy - Fossil Fuels",58,9.4
+889,"Halcyon Agri","5VJ",0.41,0.62,653.955,3444.903,116.29,NULL,"Automobiles & Auto Parts",85,24.32
+890,"Hatten Land","PH0",0.02,-162.34,37.142,19.571,NULL,NULL,"Real Estate",35,280.33
+891,"Haw Par","H02",10.8,4.24,2390.776,170.874,17.79,2.78,"Pharmaceuticals & Medical Research",96,78.01
+892,"HC Surgical","1B1",0.39,37.14,59.044,19.02,15.32,5.64,"Healthcare Services",70,-16.53
+893,"HealthBank","40B",0.144,-7.49,13.579,0.046,NULL,NULL,"Cyclical Consumer Services",70,342.71
+894,"Healthway Med","5NG",0.037,6.76,167.816,153.5,12.98,NULL,"Healthcare Services",83,29.94
+895,"Heatec Jietong","5OR",0.022,-25.67,4.505,18.098,NULL,NULL,"Cyclical Consumer Products",76,-30.78
+896,"Heeton","5DP",0.275,4.05,134.127,61.404,7.53,1.36,"Real Estate",55,97.87
+897,"Hengyang Petro","5PD",0.185,-0.28,37.64,0,NULL,NULL,"Energy - Fossil Fuels",52,NULL
+898,"HG Metal","BTG",0.35,11.75,45.714,160.996,3.47,11.43,"Mineral Resources",55,38.78
+899,"HGH","5GZ",0.013,-4.33,23.151,22.828,NULL,NULL,"Mineral Resources",56,81.9
+900,"Hiap Hoe","5JK",0.76,1.55,360.664,97.009,30.93,0.66,"Real Estate",74,18.34
+901,"Hiap Tong","5PO",0.074,9.09,22.797,85.224,3.08,NULL,"Banking & Investment Services",69,22.97
+902,"HL Global Ent","AVX",0.25,-1.78,23.479,2.458,NULL,NULL,"Cyclical Consumer Services",76,-47.61
+903,"Ho Bee Land","H13",2.37,9.78,1666.911,368.683,4.2,4.22,"Real Estate",68,38.8
+904,"Hock Lian Seng","J2T",0.285,11.2,145.95,147.73,5.93,4.39,"Industrial & Commercial Services",68,44.22
+905,"Hoe Leong","H20",0.003,8.21,41.252,44.949,75,NULL,"Industrial Goods",64,NULL
+906,"Hong Fok","H30",0.97,2.16,844.494,103.349,15.03,1.03,"Real Estate",76,29.84
+907,"Hong Lai Huat","CTO",0.07,2.88,36.249,5.635,5.07,2.86,"Real Estate",54,-59.11
+908,"Hong Leong Asia","H22",0.695,6.57,519.845,4190.424,8.4,2.88,"Automobiles & Auto Parts",100,-19.31
+909,"Hong Leong Fin","S41",2.41,4.36,1080.011,243.837,8.29,4.98,"Banking & Investment Services",85,-4.65
+910,"HongkongLand USD","H78",4.84,2.37,10778.796,2392.5,13.81,4.55,"Real Estate",NULL,10.77
+911,"Hor Kew","BBP",0.255,6.63,13.277,58.841,3.09,NULL,"Industrial & Commercial Services",33,-6.28
+912,"Hosen","5EV",0.053,5.52,17.22,68.146,9.69,3.77,"Food & Drug Retailing",64,1.18
+913,"Hotel Grand","H18",0.895,0.88,661.786,121.548,57.45,1.12,"Cyclical Consumer Services",54,8.82
+914,"Hotel Royal","H12",2,-2.16,241.92,31.694,NULL,1.24,"Cyclical Consumer Services",77,28.85
+915,"Hotung Inv","BLS",1.81,5.3,189.436,28.801,12.21,12.87,"Banking & Investment Services",40,-52.67
+916,"HPL","H15",3.55,0.88,1852.444,424.081,146.69,1.13,"Cyclical Consumer Services",50,49.52
+917,"HRnetGroup","CHZ",0.835,17.93,844.525,629.603,13.05,4.35,"Industrial & Commercial Services",67,26.48
+918,"Huationg Global","41B",0.087,10.74,15.42,145.934,1.88,NULL,"Industrial & Commercial Services",69,-21.16
+919,"Hyphens Pharma","1J5",0.345,13.45,106.528,125.883,15.19,1.94,"Pharmaceuticals & Medical Research",88,NULL
+920,"ICP Ltd","5I4",0.011,0.84,34.229,7.368,157.14,NULL,"Cyclical Consumer Services",60,59.31
+921,"IFAST","AIY",5.58,7.07,1636.053,212.419,133.4,0.86,"Financial Technology (Fintech) & Infrastructure",91,1.37
+922,"IFS Capital","I49",0.181,3.64,68.051,44.003,10.68,4.31,"Banking & Investment Services",56,11.66
+923,"IHH","Q0F",1.81,6.82,51955.656,17602.588,29.91,1.02,"Healthcare Services",NULL,7.16
+924,"Imperium Crown","5HT",0.01,-167.58,7.9,1.854,NULL,NULL,"Real Estate",65,-23.67
+925,"Inch Kenneth","I4R",0,-1.32,172.508,28.195,NULL,NULL,"Cyclical Consumer Services",NULL,4.56
+926,"Incredible","RDR",0.002,-66.88,5.987,11.621,NULL,NULL,"Technology Equipment",74,-36.32
+927,"Indofood Agri","5JS",0.31,7.39,448.813,1648.959,5.76,2.58,"Food & Beverages",63,13.37
+928,"InnoTek","M14",0.51,1.42,125.795,173.72,46.03,3.92,"Technology Equipment",77,-7.49
+929,"Interra Resource","5GI",0.032,24.83,20.976,28.31,2.07,NULL,"Energy - Fossil Fuels",57,151.78
+930,"Intl Cement","KUO",0.024,10.77,137.634,188.809,5.65,NULL,"Mineral Resources",61,15.5
+931,"Intraco","I06",0.29,-2.98,32.98,195.966,NULL,NULL,"Industrial & Commercial Services",65,4.56
+932,"IPC Corp","AZA",0.11,-11.55,9.382,3.736,NULL,NULL,"Cyclical Consumer Services",57,-39.85
+933,"IPS Securex","42N",0.027,2.99,13.122,15.768,44.26,NULL,"Technology Equipment",67,81.4
+934,"ISDN","I07",0.58,12.51,254.41,413.685,10.42,2.5,"Industrial Goods",79,0.45
+935,"ISEC","40T",0.315,15.78,180.253,58.839,14.95,4.86,"Healthcare Services",71,57.52
+936,"Isetan","I15",3.03,1.29,124.988,90.263,90.26,0.99,"Retailers",59,10.72
+937,"ISOTeam","5WF",0.09,-33.58,31.353,99.878,NULL,NULL,"Industrial & Commercial Services",61,0.9
+938,"iWOW Tech","NXR",0.24,40.79,63.214,34.077,12.04,1.5,"Technology Equipment",NULL,-18.24
+939,"IX Biopharma","42C",0.124,-29.24,95.021,14.39,NULL,NULL,"Pharmaceuticals & Medical Research",72,724.64
+940,"Jackspeed","J17",0.131,NULL,39.26,0,NULL,NULL,"Automobiles & Auto Parts",67,NULL
+941,"Jadason","J03",0.017,-49.95,12.343,45.147,NULL,NULL,"Technology Equipment",58,18.18
+942,"Japan Foods","5OI",0.425,23.48,74.135,71.374,10.28,5.53,"Cyclical Consumer Services",79,32.95
+943,"Japfa","UD2",0.32,3.74,661.575,6615.086,9.62,3.13,"Food & Beverages",70,11.33
+944,"Jardine C&C","C07",28.89,12.92,11418.376,26616.02,9.35,4.35,"Automobiles & Auto Parts",96,34.53
+945,"Jason Marine","5PF",0.16,0.49,16.96,31.079,150.94,3.91,"Technology Equipment",67,-1.25
+946,"Jasper Inv","FQ7",0.002,NULL,8.708,0,NULL,NULL,"Energy - Fossil Fuels",56,NULL
+947,"Jawala","1J7",0.092,1.89,10.9,6.042,50.14,3.26,"Applied Resources",57,-41.6
+948,"JB Foods","BEW",0.47,10.31,142.504,646.892,6.36,3.19,"Food & Beverages",63,16.46
+949,"JEP","1J4",0.365,17,151.09,90.982,13.05,NULL,"Industrial & Commercial Services",58,50.66
+950,"JES Intl","EG0",0.026,NULL,30.816,0,NULL,NULL,"Industrial Goods",12,NULL
+951,"Jiutian Chemical","C8R",0.08,62.17,159.076,531.073,1.48,10.88,"Chemicals",57,74.36
+952,"JMH USD","J36",52.2,8.5,15128.821,36647,6.33,4.04,"Consumer Goods Conglomerates",NULL,7.05
+953,"Joyas Intl","E9L",0.003,-8.32,6.641,0.707,NULL,NULL,"Banking & Investment Services",26,NULL
+954,"Jubilee","NHD",0.034,-24.88,10.804,159.55,NULL,NULL,"Industrial Goods",56,-21.3
+955,"Jumbo","42R",0.31,-0.2,199.534,115.56,NULL,NULL,"Cyclical Consumer Services",66,41.29
+956,"Karin Tech","K29",0.34,4.62,73.562,336.439,21.18,625.44,"Technology Equipment",75,6.24
+957,"Katrina","1A0",0.028,NULL,6.509,NULL,NULL,NULL,"Cyclical Consumer Services",61,NULL
+958,"Kencana Agri","BNE",0.121,36.69,34.728,177.058,2.54,NULL,"Food & Beverages",56,25.51
+959,"Keong Hong","5TT",0.275,-34.04,66.705,148.067,NULL,NULL,"Industrial & Commercial Services",57,NULL
+960,"Keppel Corp","BN4",7.1,7.1,12925.96,6619.718,15.16,4.65,"Consumer Goods Conglomerates",110,0.13
+961,"Khong Guan","K03",1.28,0.63,33.04,69.686,88.95,1.56,"Food & Beverages",53,11.81
+962,"Kim Heng","5G2",0.086,5.26,61.06,64.761,21.55,NULL,"Energy - Fossil Fuels",63,32.45
+963,"Kimly","1D0",0.34,23.07,425.001,317.748,12.41,4.94,"Cyclical Consumer Services",61,33.15
+964,"KingsmenCreative","5MZ",0.29,1.1,58.565,278.487,50.35,NULL,"Industrial & Commercial Services",77,-0.91
+965,"Kitchen Culture","5TI",0.08,-29.73,32.764,10.787,NULL,NULL,"Retailers",40,-9.6
+966,"Koda","BJZ",0.305,11.1,25.388,105.156,3.37,3.28,"Cyclical Consumer Products",82,-4.0
+967,"Koh Bros","K75",0.146,2.09,63.948,350.682,10.01,1.37,"Industrial & Commercial Services",64,38.82
+968,"Koh Eco","5HV",0.036,1.51,101.446,209.374,43.9,0.69,"Industrial & Commercial Services",63,15.95
+969,"KOP","5I1",0.044,-39.2,48.75,21.51,NULL,NULL,"Cyclical Consumer Services",73,83.89
+970,"Kori","5VC",0.165,2.23,16.368,20.43,13.85,NULL,"Industrial & Commercial Services",79,27.73
+971,"Koyo Intl","5OC",0.055,-10.68,10.787,32.505,NULL,NULL,"Industrial & Commercial Services",73,29.03
+972,"KrisEnergy","SK3",0.03,NULL,44.926,60.16,NULL,NULL,"Energy - Fossil Fuels",78,-64.13
+973,"KSH","ER0",0.34,7.38,193.71,268.183,7.85,5.88,"Industrial & Commercial Services",67,15.45
+974,"KTL Global","EB7",0.116,-1425.09,39.431,0.942,NULL,NULL,"Cyclical Consumer Services",57,162.59
+975,"KTMG","XCF",0.2,21.13,33.936,121.323,8.02,NULL,"Cyclical Consumer Products",65,63.36
+976,"Leader Env","LS9",0.074,-8.11,113.581,9.004,NULL,NULL,"Industrial & Commercial Services",73,39.65
+977,"Ley Choon","Q0X",0.019,17.94,28.61,107.17,4.43,NULL,"Industrial & Commercial Services",69,NULL
+978,"LHN","41O",0.3,27.64,122.684,111.772,2.68,5.33,"Real Estate",88,-7.61
+979,"LHN Logistics","GIH",0.142,NULL,23.81,NULL,NULL,4.23,"Transportation",NULL,NULL
+980,"LHT","BEI",0.705,9.28,37.538,36.563,7.3,4.26,"Applied Resources",78,9.81
+981,"Lian Beng","L03",0.515,6.67,272.826,832.023,5.09,5.83,"Industrial & Commercial Services",70,19.84
+982,"LifeBrandz","1D3",0.001,-34.71,2.06,0.22,NULL,NULL,"Cyclical Consumer Services",24,547.06
+983,"Lincotrade","BFT",0.13,-8.49,22.364,0,NULL,NULL,"Chemicals",68,NULL
+984,"Lion Asiapac","BAZ",0.305,-3.33,24.737,30.706,NULL,NULL,"Mineral Resources",46,43.53
+985,"Livingstone","PRH",0.077,41.76,33.602,34.544,15.07,1.56,"Healthcare Services",48,NULL
+986,"LMS Compliance","LMS",0.29,NULL,25.356,NULL,NULL,NULL,"Industrial & Commercial Services",NULL,NULL
+987,"Lonza","O6Z",79.97,11.94,40466.32,6223,33.26,0.32,"Pharmaceuticals & Medical Research",NULL,15.05
+988,"Lorenzo Intl","5IE",0.016,-168.79,6.578,27.54,NULL,NULL,"Retailers",50,19.1
+989,"Low Keng Huat","F1E",0.415,-4.34,306.609,122.468,NULL,4.82,"Industrial & Commercial Services",73,-12.17
+990,"LS 2 Holdings","ENV",0.193,-0.74,35.705,58.229,19300,NULL,"Industrial & Commercial Services",NULL,12.23
+991,"Lum Chang","L19",0.37,-4.85,142.461,416.79,NULL,4.73,"Industrial & Commercial Services",90,28
+992,"Luminor","5UA",0.085,13.21,14.232,6.877,4.36,NULL,"Real Estate",70,-0.44
+993,"Lung Kee Bermuda","L09",0.73,7.44,1673.945,1991.925,10.41,9.81,"Industrial Goods",NULL,-13.33
+994,"Luxking","BKK",0.2,1.8,2.53,112.508,5.9,NULL,"Chemicals",68,13.14
+995,"LY Corp","1H8",0.1,4.22,48.914,70.208,16.62,1.3,"Cyclical Consumer Products",73,0.62
+996,"Magnus Energy","41S",0.001,50.63,12.599,15.49,NULL,NULL,"Energy - Fossil Fuels",59,45.4
+997,"Man Oriental USD","M04",1.89,-0.12,2388.337,413.5,NULL,NULL,"Cyclical Consumer Services",NULL,117.63
+998,"MarcoPolo Marine","5LY",0.044,16.82,165.345,86.095,7.28,NULL,"Transportation",60,86.73
+999,"Maruwa Yen1k","M12",0,18.96,218242.078,58851,13.8,0.42,"Technology Equipment",NULL,15.53
+1000,"Mary Chia","5OX",0.025,NULL,5.804,11.392,NULL,NULL,"Personal & Household Products & Services",55,-10.18
+1001,"Matex Intl","M15",0.025,-64.6,7.792,18.502,NULL,NULL,"Chemicals",65,-15.28
+1002,"MDR Limited","Y3D",0.07,-0.96,63.495,175.908,NULL,6.52,"Retailers",NULL,-13.11
+1003,"Medi Lifestyle","5TN",0.008,NULL,4.778,0.914,NULL,NULL,"Healthcare Services",78,362.8
+1004,"Medinex","OTX",0.22,8.09,29.192,12.673,20.48,6.77,"Industrial & Commercial Services",71,9.16
+1005,"MegaChem","5DS",0.55,14.5,73.315,148.167,8.89,3.64,"Chemicals",81,24.37
+1006,"MeGroup","SJY",0.099,11.12,11.833,116.565,8.93,3.89,"Automobiles & Auto Parts",69,88.3
+1007,"Memiontec Hldgs","TWL",0.225,11.81,148.673,34.925,70.53,0.31,"Utilities",54,-25.78
+1008,"Mencast","5NF",0.049,24.83,22.168,46.684,3.26,NULL,"Energy - Fossil Fuels",82,NULL
+1009,"Mercurius","5RF",0.033,-78.77,45.968,0,NULL,NULL,"Real Estate",45,NULL
+1010,"Mermaid Maritime","DU4",0.078,-4.26,110.24,269.899,NULL,NULL,"Energy - Fossil Fuels",62,119.34
+1011,"Meta Health","5DX",0.021,26.3,11.394,41.553,1.72,NULL,"Retailers",69,7.42
+1012,"Metech Intl","V3M",0.062,-35.07,9.396,5.224,NULL,NULL,"Industrial & Commercial Services",79,-66.85
+1013,"Metis Energy","L02",0.07,8.99,210.049,9.702,23.73,NULL,"Utilities",66,21.66
+1014,"Metro","M01",0.63,1.44,523.876,113.605,23.45,3.17,"Retailers",82,12.05
+1015,"Mewah Intl","MV4",0.295,10.8,442.697,6539.629,4.78,3.25,"Food & Beverages",73,21
+1016,"MFG Integration","M11",0.047,-14.52,11.332,12.173,NULL,NULL,"Technology Equipment",71,7.32
+1017,"Micro-Mechanics","5DD",2.18,30.33,303.09,78.546,18.46,5.5,"Technology Equipment",104,1.13
+1018,"Midas","5EN",0.192,NULL,356.959,NULL,NULL,NULL,"Mineral Resources",9,NULL
+1019,"MindChamps","CNE",0.181,5.18,43.73,63.406,11.82,NULL,"Personal & Household Products & Services",77,3.36
+1020,"Miyoshi","M03",0.017,-20.52,11.551,47.446,NULL,NULL,"Technology Equipment",71,8.32
+1021,"MM2 Asia","1B0",0.043,-17.37,119.996,145.715,NULL,NULL,"Cyclical Consumer Services",66,43.42
+1022,"MoneyMax Fin","5WJ",0.22,21.51,97.295,242.281,4.03,4.32,"Retailers",68,9.93
+1023,"Mooreast","1V3",0.134,NULL,34.706,NULL,NULL,NULL,"Mineral Resources",NULL,NULL
+1024,"MSC","NPW",0.62,22.88,827.4,1367.498,6.06,3.55,"Mineral Resources",NULL,29.73
+1025,"MSM Intl","5QR",0.047,14.92,4.953,27.22,3.5,NULL,"Industrial Goods",70,38.16
+1026,"MTQ","M05",0.23,3.53,49.762,62.086,24.44,2.17,"Energy - Fossil Fuels",73,29.49
+1027,"Multi-Chem","AWZ",1.69,17.93,152.261,606.964,6.61,7.99,"Technology Equipment",86,9.92
+1028,"Mun Siong Engg","MF6",0.044,-0.36,25.588,74.649,NULL,0.91,"Industrial & Commercial Services",80,34.76
+1029,"Murata Yen1k","PJX",0,12.32,5184847,1772262,17.67,1.89,"Industrial Goods",NULL,-0.94
+1030,"MYP","F86",0.05,1.94,79.623,16.202,14.37,NULL,"Real Estate",67,-3.29
+1031,"Nam Cheong","N4E",0.004,NULL,30.884,102.32,NULL,NULL,"Industrial Goods",61,1.74
+1032,"Nam Lee Metal","G0I",0.335,6.36,81.654,229.153,7.98,4.48,"Cyclical Consumer Products",65,15.33
+1033,"Nanofilm","MZH",1.31,14.26,869.11,261.358,13.71,1.6,"Chemicals",73,10.21
+1034,"Natural Cool","5IF",0.026,-27.39,6.512,143.337,NULL,5.38,"Industrial & Commercial Services",82,0.53
+1035,"NauticAWT","42D",0.007,-76.29,5.559,0,NULL,NULL,"Mineral Resources",54,NULL
+1036,"NeraTel","N01",0.096,-23.79,34.742,120.668,NULL,NULL,"Technology Equipment",82,11.74
+1037,"Net Pacific Fin","5QY",0.021,-4.56,11.038,0.558,NULL,NULL,"Banking & Investment Services",56,NULL
+1038,"New Silkroutes","BMT",0.075,NULL,15.893,39.007,NULL,NULL,"Healthcare Services",60,-29.99
+1039,"New Toyo","N08",0.21,5.82,92.279,249.439,10.7,8.57,"Applied Resources",71,8.43
+1040,"New Wave","5FX",0.008,6.83,13.82,28.372,11.59,NULL,"Mineral Resources",71,35.44
+1041,"Nico Steel","5GF",0.001,2.26,4.834,26.547,NULL,NULL,"Mineral Resources",63,5.27
+1042,"NIO Inc. USD OV","NIO",10.47,-40.68,17489.674,6359.474,NULL,NULL,"Automobiles & Auto Parts",NULL,31.11
+1043,"Nippecraft","N32",0.092,1.74,32.329,179.879,47.54,NULL,"Applied Resources",80,-0.57
+1044,"No Signboard","1G6",0.031,NULL,14.334,5.451,NULL,NULL,"Cyclical Consumer Services",57,-31.03
+1045,"Nomura Yen1k","N33",1.99,3.91,1747093.875,2121927,14.42,3.52,"Banking & Investment Services",NULL,49.84
+1046,"NoonTalk Media","SEJ",0.165,NULL,32.67,NULL,NULL,NULL,"Cyclical Consumer Services",NULL,NULL
+1047,"Nordic","MR7",0.465,17.97,186,133.656,10.2,3.81,"Industrial & Commercial Services",70,37.86
+1048,"Novo Tellus SPAC","NTA",4.46,NULL,138.343,NULL,NULL,NULL,"Holding Companies",NULL,NULL
+1049,"NSL","N02",0.85,3.07,317.525,308.781,22.12,5.88,"Mineral Resources",59,21.85
+1050,"NutryFarm","AZT",0.085,NULL,11.681,16.715,NULL,NULL,"Food & Beverages",43,132.62
+1051,"OCBC Bank","O39",13.15,9.54,59369.906,7878,11.84,4.26,"Banking & Investment Services",111,3.32
+1052,"Ocean Sky Intl","1B6",0.039,-0.05,16.794,25.023,NULL,NULL,"Industrial & Commercial Services",74,-17.28
+1053,"Oiltek","HQU",0.22,NULL,31.46,50.327,7.91,NULL,"Food & Beverages",NULL,62.71
+1054,"OIO","KUX",0.081,-91.48,15.169,4.634,NULL,NULL,"Financial Technology (Fintech) & Infrastructure",68,NULL
+1055,"OKH Global","S3N",0.025,-34.3,28.216,16.458,NULL,NULL,"Industrial & Commercial Services",80,2.02
+1056,"OKP","5CF",0.165,1.43,50.891,98.564,29.36,4.24,"Industrial & Commercial Services",73,19.47
+1057,"Olam Group","VC2",1.54,NULL,5917.643,NULL,NULL,NULL,"Food & Beverages",84,NULL
+1058,"Old Chang Kee","5ML",0.64,13.25,77.68,82.628,15.74,3.13,"Cyclical Consumer Services",77,9.21
+1059,"Olive Tree","1H2",0.112,-19.69,12.975,1.143,NULL,NULL,"Real Estate",88,-79.02
+1060,"OneApex","5SY",0.19,0.18,16.055,0.929,904.76,NULL,"Real Estate",62,-25.57
+1061,"Ossia Intl","O08",0.111,20.88,28.042,27.525,2.91,8.11,"Retailers",55,21.32
+1062,"OTS Holdings","OTS",0.16,3.8,34.24,34.136,30.53,1.38,"Food & Beverages",70,-11.35
+1063,"OUE","LJ3",1.27,2.13,1091.994,300.806,13.77,1.57,"Real Estate",78,-43.29
+1064,"OUE Lippo HC","5WA",0.028,1.81,124.408,52.595,39.44,NULL,"Healthcare Services",84,166.22
+1065,"Ouhua Energy","AJ2",0.052,12.59,19.931,833.168,3.49,NULL,"Energy - Fossil Fuels",53,45.85
+1066,"Overseas Edu","RQ1",0.245,3.63,101.764,73.562,21.08,5.31,"Academic & Educational Services",87,-3.34
+1067,"Oxley","5UX",0.144,0.39,622.405,857.877,158.24,1.74,"Real Estate",78,-23.76
+1068,"OxPay Financial","TVV",0.115,65.95,31.722,17.636,7.06,NULL,"Industrial & Commercial Services",63,NULL
+1069,"Pacific Andes","P11",0.022,3.95,179.064,1088.897,NULL,NULL,"Food & Beverages",50,-23.8
+1070,"Pacific Century","P15",0.405,10.75,1072.501,32.341,14.32,9.04,"Holding Companies",63,29.18
+1071,"Pacific Star Dev","1C5",0.043,NULL,21.146,3.673,NULL,NULL,"Real Estate",66,10.43
+1072,"PacificRadiance","RXS",0.04,NULL,18.07,-18.039,0,NULL,"Energy - Fossil Fuels",NULL,-424.98
+1073,"Pan Hong","P36",0.11,-1.81,57.074,10.236,NULL,13.64,"Real Estate",80,-88.61
+1074,"PanUnited","P52",0.4,12.36,280.798,648.361,11.09,4.5,"Mineral Resources",89,31.99
+1075,"Parkson Retail","O9E",0.088,NULL,59.602,213.34,1.35,NULL,"Retailers",76,54.87
+1076,"PEC","IX2",0.575,5.97,147.036,427.982,10.35,4.35,"Energy - Fossil Fuels",77,12.81
+1077,"Pegasus SPAC","PGS",4.7,NULL,143.157,NULL,NULL,NULL,"Holding Companies",NULL,NULL
+1078,"Penguin Intl","BTM",0.68,10.26,149.715,151.951,7.8,3.31,"Transportation",95,36.42
+1079,"Pharmesis Intl","BFK",0.106,-2.87,2.438,9.069,NULL,NULL,"Pharmaceuticals & Medical Research",76,-11.83
+1080,"PlatoCapital","YYN",1.85,-1.56,22.53,0.774,NULL,NULL,"Software & IT Services",69,-29.68
+1081,"PNE Industries","BDA",0.74,4.8,62.099,73.725,17.23,6.76,"Industrial Goods",52,14.05
+1082,"Polaris","5BI",0.002,-2.6,34.106,70.34,NULL,NULL,"Retailers",66,76.5
+1083,"Pollux Prop","5AE",0.058,3.1,160.049,10.988,26.01,NULL,"Real Estate",63,NULL
+1084,"Powermatic Data","BCY",2.68,12.41,98.229,27.922,11.46,3.73,"Technology Equipment",63,6.37
+1085,"Procurri","BVQ",0.27,6.16,85.697,244.813,23,NULL,"Software & IT Services",87,-1.63
+1086,"PropNex","OYY",1.68,58.01,621.6,972.795,10.56,7.44,"Real Estate",76,11.68
+1087,"Prudential USD","K6S",10,3.76,35154.523,1495.634,69.05,1.11,"Insurance",NULL,-96.64
+1088,"PSC Corporation","DM0",0.335,7.63,191.284,556.849,7.95,2.24,"Applied Resources",70,8.46
+1089,"Q&M Dental","QC7",0.355,16.09,342.882,186.725,20.12,9.11,"Healthcare Services",90,NULL
+1090,"QAF","Q01",0.86,5.65,494.731,560.826,17.22,5.81,"Food & Beverages",78,2.69
+1091,"Qian Hu","BCV",0.22,2.87,24.976,75.265,17.84,1.36,"Food & Beverages",101,-5.92
+1092,"Quantum Health","V8Y",0.006,NULL,41.358,NULL,NULL,NULL,"Healthcare Services",NULL,NULL
+1093,"Raffles Edu","NR7",0.055,1.43,80.215,105.371,7.83,NULL,"Academic & Educational Services",60,NULL
+1094,"Raffles Infrastructure","LUY",0.035,8.06,2.379,13.502,0.75,NULL,"Industrial & Commercial Services",86,620.39
+1095,"Raffles Medical","BSL",1.47,11.25,2760.786,762.28,26.4,1.22,"Healthcare Services",88,13.67
+1096,"RE&S Hldg","1G1",0.25,24.85,88.5,157.441,9.36,6.8,"Cyclical Consumer Services",96,23.16
+1097,"Reclaims Global","NEX",0.093,8.63,12.183,31.586,5.17,10.75,"Industrial & Commercial Services",64,-10.37
+1098,"Reenova Investment","5EC",0.003,-144.56,19.709,0,NULL,NULL,"Banking & Investment Services",66,NULL
+1099,"Regal Intl","UV1",0.115,-69.17,25.029,18.973,NULL,NULL,"Real Estate",49,-20.85
+1100,"Renaissance United","I11",0.001,-25.27,6.181,79.895,NULL,NULL,"Utilities",59,-0.81
+1101,"Resources Gbl","QSD",1.14,47.73,102.6,140.013,6.02,0.88,"Energy - Fossil Fuels",78,45.1
+1102,"Revez","RCU",0.063,-13.54,10.552,7.804,NULL,NULL,"Software & IT Services",61,-8.63
+1103,"Rex Intl","5WH",0.215,28.58,282.834,241.443,4.39,2.33,"Energy - Fossil Fuels",88,68.9
+1104,"RH PetroGas","T13",0.2,262.76,166.643,132.046,4.05,NULL,"Energy - Fossil Fuels",53,NULL
+1105,"Rich Capital","5G4",0.001,-48.7,7.343,6.084,NULL,NULL,"Real Estate",56,NULL
+1106,"Riverstone","AP4",0.63,NULL,935.49,NULL,NULL,14.85,"Healthcare Services",66,NULL
+1107,"Sakae","5DO",0.1,1.82,14.2,17.178,13.14,5,"Cyclical Consumer Services",77,-18.78
+1108,"Samko Timber","E6R",0.019,32.69,45.755,375.978,42.34,NULL,"Applied Resources",81,24.56
+1109,"SamuderaShipping","S56",1.24,79.22,668.523,1052.565,1.91,6.25,"Transportation",74,107.83
+1110,"Samurai 2K","Y8E",0.165,11.6,55.212,34.059,17.48,2.42,"Chemicals",69,0.22
+1111,"Sanli Env","1.00E+03",0.097,8.4,26.06,75.723,11.11,3.87,"Industrial & Commercial Services",68,20.92
+1112,"Sapphire","BRD",0.065,5.36,26.493,27.464,4.02,NULL,"Industrial & Commercial Services",64,-70.83
+1113,"Sarine Tech","U77",0.43,14.46,153.295,75.979,10.94,5.09,"Industrial Goods",60,5.13
+1114,"SATS","S58",3.03,-1.61,3406.879,1411.766,NULL,NULL,"Transportation",122,28.46
+1115,"SBI Offshore","5PL",0.038,-18.55,9.336,0,NULL,NULL,"Energy - Fossil Fuels",68,-100.0
+1116,"SBS Transit","S61",2.68,8.08,835.798,1402.42,16.78,2.95,"Transportation",102,10.55
+1117,"Secura","43B",0.07,4.86,28,40.746,13.44,5.71,"Industrial & Commercial Services",72,15.7
+1118,"Sembcorp Ind","U96",3.74,18.94,6685.429,9260,9.41,1.87,"Utilities",110,77.6
+1119,"Sembcorp Marine","S51",0.135,-19.36,4237.528,2112.992,NULL,NULL,"Industrial Goods",97,45.9
+1120,"Sen Yue","5BS",0.022,-188.16,21.37,55.548,NULL,NULL,"Mineral Resources",58,-68.28
+1121,"Serial System","S69",0.09,3.91,81.521,1219.862,10.76,6.22,"Industrial Goods",83,7.6
+1122,"Seroja Inv","IW5",0.079,-3.99,30.38,0,NULL,NULL,"Transportation",70,NULL
+1123,"Sevens Atelier","5EW",0.09,3.08,19.278,16.1,49.18,NULL,"Industrial & Commercial Services",84,5.72
+1124,"SGX","S68",9.19,35.64,9848.394,1148.878,19.63,3.48,"Banking & Investment Services",113,8.72
+1125,"Shanaya","SES",0.078,NULL,8.799,6.793,NULL,NULL,"Industrial & Commercial Services",55,NULL
+1126,"Shanghai Turbo","AWM",0.062,-23.86,1.892,12.832,NULL,NULL,"Industrial Goods",49,15.03
+1127,"Shangri-La HKD","S07",8.26,-6.79,29616.438,10382.774,NULL,NULL,"Cyclical Consumer Services",NULL,17.5
+1128,"Shen Yao","A78",0.001,-3.33,33.706,79.177,NULL,NULL,"Mineral Resources",63,-13.59
+1129,"Sheng Siong","OV8",1.62,33.16,2435.73,1350.235,18.36,3.86,"Food & Drug Retailing",77,0.09
+1130,"Shenshan","BKV",0.24,3.44,19.159,21.739,3.07,NULL,"Food & Beverages",57,3.63
+1131,"Shopper360","1F0",0.112,5.64,12.813,51.435,12.18,3.13,"Cyclical Consumer Services",84,14.13
+1132,"SIA","C6L",5.88,3.55,17507.955,13204.4,21.79,NULL,"Transportation",95,163.65
+1133,"SIA Engineering","S59",2.46,4.62,2765.326,664.772,36.93,NULL,"Transportation",103,37.48
+1134,"SIIC Environment","BHK",0.198,8.1,509.982,1561.046,3.42,7.58,"Utilities",82,11.23
+1135,"Silverlake Axis","5CP",0.37,18.07,997.695,226.394,17.6,1.89,"Financial Technology (Fintech) & Infrastructure",98,17.64
+1136,"Sim Leisure","URR",0.265,5.47,43.822,12.032,44.6,NULL,"Cyclical Consumer Services",44,276.05
+1137,"Sin Heng Mach","BKA",0.465,3.67,53.423,54.647,13.6,2.15,"Industrial Goods",75,14.75
+1138,"Sinarmas Land","A26",0.186,6.28,846.173,1042.541,4.22,0.48,"Industrial & Commercial Services",78,6.14
+1139,"Sincap","5UN",0.005,-2.17,16.297,4.801,NULL,NULL,"Energy - Fossil Fuels",39,-92.58
+1140,"Sing Inv & Fin","S35",1.54,8.25,242.744,75.959,7.41,5.19,"Banking & Investment Services",108,NULL
+1141,"Sing Paincare","FRQ",0.22,15.71,39.517,18.837,10.13,5.45,"Healthcare Services",63,71.93
+1142,"SingaporeKitchen","5WG",0.059,NULL,8.96,NULL,NULL,8.47,"Cyclical Consumer Products",75,NULL
+1143,"SingaporeLandGrp","U06",2.32,7.82,3323.788,578.89,5.55,1.51,"Real Estate",87,2.43
+1144,"SingHoldings","5IC",0.365,3.9,146.363,117.147,12.01,2.74,"Real Estate",69,-1.02
+1145,"SingPost","S08",0.555,1.7,1276.744,1893.069,46.84,2.67,"Transportation",111,32.54
+1146,"SingShipping","S19",0.245,8.18,100.604,60.687,8.45,4.08,"Industrial Goods",81,2.92
+1147,"Singtel","Z74",2.52,7.85,41616.879,14945.5,19.28,3.73,"Telecommunications Services",114,-5.84
+1149,"Sinjia Land","5HH",0.043,-49.05,9.548,0.45,NULL,NULL,"Cyclical Consumer Services",61,33.93
+1150,"Sino Grandness","T4B",0.02,6.2,22.344,573.804,NULL,NULL,"Food & Beverages",42,-12.27
+1151,"SinoCloud","5EK",0.001,-134.52,15.878,2.049,NULL,NULL,"Software & IT Services",66,56.27
+1152,"Sinostar Pec","C9Q",0.18,4.87,115.2,947.822,9.69,3.33,"Energy - Fossil Fuels",74,12.81
+1153,"Sitra","5LE",0.011,NULL,16.316,29.535,NULL,NULL,"Applied Resources",65,38.26
+1154,"SLB Dev","1J0",0.113,11.47,103.169,91.168,4.62,1.77,"Real Estate",69,44.17
+1155,"SMI Vantage","Y45",0.03,-27.3,17.197,0.736,NULL,NULL,"Banking & Investment Services",60,NULL
+1156,"Soilbuild Const","S7P",0.032,-13.09,38.184,271.11,NULL,NULL,"Industrial & Commercial Services",80,29.62
+1157,"Soon Lian","5MD",0.21,27.7,22.68,68.125,2.17,1.43,"Mineral Resources",78,68.75
+1158,"Soup Holdings","5KI",0.084,16.37,25.074,33.569,13.75,2.38,"Cyclical Consumer Services",74,12
+1159,"Southern Arch","A33",0.003,-357.89,82.712,4.25,NULL,NULL,"Real Estate",47,34.19
+1160,"Southern Pkg","BQP",0.28,-0.35,19.689,139.817,NULL,1.61,"Applied Resources",70,8.17
+1161,"SouthernAlliance","QNS",0.595,4.5,290.955,54.921,58.17,0.37,"Mineral Resources",65,-53.87
+1162,"Spackman","40E",0.003,NULL,5.848,NULL,NULL,NULL,"Cyclical Consumer Services",63,NULL
+1163,"Spura Finance","S23",0.795,3.59,126.155,29.55,14.07,2.52,"Banking & Investment Services",87,-0.03
+1164,"Sri Trang Agro","NC2",0.92,11.13,36710.398,113738.055,6.77,11.92,"Automobiles & Auto Parts",61,-2.05
+1165,"Sri Trang Gloves","STG",0.4,9.15,32663.051,26829.357,9.25,21.05,"Healthcare Services",NULL,-49.33
+1166,"ST Engineering","S63",3.67,24.07,11459.558,8311.882,20.75,4.63,"Industrial Goods",96,14.85
+1167,"ST Group Food","DRX",0.13,0.57,31.98,43.175,294.65,1.29,"Cyclical Consumer Services",78,4.65
+1168,"Stamford Land","H07",0.4,-2.63,597.515,148.013,NULL,1.25,"Cyclical Consumer Services",86,-5.54
+1169,"Stamford Tyres","S29",0.183,4.75,43.442,204.458,8.16,8.2,"Automobiles & Auto Parts",88,9.71
+1170,"StarHub","CC3",1.04,11.11,1800.917,2327.3,29.05,6.15,"Telecommunications Services",95,13.94
+1171,"Straco","S85",0.47,-2.46,408.397,28.858,NULL,2.13,"Cyclical Consumer Services",70,-36.15
+1172,"Straits Trading","S20",2.33,40.19,1052.654,621.777,1.53,2.86,"Mineral Resources",60,15.2
+1173,"SunMoonFood","AAJ",0.021,-5.12,16.477,45.106,NULL,NULL,"Food & Beverages",67,34.02
+1174,"Sunpower","5GD",0.385,15.51,306.339,706.361,12.14,0.78,"Industrial Goods",61,65.09
+1175,"Sunright","S71",0.31,-4.91,38.07,100.718,NULL,0.97,"Technology Equipment",53,-9.59
+1176,"Suntar Eco-City","BKZ",0.1,0.18,6.276,1.152,205.38,NULL,"Pharmaceuticals & Medical Research",60,-67.85
+1177,"SUTL Enterprise","BHU",0.55,10.5,47.89,22.753,7.71,3.64,"Cyclical Consumer Services",69,22.78
+1178,"Swiber","BGK",0.109,-4.97,49.194,1139.094,NULL,NULL,"Energy - Fossil Fuels",35,24.21
+1179,"Swing Media Tech","BEV",0.46,4.97,25.107,192.05,NULL,NULL,"Cyclical Consumer Services",50,2.19
+1180,"Sysma","5UO",0.13,11.01,33.93,52.304,4.98,9.94,"Industrial & Commercial Services",53,-6.36
+1181,"TA","PA3",0.074,-21.71,38.337,242.644,NULL,NULL,"Real Estate",59,27.03
+1182,"Taka Jewellery","42L",0.071,5.47,40.151,104.27,6.75,NULL,"Retailers",69,7.68
+1183,"TalkMed","5G3",0.41,30.14,542.247,64.361,20.59,5.85,"Healthcare Services",75,6.71
+1184,"Tat Seng Pkg","T12",0.66,13.03,103.752,366.933,4.44,6.06,"Applied Resources",75,4.83
+1185,"TC Auto","VI2",0.14,NULL,82.546,882.986,4.5,3.79,"Automobiles & Auto Parts",54,NULL
+1186,"TCIL HK$","T15",1.68,4.55,3422.625,12189.908,7.11,4.41,"Transportation",NULL,-3.95
+1187,"TEE Intl","M1Z",0.032,NULL,19.488,30.413,NULL,NULL,"Industrial & Commercial Services",34,NULL
+1188,"Teho Intl","5OQ",0.045,14.68,10.594,57.176,3.75,2.22,"Industrial Goods",92,-7.5
+1189,"TeleChoice Intl","T41",0.099,-7.28,44.988,199.834,NULL,1.26,"Technology Equipment",80,-3.19
+1190,"ThaiBev","Y92",0.7,15.98,17587.328,10756.376,14.79,3.05,"Food & Beverages",73,13.23
+1191,"Thakral","AWI",0.595,8.22,76.092,130.388,6.46,6.72,"Real Estate",89,19.75
+1192,"The Place Hldg","E27",0.014,-6.55,82.329,1.192,NULL,NULL,"Holding Companies",42,3.38
+1193,"TheHourGlass","AGS",2.06,25.38,1452.324,1116.486,7.92,3.88,"Retailers",76,20.63
+1194,"Thomson Medical","A50",0.072,10.53,1903.757,333.706,35.47,1.6,"Healthcare Services",72,38.81
+1195,"TIH","T55",0.23,1.66,55.588,7.939,26.56,4.35,"Collective Investments",64,-48.53
+1196,"Tiong Seng","BFI",0.1,-50.11,45.962,263.328,NULL,2.5,"Industrial & Commercial Services",NULL,-15.7
+1197,"Tiong Woon","BQM",0.47,4.13,109.151,122.588,9.58,0.74,"Industrial Goods",86,8.53
+1198,"TJ DaRenTang USD","T14",1.2,12.86,2869.402,1059.605,7.48,NULL,"Pharmaceuticals & Medical Research",59,2.13
+1199,"Top Glove","BVA",0.245,-1.9,6647.756,4620.76,NULL,52.96,"Healthcare Services",NULL,-65.03
+1200,"Tosei","S2D",9.5,12.45,70104.672,70953.484,7.94,3.54,"Real Estate",NULL,14.95
+1201,"Totm Tech","42F",0.102,-22.54,136.781,11.127,NULL,NULL,"Financial Technology (Fintech) & Infrastructure",60,995.18
+1202,"Travelite","BCZ",0.091,16.32,5.743,39.371,2.17,NULL,"Retailers",55,93.43
+1203,"Trek 2000 Intl","5AB",0.067,-22.3,21.716,31.909,NULL,NULL,"Technology Equipment",68,NULL
+1204,"Trendlines","42T",0.098,-9.84,87.538,3.731,NULL,NULL,"Banking & Investment Services",96,NULL
+1205,"TrickleStar","CYW",0.24,-40.8,19.963,15.62,NULL,0.83,"Industrial Goods",74,-1.87
+1206,"Tritech","5G9",0.022,-27.74,25.994,24.739,NULL,NULL,"Industrial & Commercial Services",71,-11.05
+1207,"Triyards","RC5",0.084,-114.28,26.709,154.022,NULL,NULL,"Energy - Fossil Fuels",46,-64.23
+1208,"TSH","KUH",0.091,-3.0,4.036,5.981,NULL,NULL,"Cyclical Consumer Services",70,20.33
+1209,"TT Intl","T09",0.014,NULL,14.156,33.265,NULL,NULL,"Retailers",37,-13.6
+1210,"Tuan Sing","T24",0.36,-0.59,443.132,215.347,NULL,1.94,"Real Estate",102,-13.48
+1211,"Tye Soon","BFU",0.395,9.3,34.47,235.881,6.52,2.15,"Automobiles & Auto Parts",67,6.53
+1212,"UGHealthcare","8K7",0.175,17.54,109.17,232.598,2.95,1.83,"Healthcare Services",92,-31.27
+1213,"Uni-Asia Grp","CHJ",0.94,14.53,73.884,92.029,3.06,10.11,"Industrial & Commercial Services",87,51.13
+1214,"Union Gas","1F2",0.5,24.68,158.884,146.294,13.12,2,"Utilities",77,6.8
+1215,"Union Steel","BLA",0.665,11,26.186,80.135,3.7,1.5,"Mineral Resources",72,3.63
+1216,"United Food","AZR",0.043,-5.21,8.118,11.561,NULL,NULL,"Chemicals",28,507.01
+1217,"Universal Res","BGO",0.17,-64.96,3.985,0.01,NULL,NULL,"Energy - Fossil Fuels",41,-99.94
+1218,"UnUsUaL","1D1",0.142,-3.51,146.143,9.462,NULL,NULL,"Cyclical Consumer Services",78,1283.82
+1219,"UOA","EH5",0.42,5.28,283.027,237.15,10.11,2.41,"Real Estate",NULL,-25.89
+1220,"UOB","U11",30.55,9.52,51504.957,8829,12.8,3.93,"Banking & Investment Services",113,NULL
+1221,"UOB Kay Hian","U10",1.41,6.42,1252.102,522.53,11.01,6.24,"Banking & Investment Services",62,-20.57
+1222,"UOI","U13",6.6,3.86,403.623,49.434,24.11,2.58,"Insurance",93,-1.01
+1223,"UOL","U14",6.94,5.78,5862.462,2947.675,9.98,2.16,"Real Estate",96,30.29
+1224,"USP Group","BRS",0.095,24.82,8.638,40.607,1.26,NULL,"Energy - Fossil Fuels",37,1.69
+1225,"V2Y Corp","V2Y",0.02,-139.82,7.078,0.603,NULL,NULL,"Insurance",81,-62.94
+1226,"Vallianz","WPC",0.045,6.45,54.523,127.13,15.02,NULL,"Transportation",68,112.68
+1227,"ValueMax","T6I",0.35,14.98,244.477,297.303,5.07,5.37,"Retailers",81,-4.93
+1228,"Valuetronics","BN2",0.56,8.57,243.953,348.576,12.49,4.33,"Technology Equipment",89,-6.21
+1229,"VCPlus","43E",0.008,-71.52,37.831,0.608,NULL,NULL,"Mineral Resources",83,2084.55
+1230,"Venture","V03",18.62,12.91,5436.269,3471.378,15.68,4.03,"Technology Equipment",91,12.73
+1231,"Versalink","40N",0.088,NULL,11.88,NULL,NULL,20.45,"Industrial & Commercial Services",76,NULL
+1232,"Vertex SPAC","VT1",4.58,NULL,190.555,NULL,NULL,NULL,"Holding Companies",NULL,NULL
+1233,"Vibrant Group","BIP",0.086,4.33,60.024,203.679,6.02,1.74,"Transportation",60,11.56
+1234,"VibroPower","BJD",0.042,NULL,3.14,NULL,NULL,NULL,"Utilities",73,NULL
+1235,"VICOM Ltd","WJP",1.93,21.04,684.316,105.063,26.4,3.4,"Industrial & Commercial Services",103,9.7
+1236,"Vividthree","OMK",0.036,-31.86,13.374,3.5,NULL,NULL,"Cyclical Consumer Services",66,19.9
+1237,"Watches.com Ltd","WVJ",0.011,-33.27,5.86,40.382,NULL,NULL,"Retailers",71,84.33
+1238,"Wee Hur","E3B",0.205,7.68,191.863,232.491,5.86,2.44,"Industrial & Commercial Services",54,33.08
+1239,"Willas-Array","BDR",0.55,7.39,262.866,3422.809,5.07,11,"Technology Equipment",71,-6.39
+1240,"Wilmar Intl","F34",3.96,11.87,25357.469,95949.664,8.18,4.17,"Food & Beverages",95,26.11
+1241,"Wilton Resources","5F7",0.023,NULL,60.352,0.449,27.81,NULL,"Mineral Resources",70,NULL
+1242,"Wing Tai","W05",1.52,3.98,1206.769,468.749,7.99,1.97,"Real Estate",97,-10.64
+1243,"Wong Fong Ind","1A1",0.127,4.26,29.845,65.436,13.51,6.3,"Industrial Goods",80,12.43
+1244,"World Precision","B49",0.33,2.94,132,229.099,19.38,7.77,"Industrial Goods",59,-10.64
+1245,"XMH","BQF",0.26,6.38,29.893,96.58,9.46,0.96,"Industrial Goods",75,40.47
+1246,"Y Ventures","1F1",0.023,-86.42,5.678,32.334,NULL,NULL,"Software & IT Services",63,NULL
+1247,"Yamada Green Res","BJV",0.13,1.1,22.984,10.993,37.16,NULL,"Food & Beverages",38,-5.23
+1248,"Yanlord Land","Z25",1.09,9.61,2124.123,6449.448,3.35,6.24,"Real Estate",80,17.84
+1249,"Yeo Hiap Seng","Y03",0.695,-0.09,419.003,349.813,NULL,2.88,"Food & Beverages",89,6.42
+1250,"YHI Intl","BPF",0.515,9,151.509,444.037,5.89,6.99,"Automobiles & Auto Parts",67,-4.43
+1251,"Ying Li Intl","5DM",0.045,-11.36,115.067,39.799,NULL,NULL,"Real Estate",87,-23.58
+1252,"YKGI","YK9",0.174,NULL,73.95,55.252,9.78,NULL,"Cyclical Consumer Services",NULL,NULL
+1253,"Yoma Strategic","Z59",0.121,-4.87,271.056,102.716,NULL,NULL,"Real Estate",97,-11.26
+1254,"Yongmao","BKX",0.71,5.76,63.013,194.203,6.56,1.41,"Industrial Goods",71,-21.05
+1255,"Yongnam","AXB",0.026,NULL,18.303,NULL,NULL,NULL,"Industrial & Commercial Services",49,NULL
+1256,"Yunnan Energy","T43",0.169,1.39,275.437,177.4,106.84,NULL,"Technology Equipment",43,323.09
+1257,"YuuZoo Networks","AFC",0.038,NULL,28.911,15.733,NULL,NULL,"Software & IT Services",-12.0,-4.17
+1258,"YZJ Fin Hldg","YF8",0.355,NULL,1402.459,NULL,NULL,NULL,"Banking & Investment Services",NULL,NULL
+1260,"YZJ Shipbldg SGD","BS6",1.25,13.02,4967.596,3892.939,7.69,4,"Industrial Goods",64,NULL
+1261,"Zheneng Jinjiang","BWM",0.285,3.57,414.397,873.475,9.36,NULL,"Renewable Energy",65,NULL
+1262,"Zhongmin Baihui","5SR",0.62,-13.52,121.718,205.787,NULL,NULL,"Retailers",63,-17.59
+1263,"Zhongxin Fruit","5EG",0.028,12.13,29.553,22.286,10.13,NULL,"Food & Beverages",74,-12.77
+1264,"ZICO Hldgs","40W",0.071,-0.18,24.812,18.948,NULL,NULL,"Banking & Investment Services",81,-10.06
+1265,"Zixin","42W",0.018,0.61,24.909,53.364,33.11,NULL,"Food & Beverages",72,-5.24
+1266,"ARA HTrust USD","XZL",0.38,-1.65,216.296,159.083,NULL,4.25,"Real Estate",72.8,73.55
+1267,"Asian Pay Tv Tr","S7OU",0.112,3.11,202.312,292.784,5.38,8.93,"Cyclical Consumer Services",63.5,-2.41
+1268,"CapLand Ascott T","HMN",1.09,4.85,3755.731,621.242,17.63,5.07,"Real Estate",110.6,57.51
+1269,"CapLand India T","CY6U",1.18,10.38,1370.083,210.611,9.95,6.94,"Real Estate",105,9.28
+1270,"CDL HTrust","J85",1.28,12.58,1584.946,229.356,7.38,4.18,"Real Estate",85.3,45.42
+1271,"Dasin Retail Tr","CEDU",0.205,NULL,164.917,NULL,NULL,18.2,"Real Estate",74.6,NULL
+1272,"Eagle HTrust USD","LIW",0.137,-131.19,119.567,69.414,NULL,NULL,"Real Estate",NULL,NULL
+1273,"Far East HTrust","Q5T",0.665,10.96,1323.952,82.677,7.38,3.89,"Real Estate",107.4,2.64
+1274,"Frasers HTrust","ACV",0.48,4.68,924.515,95.856,15.85,2.92,"Real Estate",89,12.07
+1275,"FSL Trust","D8DU",0.082,11.24,144.981,34.452,14.06,46.08,"Transportation",74.5,-3.24
+1277,"HPH Trust USD","NS8U",0.205,4.08,1785.776,1549.9,12.76,9.21,"Transportation",71.3,-8.14
+1278,"Kep Infra Tr","A7RU",0.545,0.05,2720.525,2005.946,3205.88,7.01,"Chemicals",89.9,27.36
+1279,"NetLink NBN Tr","CJLU",0.855,3.89,3331.91,389.276,31.51,6.07,"Telecommunications Services",105.2,3.83
+1280,"RHT HealthTrust","RF1U",0.019,-3.55,15.232,0.001,NULL,NULL,"Industrial & Commercial Services",46.2,NULL
+1281,"AIMS APAC Reit","O5RU",1.36,5.47,979.668,160.344,12.97,5.53,"Real Estate",92.8,NULL
+1282,"BHG Retail Reit","BMGU",0.475,1.58,245.805,71.883,33.88,3.81,"Real Estate",74.7,7.14
+1283,"CapLand Ascendas REIT","A17U",2.77,7.4,11645.055,1352.686,15.3,5,"Real Estate",108.7,10.29
+1284,"CapLand China T","AU8U",1.19,NULL,1991.932,NULL,NULL,6.3,"Real Estate",93.7,NULL
+1285,"CapLand IntCom T","C38U",1.97,5.22,13071.19,1441.747,18.07,4.54,"Real Estate",107.2,10.47
+1287,"Cromwell Reit SGD","CWCU",2.37,6.08,922.323,208.52,10.48,9.29,"Real Estate",100.7,8.42
+1288,"Daiwa Hse Log Tr","DHLU",0.625,NULL,433.29,NULL,NULL,4.94,"Real Estate",NULL,NULL
+1290,"DigiCore Reit USD","DCRU",0.625,NULL,702.085,114.95,480.77,6.24,"Real Estate",NULL,NULL
+1291,"EC World Reit","BWCU",0.455,-3.56,368.476,125.097,NULL,12.46,"Real Estate",70.2,1.64
+1292,"EliteComREIT GBP","MXNU",0.53,7.03,254.998,37.543,12.2,10.11,"Real Estate",53.6,36.31
+1293,"ESR-LOGOS REIT","J91U",0.355,-12.91,2385.312,343.232,NULL,7.24,"Real Estate",70.6,42.25
+1294,"First Reit","AW9U",0.275,8.78,566.11,117.2,7.74,9.33,"Real Estate",78.8,46.58
+1295,"Frasers Cpt Tr","J69U",2.17,5.26,3698.152,356.931,17.84,4.7,"Real Estate",77.1,4.63
+1296,"Frasers L&C Tr","BUOU",1.32,15.48,4899.318,450.187,6.73,5.64,"Real Estate",101.9,-4.08
+1298,"IREIT Global SGD","UD1U",0.555,25.75,641.52,83.372,2.57,4.86,"Real Estate",68.6,34.69
+1299,"KepPacOakReitUSD","CMOU",0.515,5.7,537.892,147.976,11.08,11.26,"Real Estate",100,4.76
+1300,"Keppel DC Reit","AJBU",2,9.81,3437.3,277.322,14.88,4.77,"Real Estate",93,2.31
+1301,"Keppel Reit","K71U",0.915,7.66,3424.134,219.286,8.56,5.02,"Real Estate",85.6,1.24
+1302,"Lendlease Reit","JYEU",0.745,8.92,1703.807,164.205,8.97,5.34,"Real Estate",94.8,115.4
+1303,"Lippo Malls Tr","D5IU",0.034,-5.53,261.692,205.259,NULL,10.59,"Real Estate",79.8,35.48
+1304,"ManulifeReit USD","BTOU",0.29,-11.75,516.5,202.559,NULL,16.38,"Real Estate",87.8,9.43
+1305,"Mapletree Ind Tr","ME8U",2.31,8.36,6293.041,677.857,14.39,5.24,"Real Estate",83.6,19.54
+1306,"Mapletree Log Tr","M44U",1.68,10.53,8079.933,734.616,10.59,4.86,"Real Estate",86.4,12.55
+1307,"Mapletree PanAsia Com Tr","N2IU",1.73,NULL,9058.386,NULL,NULL,4.88,"Real Estate",77,NULL
+1308,"OUE Com Reit","TS0U",0.345,8.05,1887.478,241.507,7.29,5.36,"Real Estate",77.7,-3.35
+1309,"PARAGONREIT","SK6U",0.965,6.4,2712.471,281.856,14.82,NULL,"Real Estate",92,1.69
+1310,"ParkwayLife Reit","C2PU",4.07,2.89,2462.358,129.972,59.86,3.13,"Real Estate",85.7,NULL
+1311,"Prime US ReitUSD","OXMU",0.485,-2.86,573.772,163.012,NULL,13.51,"Real Estate",65.9,4
+1312,"Sabana Reit","M1GU",0.42,9.24,460.371,94.907,8.63,5.92,"Real Estate",74.4,15.86
+1313,"Sasseur Reit","CRPU",0.815,10.25,1000.696,134.6,8.36,9.02,"Real Estate",88,NULL
+1314,"StarhillGbl Reit","P40U",0.555,2.9,1248.461,190.192,23.09,5.96,"Real Estate",91.3,3.46
+1315,"Suntec Reit","T82U",1.39,7.2,4012.486,427.269,8.65,5.51,"Real Estate",74.1,19.33
+1316,"UtdHampshReitUSD","ODBU",0.515,11.38,291.713,61.242,6.04,10.68,"Real Estate",77.6,9.32
